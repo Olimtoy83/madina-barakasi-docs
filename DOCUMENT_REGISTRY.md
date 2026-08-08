@@ -63,6 +63,7 @@ Every official document must be registered here.
 | MB-001 | Constitution | 1.0.0 | Approved | Canonical |
 | MB-002 | Mission | 1.0.0 | Approved | Canonical |
 | MB-003 | Vision | 1.0.0 | Approved | Canonical |
+| MB-004 | Master Plan     | 1.0.0 | Draft    | Canonical |
 
 ---
 

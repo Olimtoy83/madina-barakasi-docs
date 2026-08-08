@@ -69,7 +69,14 @@ docs/
 
 ---
 
+## Foundation Documents
+
+| Document | ID | Status | Version |
+| -------- | -- | ------ | ------- |
+| Master Plan | MB-004 | Draft | 1.0.0 |
 # Templates
+
+---
 
 | Template | Purpose |
 |-----------|---------|
