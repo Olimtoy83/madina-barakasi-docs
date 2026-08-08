@@ -72,7 +72,7 @@ Every official document must be registered here.
 | ID | Document | Version | Status | Classification |
 |----|----------|---------|--------|----------------|
 | MB-100 | System Architecture | 0.1.0 | Draft | Canonical |
-| MB-101 | Data Architecture | 1.0.0 | Approved | Canonical |
+| MB-101 | Data Architecture | 0.1.0 | Draft | Canonical |
 | MB-102 | Engineering Standards | 1.0.0 | Approved | Standard |
 
 ---
