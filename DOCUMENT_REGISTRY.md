@@ -6,16 +6,16 @@
 
 ## Document Information
 
-| Field | Value |
-|--------|-------|
-| Document ID | MB-REG-001 |
-| Version | 1.0.0 |
-| Status | Approved |
-| Owner | Documentation Team |
-| Classification | Canonical |
-| Language | English |
-| Created | 2026-08-07 |
-| Last Updated | 2026-08-07 |
+| Field          | Value              |
+| -------------- | ------------------ |
+| Document ID    | MB-REG-001         |
+| Version        | 1.1.0              |
+| Status         | Approved           |
+| Owner          | Documentation Team |
+| Classification | Canonical          |
+| Language       | English            |
+| Created        | 2026-08-07         |
+| Last Updated   | 2026-08-08         |
 
 ---
 
@@ -25,108 +25,127 @@ This document is the official registry of all documentation maintained within th
 
 Every official document must be registered here.
 
+The registry reflects documents that actually exist within the current Documentation Library.
+
 ---
 
 # Status Legend
 
-| Status | Description |
-|---------|-------------|
-| Draft | Under development |
-| Review | Under review |
-| Approved | Official document |
-| Released | Published |
-| Archived | Historical version |
+| Status     | Description                  |
+| ---------- | ---------------------------- |
+| Draft      | Under development            |
+| Review     | Under review                 |
+| Approved   | Official document             |
+| Released   | Published                    |
+| Planned    | Identified but not yet created|
+| Archived   | Historical version            |
 
 ---
 
 # Classification Legend
 
-| Type | Description |
-|------|-------------|
-| Canonical | Primary source of truth |
-| Standard | Engineering standard |
-| Policy | Governance policy |
-| Guideline | Recommended practice |
-| Specification | Technical specification |
-| Registry | Project registry |
-| Template | Documentation template |
-| SOP | Standard Operating Procedure |
-| ADR | Architecture Decision Record |
+| Type          | Description                  |
+| ------------- | ---------------------------- |
+| Canonical     | Primary source of truth      |
+| Standard      | Engineering standard         |
+| Policy        | Governance policy            |
+| Guideline     | Recommended practice         |
+| Specification | Technical specification      |
+| Registry      | Project registry             |
+| Template      | Documentation template       |
+| SOP           | Standard Operating Procedure |
+| ADR           | Architecture Decision Record |
+
+---
+
+# Core Registries
+
+| ID              | Document          | Version | Status   | Classification |
+| --------------- | ----------------- | ------- | -------- | -------------- |
+| MB-INDEX-000    | Master Index      | 1.0.0   | Approved | Canonical      |
+| MB-REG-001      | Document Registry | 1.1.0   | Approved | Canonical      |
+| MB-ADR-REG-001  | ADR Registry      | 1.0.0   | Approved | Registry       |
 
 ---
 
 # Volume I — Foundation
 
-| ID | Document | Version | Status | Classification |
-|----|----------|---------|--------|----------------|
-| MB-000 | Project Charter | 1.0.0 | Approved | Canonical |
-| MB-001 | Constitution | 1.0.0 | Approved | Canonical |
-| MB-002 | Mission | 1.0.0 | Approved | Canonical |
-| MB-003 | Vision | 1.0.0 | Approved | Canonical |
-| MB-004 | Master Plan     | 1.0.0 | Draft    | Canonical |
+| ID     | Document    | Version | Status | Classification |
+| ------ | ----------- | ------- | ------ | -------------- |
+| MB-004 | Master Plan | 1.0.0   | Draft  | Canonical      |
+
+> MB-000 through MB-003 are referenced by historical registry content but are not present as files in the current repository and are therefore not registered as current documents.
 
 ---
 
 # Volume II — Architecture
 
-| ID | Document | Version | Status | Classification |
-|----|----------|---------|--------|----------------|
-| MB-100 | System Architecture | 0.1.0 | Draft | Canonical |
-| MB-101 | Data Architecture | 0.1.0 | Draft | Canonical |
-| MB-102 | Engineering Standards | 0.1.0 | Draft | Standard |
+| ID     | Document              | Version | Status | Classification |
+| ------ | --------------------- | ------- | ------ | -------------- |
+| MB-100 | System Architecture   | 0.1.0   | Draft  | Canonical      |
+| MB-101 | Data Architecture     | 0.1.0   | Draft  | Canonical      |
+| MB-102 | Engineering Standards | 0.1.0   | Draft  | Standard       |
 
 ---
 
 # Volume III — Design & Experience
 
-| ID | Document | Version | Status | Classification |
-|----|----------|---------|--------|----------------|
-| MB-200 | Design System | 0.1.0 | Draft | Specification |
+| ID      | Document      | Version | Status | Classification |
+| ------- | ------------- | ------- | ------ | -------------- |
+| MB-200   | Design System | 0.1.0   | Draft  | Specification  |
+| MB-STD-007 | Symbol Design Principles | 0.1.0 | Draft | Standard |
+| MB-ADR-001 | Symbol Independent From Name | 0.1.0 | Draft | ADR |
+| MB-DEC-INDEX | Design Decisions Index | 0.1.0 | Draft | Registry |
+| MB-DS-STRUCT | Design System Structure | 0.1.0 | Draft | Specification |
 
 ---
 
 # Volume IV — Engineering
 
-| ID | Document | Version | Status | Classification |
-|----|----------|---------|--------|----------------|
-| MB-DATA-001 | Master Data Dictionary | 0.1.0 | Draft | Canonical |
-| MB-DATA-002 | ER Diagram | 0.1.0 | Draft | Specification |
-| MB-API-001 | API Standards | 0.1.0 | Draft | Standard |
+| ID          | Document               | Version | Status | Classification |
+| ----------- | ---------------------- | ------- | ------ | -------------- |
+| MB-DATA-001 | Master Data Dictionary | 0.1.0   | Draft  | Canonical      |
+| MB-DATA-002 | ER Diagram             | 0.1.0   | Draft  | Specification  |
+| MB-API-001  | API Standards          | 0.1.0   | Draft  | Standard       |
+
+> These documents are planned registry entries and are not currently present as files in the repository.
 
 ---
 
 # Volume V — Business Modules
 
-| ID | Document | Version | Status | Classification |
-|----|----------|---------|--------|----------------|
-| MB-CRM-001 | CRM Module | 0.1.0 | Planned | Specification |
+| ID         | Document   | Version | Status  | Classification |
+| ---------- | ---------- | ------- | ------- | -------------- |
+| MB-CRM-001 | CRM Module | 0.1.0   | Planned | Specification  |
 
 ---
 
 # Volume VI — Operations
 
-| ID | Document | Version | Status | Classification |
-|----|----------|---------|--------|----------------|
-| MB-SOP-001 | Documentation Workflow | 0.1.0 | Planned | SOP |
+| ID         | Document               | Version | Status  | Classification |
+| ---------- | ---------------------- | ------- | ------- | -------------- |
+| MB-SOP-001 | Documentation Workflow | 0.1.0   | Planned | SOP            |
 
 ---
 
 # Volume VII — Knowledge Base
 
-| ID | Document | Version | Status | Classification |
-|----|----------|---------|--------|----------------|
-| MB-KB-001 | Engineering Handbook | 0.1.0 | Planned | Guideline |
+| ID        | Document             | Version | Status  | Classification |
+| --------- | -------------------- | ------- | ------- | -------------- |
+| MB-KB-001 | Engineering Handbook | 0.1.0   | Planned | Guideline      |
 
 ---
 
 # Statistics
 
-| Metric | Value |
-|---------|------:|
-| Total Documents | 13 |
-| Approved | 7 |
-| Draft | 4 |
-| Planned | 2 |
+The statistics below describe the current registry entries.
+
+| Metric            | Value |
+| ----------------- | ----: |
+| Current Documents |    12 |
+| Approved          |     3 |
+| Draft             |     9 |
+| Planned           |     3 |
 
 ---
 
@@ -135,11 +154,14 @@ Every official document must be registered here.
 Every official document:
 
 - must have a unique Document ID;
-- must belong to exactly one Volume;
+- must belong to exactly one Volume or Core Registry;
 - must have a version;
 - must have a status;
-- must be listed in this registry.
+- must be listed in this registry;
+- must correspond to an actual repository artifact when marked as current.
+
+Planned entries may identify future documents but must not be represented as existing repository artifacts.
 
 ---
 
-**Madina Barakasi Engineering Library**
+**Madina Barakasi Documentation Library**
