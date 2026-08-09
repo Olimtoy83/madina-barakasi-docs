@@ -43,16 +43,34 @@ It provides a structured overview of all documentation volumes, registries, temp
 
 # Repository Structure
 
-```
-docs/
+```text
+madina-barakasi-docs/
+├── .github/
+│   ├── CODEOWNERS
+│   └── PULL_REQUEST_TEMPLATE.md
 │
-├── volume-01-foundation/
-├── volume-02-architecture/
-├── volume-03-design-experience/
-├── volume-04-engineering/
-├── volume-05-business-modules/
-├── volume-06-operations/
-└── volume-07-knowledge-base/
+├── docs/
+│   ├── adr/
+│   ├── design-decisions/
+│   ├── design-system/
+│   ├── glossary/
+│   ├── volume-01-foundation/
+│   ├── volume-02-architecture/
+│   ├── volume-03-design-experience/
+│   ├── volume-04-engineering/
+│   ├── volume-05-business-modules/
+│   ├── volume-06-operations/
+│   └── volume-07-knowledge-base/
+│
+├── standards/
+│
+├── templates/
+│
+├── ADR_REGISTRY.md
+├── CHANGELOG.md
+├── DOCUMENT_REGISTRY.md
+├── MASTER_INDEX.md
+└── README.md
 ```
 
 ---
