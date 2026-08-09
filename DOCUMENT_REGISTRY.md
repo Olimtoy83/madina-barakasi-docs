@@ -117,6 +117,13 @@ The registry reflects documents that actually exist within the current Documenta
 | ID         | Document   | Version | Status  | Classification |
 | ---------- | ---------- | ------- | ------- | -------------- |
 | MB-CRM-001 | CRM Module | 0.1.0   | Draft   | Specification  |
+| MB-CRM-002 | Business Domains | 0.1.0 | Draft | Specification |
+| MB-CRM-003 | Business Entities | 0.1.0 | Draft | Specification |
+| MB-CRM-004 | Business Processes | 0.1.0 | Draft | Specification |
+| MB-CRM-005 | Business Rules | 0.1.0 | Draft | Specification |
+| MB-CRM-006 | Data Contracts | 0.1.0 | Draft | Specification |
+| MB-CRM-007 | Application Implementation | 0.1.0 | Draft | Specification |
+| MB-CRM-008 | Validation | 0.1.0 | Draft | Specification |
 
 ---
 
