@@ -96,7 +96,7 @@ The registry reflects documents that actually exist within the current Documenta
 | MB-STD-007 | Symbol Design Principles | 0.1.0 | Draft | Standard |
 | MB-ADR-001 | Symbol Independent From Name | 0.1.0 | Draft | ADR |
 | MB-DEC-INDEX | Design Decisions Index | 0.1.0 | Draft | Registry |
-| MB-DS-STRUCT | Design System Structure | 0.1.0 | Draft | Specification |
+| MB-DESIGN-STRUCTURE | Design System Structure | 0.1.0 | Draft | Guideline |
 
 ---
 
