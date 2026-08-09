@@ -126,7 +126,7 @@ MB-STD-007 therefore provides the governing standard, while this ADR records the
 
 - MB-200 — Design System
 - MB-STD-007 — Symbol Design Principles
-- MB-DEC-001 — Design Decision
+- MB-DEC-INDEX — Design Decisions Index
 
 ---
 
