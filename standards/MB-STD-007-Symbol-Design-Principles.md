@@ -267,7 +267,7 @@ Therefore:
 
 - MB-200 — Design System
 - MB-ADR-001 — Symbol Independent From Name
-- MB-DEC-Index — Design Decisions
+- MB-DEC-INDEX — Design Decisions Index
 
 ---
 
