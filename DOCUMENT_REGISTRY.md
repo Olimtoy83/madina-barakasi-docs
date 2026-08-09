@@ -116,7 +116,7 @@ The registry reflects documents that actually exist within the current Documenta
 
 | ID         | Document   | Version | Status  | Classification |
 | ---------- | ---------- | ------- | ------- | -------------- |
-| MB-CRM-001 | CRM Module | 0.1.0   | Planned | Specification  |
+| MB-CRM-001 | CRM Module | 0.1.0   | Draft   | Specification  |
 
 ---
 
