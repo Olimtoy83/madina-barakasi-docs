@@ -131,7 +131,7 @@ The registry reflects documents that actually exist within the current Documenta
 
 | ID         | Document               | Version | Status  | Classification |
 | ---------- | ---------------------- | ------- | ------- | -------------- |
-| MB-SOP-001 | Documentation Workflow | 0.1.0   | Planned | SOP            |
+| MB-SOP-001 | Documentation Workflow | 0.1.0   | Draft   | SOP            |
 
 ---
 
