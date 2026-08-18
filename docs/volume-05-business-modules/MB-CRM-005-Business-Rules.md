@@ -221,6 +221,12 @@ A Purchase must contain at most one Purchase Item for each Product.
 
 When the same Product is added again to a Purchase, the quantity of the existing Purchase Item must be increased rather than creating another Purchase Item for that Product.
 
+The unitCost of the existing Purchase Item must be preserved when its quantity is increased.
+
+If the domain/core receives multiple Purchase Items for the same Product with different unitCost values, the data is invalid and must result in a domain validation error.
+
+The domain/core must not automatically calculate a weighted-average unitCost, select the first or last unitCost, or change the financial meaning without an explicit business rule.
+
 This normalization rule is a Purchase business rule and must not be enforced only by the user interface.
 
 ## 9.4 Purchase Receipt
