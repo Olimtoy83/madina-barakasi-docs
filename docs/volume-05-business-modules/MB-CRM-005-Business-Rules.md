@@ -155,6 +155,18 @@ Each sale must have a unique business identity.
 
 A sale must contain one or more sale items when the business transaction represents product or service quantities.
 
+A Sale must contain at most one Sale Item for each Product.
+
+When the same Product is added again to a Sale with the same unitPrice, the quantity of the existing Sale Item must be increased rather than creating another Sale Item for that Product.
+
+The unitPrice of the existing Sale Item must be preserved when its quantity is increased, and its totalAmount must be recalculated.
+
+If the domain/core receives multiple Sale Items for the same Product with different unitPrice values, the data is invalid and must result in a controlled domain validation error.
+
+The domain/core must not automatically calculate an average unitPrice, select the first or last unitPrice, or otherwise change the financial meaning of a Sale without an explicit business rule.
+
+This normalization rule is a Sales business rule and must not be enforced only by the user interface.
+
 ## 7.3 Historical Price
 
 The price recorded on a completed sale must represent the price applicable to that transaction.
@@ -251,7 +263,9 @@ Changes to inventory quantities must be represented by valid inventory movements
 
 For a completed, normalized Purchase, each Product must have one Purchase Item and one corresponding Stock Movement.
 
-The Stock Movement must remain traceable to the source Purchase or business event. Movement history must not be lost or silently overwritten.
+For a completed, normalized Sale, each Product must have one Sale Item and one corresponding Stock Movement.
+
+The Stock Movement must remain traceable to the source Purchase, Sale, or business event. Movement history must not be lost or silently overwritten.
 
 This rule does not introduce line references, an aggregation engine, or a separate movement entity.
 
