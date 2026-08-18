@@ -79,3 +79,9 @@ Uses Infrastructure
 Within the current `madina-platform` monorepo, business data and domain models for the active CRM / ERP application may be owned by the application-domain package `@madina/core`. This does not make those models generic shared platform data structures.
 
 `@madina/shared` and other genuinely shared packages must contain only reusable technical abstractions. Data ownership, historical meaning, and business rules for Sales, Purchases, Inventory, Transactions, Customers or Clients, and Tasks remain application-domain responsibilities.
+
+## 6. Transactional Aggregate Persistence Boundary
+
+For the current localStorage prototype, the transactional CRM slices Products, Sales, Purchases, Stock Movements, and Transactions are persisted as one versioned aggregate snapshot. The aggregate is the authoritative persistence boundary for those slices and is distinct from application-domain ownership of each business entity.
+
+The aggregate provides prototype-level single-key atomic visibility for coordinated Sale and Purchase completion. It does not define the final database schema or production persistence model. Its detailed semantics, legacy bootstrap boundary, error handling, and supersession condition are defined by MB-ADR-003.

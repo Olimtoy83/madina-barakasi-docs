@@ -45,6 +45,7 @@ Every formal Architecture Decision Record must be registered here.
 | ---------- | ----------------------------- | ------- | ------ | ----- |
 | MB-ADR-001 | Symbol Independent From Name | 0.1.0   | Draft  | Design & Experience |
 | MB-ADR-002 | Application-Domain Core Package Boundary | 0.1.0 | Draft | Architecture & CRM |
+| MB-ADR-003 | LocalStorage Transactional Aggregate Snapshot | 0.1.0 | Draft | Architecture & CRM |
 
 ---
 

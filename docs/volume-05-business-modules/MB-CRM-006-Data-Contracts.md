@@ -439,6 +439,12 @@ Changes to an established contract must be evaluated for their effect on consumi
 
 Material contract changes require appropriate documentation and validation before implementation.
 
+## 13.6 Transactional Persistence Integrity
+
+For the localStorage prototype, a Sale or Purchase completion contract that changes Products, Stock Movements, Transactions, and its source Sale or Purchase must be persisted as one authoritative transactional aggregate commit. The application must not publish or report the completed contract until that aggregate persistence succeeds.
+
+On a persistence failure, the previous committed aggregate remains authoritative and the incomplete cross-domain result must not be treated as completed. An unreadable or corrupted authoritative aggregate requires a controlled persistence or recovery error state and must not be silently replaced with empty contract collections. The prototype aggregate mechanism is defined by MB-ADR-003 and does not define a production persistence contract.
+
 ---
 
 # 14. Contract Validation
@@ -454,6 +460,8 @@ Validation should establish that:
 - historical transaction information is preserved where applicable.
 
 For Sale and Purchase Item contracts, quantity and price or cost values must satisfy the applicable finite-number and greater-than-zero business rules. Invalid numeric values must be rejected with a controlled domain validation error before stock or finance side effects occur. Precision and rounding policy remain outside the current contract.
+
+Transactional persistence validation must cover both successful aggregate commits and failed writes, including confirmation that a failed write does not publish a new completed lifecycle state or partial cross-domain contract state.
 
 The exact technical validation mechanism is outside the scope of this document.
 

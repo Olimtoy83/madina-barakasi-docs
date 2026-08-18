@@ -115,6 +115,7 @@ Application services may:
 - enforce process sequencing;
 - invoke business rules;
 - manage transactional boundaries;
+- prepare the next transactional aggregate for coordinated Sale or Purchase completion;
 - produce defined outputs;
 - return contract-compliant results.
 
@@ -147,6 +148,8 @@ Data access implementation must respect the ownership established by the CRM dom
 Data access components must not silently introduce new business rules that contradict MB-CRM-005.
 
 Persistence concerns must remain separated from application orchestration where practical.
+
+For the localStorage prototype, data access must persist the transactional aggregate defined by MB-ADR-003 as one authoritative write for coordinated Sale and Purchase completion. Independent persistence of transactional slices must not be treated as a successful completion boundary.
 
 ---
 
@@ -234,6 +237,8 @@ Partial execution of a business transaction must not leave the CRM in an invalid
 
 Transactional requirements must be derived from the business processes and rules defined in MB-CRM-004 and MB-CRM-005.
 
+For the localStorage prototype, application services must calculate the next transactional aggregate, persist it through one successful aggregate write, and publish the related in-memory state only afterwards. A write failure is a controlled failed completion: the previous committed aggregate remains authoritative and no new completion result is published. The application must prevent concurrent or in-flight duplicate completion of the same Sale or Purchase. MB-ADR-003 defines this prototype boundary and its legacy bootstrap semantics.
+
 ---
 
 # 14. Error Handling
@@ -245,6 +250,8 @@ Errors should be distinguishable by responsibility where required.
 The implementation must avoid exposing internal technical details through user-facing business errors.
 
 Business failures must remain understandable at the application boundary.
+
+Persistence and authoritative-snapshot read failures must be handled as controlled application failures. They must not be silently swallowed or converted into an empty transactional state.
 
 ---
 
