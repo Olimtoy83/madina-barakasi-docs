@@ -189,6 +189,18 @@ A cancelled sale must remain distinguishable from a completed sale.
 
 Any inventory or financial consequences of cancellation must follow the applicable business process.
 
+## 7.6 Sale Post-Draft Immutability
+
+A Sale is editable only while its status is `draft`. Completed and cancelled Sales are terminal states.
+
+After a Sale becomes `completed` or `cancelled`, all direct changes are prohibited. This includes changes to Sale Items; item quantity, unit, unitPrice, and totals; totalAmount; saleDate; clientId or clientName; paymentMethod; note; and status.
+
+A completed or cancelled Sale must not be returned directly to `draft`. A transition from `draft` to `completed` is permitted only through the approved Sale completion process, and a transition from `draft` to `cancelled` is permitted only through the approved Sale cancellation process.
+
+A violation of this rule must result in a controlled domain validation error.
+
+The Sale id, saleNumber, and createdAt are immutable. The updatedAt value is system-managed.
+
 ---
 
 # 8. Order Rules
@@ -256,6 +268,18 @@ Inventory must only be increased as a result of an approved receiving process.
 ## 9.5 Purchase Cancellation
 
 A cancelled purchase must not be treated as an active completed purchase.
+
+## 9.6 Purchase Post-Draft Immutability
+
+A Purchase is editable only while its status is `draft`. Completed and cancelled Purchases are terminal states.
+
+After a Purchase becomes `completed` or `cancelled`, all direct changes are prohibited. This includes changes to Purchase Items; item quantity, unit, unitCost, and totals; totalAmount; purchaseDate; supplierName; paymentMethod; note; and status.
+
+A completed or cancelled Purchase must not be returned directly to `draft`. A transition from `draft` to `completed` is permitted only through the approved Purchase receipt process, and a transition from `draft` to `cancelled` is permitted only through the approved Purchase cancellation process.
+
+A violation of this rule must result in a controlled domain validation error.
+
+The Purchase id, purchaseNumber, and createdAt are immutable. The updatedAt value is system-managed.
 
 ---
 
