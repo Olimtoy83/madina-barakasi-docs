@@ -96,6 +96,8 @@ Consumers must reference the customer identity rather than creating competing cu
 
 Changes to customer information must not invalidate historical transactions that reference the customer.
 
+Completed Sale contracts must retain the historical `clientId` and `clientName` captured by the Sale. Later master Client changes must not rewrite those values. The current lifecycle preserves Client identity through the existing `inactive` status rather than physical deletion.
+
 ---
 
 # 5. Product Data Contract
@@ -134,6 +136,8 @@ Potential consumers include:
 Consumers must reference the product identity.
 
 Historical transactions must retain the product information required to represent the original transaction independently from later master-data changes.
+
+The current Product lifecycle preserves Product identity through the existing `inactive` status rather than physical deletion. Historical references must continue to resolve through that identity, and master-data lifecycle changes must not destroy historical meaning.
 
 ---
 
@@ -257,6 +261,8 @@ Potential consumers include:
 Purchase information must preserve the historical values required to represent the original transaction.
 
 Receiving information must not be interpreted as a completed purchase unless the applicable purchase process has satisfied its business conditions.
+
+Persisted legacy Purchase data must be restored without automatic normalization or changes to its financial meaning. Conflicting legacy duplicate rows must not prevent CRM initialization, and automatic price or unit recovery is prohibited. New, add, and update Purchase boundaries continue to apply the current normalization rules; update or completion of a conflicting legacy draft must fail with the controlled domain validation error. This policy does not change the localStorage version or introduce a migration or recovery infrastructure.
 
 ---
 
@@ -446,6 +452,8 @@ Validation should establish that:
 - referenced entities are valid where required;
 - required quantities or values are present;
 - historical transaction information is preserved where applicable.
+
+For Sale and Purchase Item contracts, quantity and price or cost values must satisfy the applicable finite-number and greater-than-zero business rules. Invalid numeric values must be rejected with a controlled domain validation error before stock or finance side effects occur. Precision and rounding policy remain outside the current contract.
 
 The exact technical validation mechanism is outside the scope of this document.
 

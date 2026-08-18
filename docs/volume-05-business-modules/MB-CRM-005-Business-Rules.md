@@ -117,6 +117,14 @@ Status transitions must follow applicable business rules.
 
 Customer relationships with sales, orders, activities, and other CRM processes must reference the appropriate customer entity.
 
+## 5.5 Customer Lifecycle
+
+In the current model, a Client/Customer must not be physically deleted. The existing `inactive` status must be used to stop normal operational use while preserving the Client identity for historical references.
+
+A completed Sale must retain its historical `clientId` and `clientName`. Later changes to the master Client must not rewrite a historical Sale.
+
+This rule does not introduce an archive entity. Archive models and a future controlled physical-deletion policy remain separate future business decisions.
+
 ---
 
 # 6. Product Rules
@@ -137,6 +145,12 @@ Each Product has one current operational stock unit. The current model does not 
 
 Base units, alternative units, packaging units, and conversion factors remain separate future business decisions.
 
+Product.unit may be changed only when the Product.quantity is exactly zero and the Product is not referenced by any draft Sale Item or draft Purchase Item. A unit change is prohibited when quantity is greater than zero or when a draft Sale or Purchase references the Product.
+
+Completed or cancelled Sales and Purchases, and historical Stock Movements, do not block a unit change when the zero-stock and no-draft-reference conditions are satisfied. They must not be rewritten and must retain their historical units.
+
+This rule does not introduce unit conversion, migration, or a conversion engine. Those capabilities remain separate future business decisions.
+
 ## 6.4 Product Price
 
 A product price must be associated with the applicable product and pricing context.
@@ -146,6 +160,10 @@ Changes to pricing must not silently rewrite historical transaction values.
 ## 6.5 Product Status
 
 Products that are no longer available for normal business activity must be represented by an appropriate status rather than being silently removed from historical transactions.
+
+In the current model, a Product must not be physically deleted. The existing `inactive` status must be used to stop normal operational use while preserving Product identity for historical references.
+
+This rule does not introduce an archive entity or conditional physical deletion. Archive models and a future controlled physical-deletion policy remain separate future business decisions.
 
 ---
 
@@ -158,6 +176,10 @@ Each sale must have a unique business identity.
 ## 7.2 Sale Items
 
 A sale must contain one or more sale items when the business transaction represents product or service quantities.
+
+SaleItem.quantity must be a finite number greater than zero. Fractional quantities are permitted in the current model. SaleItem.unitPrice must be a finite number greater than zero. `NaN`, `Infinity`, zero, and negative unitPrice values are invalid domain data.
+
+Invalid numeric Sale Item data must result in a controlled domain validation error before any stock or finance side effects occur. Precision and rounding policy are not defined by the current model.
 
 For a Sale Item participating in completion, its unit must exactly match the Product.unit of its referenced Product. A mismatch is invalid domain data and must result in a controlled domain validation error before any stock or finance side effects occur.
 
@@ -172,6 +194,8 @@ If the domain/core receives multiple Sale Items for the same Product with differ
 The domain/core must not automatically calculate an average unitPrice, select the first or last unitPrice, or otherwise change the financial meaning of a Sale without an explicit business rule.
 
 This normalization rule is a Sales business rule and must not be enforced only by the user interface.
+
+This rule does not introduce discounts, promotions, free-sale workflows, gifts, taxes, currency precision, or pricing-engine policy. Such capabilities remain separate future business decisions.
 
 ## 7.3 Historical Price
 
@@ -247,6 +271,10 @@ A purchase must identify the relevant supplier where supplier information is req
 
 A purchase must identify the products, quantities, and applicable purchase values.
 
+PurchaseItem.quantity must be a finite number greater than zero. Fractional quantities are permitted in the current model. PurchaseItem.unitCost must be a finite number greater than zero. `NaN`, `Infinity`, zero, and negative unitCost values are invalid domain data.
+
+Invalid numeric Purchase Item data must result in a controlled domain validation error before any stock or finance side effects occur. Precision and rounding policy are not defined by the current model.
+
 For a Purchase Item participating in completion, its unit must exactly match the Product.unit of its referenced Product. A mismatch is invalid domain data and must result in a controlled domain validation error before any stock or finance side effects occur.
 
 A Purchase must contain at most one Purchase Item for each Product.
@@ -260,6 +288,10 @@ If the domain/core receives multiple Purchase Items for the same Product with di
 The domain/core must not automatically calculate a weighted-average unitCost, select the first or last unitCost, or change the financial meaning without an explicit business rule.
 
 This normalization rule is a Purchase business rule and must not be enforced only by the user interface.
+
+Persisted legacy Purchase data is governed by the loading and contract-validation policy in MB-CRM-006. The domain/core must not automatically recover conflicting duplicate items by selecting or changing a unitCost or unit.
+
+This rule does not introduce free-acquisition workflows, gifts, promotions, taxes, currency precision, valuation policy, or a pricing engine. Such capabilities remain separate future business decisions.
 
 ## 9.4 Purchase Receipt
 
