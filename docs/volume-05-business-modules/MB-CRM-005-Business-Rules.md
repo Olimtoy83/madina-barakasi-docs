@@ -443,6 +443,50 @@ Historical reports must preserve the values applicable to the original business 
 
 Reporting operations must not modify source business transactions unless explicitly authorized by an approved business rule.
 
+## 14.4 Financial Reporting Metrics
+
+Revenue is the sum of completed Financial Transactions with `type = income` and `category = sale` within the applicable reporting period.
+
+Total income is the sum of all completed Financial Transactions with `type = income` within the applicable reporting period. Purchase expense is the sum of completed Financial Transactions with `type = expense` and `category = purchase` within that period. Total expense is the sum of all completed Financial Transactions with `type = expense` within that period.
+
+Financial balance, also called net cash result, is Total income minus Total expense. It must not be called accounting profit. Accounting profit is not available in the current model and must not be calculated as income minus purchases. It requires a separate future COGS, valuation, and accounting-policy decision.
+
+Completed Sales total is the sum of `totalAmount` for completed Sales, using `saleDate` to determine the reporting period. Completed Purchases total is the sum of `totalAmount` for completed Purchases, using `purchaseDate` to determine the reporting period.
+
+Draft and cancelled documents and Transactions are excluded from recognized completed financial metrics.
+
+## 14.5 Inventory Reporting Metrics
+
+Product record count is the count of all Product master records. Active Product count is a separate metric limited to Products with `status = active`.
+
+On-hand stock quantity must be grouped by `Product.unit`. A single cross-unit stock quantity produced by adding `kg`, `piece`, `liter`, and `box` is not a valid KPI without a separate approved conversion policy.
+
+Stock Movement reporting quantities must be grouped at least by `movement.type` and `movement.unit`. Existing signed quantity semantics are preserved, and net movement may be summed only within the same unit. Product-level stock is represented by `Product.quantity` together with `Product.unit`.
+
+This rule does not introduce a unit-conversion engine.
+
+## 14.6 Reporting Periods
+
+For the current prototype, reporting periods use the runtime or browser local timezone until a business timezone is separately defined.
+
+Today is the inclusive interval from the local start of today through `now`. Last 7 days is the inclusive interval from the local start of the day six days before today through `now`. Current month is the inclusive interval from the local start of the current month through `now`.
+
+A custom range includes the local calendar start date and local calendar end date. Its effective upper bound is capped at `now`. A start date later than its end date is invalid and must result in a controlled validation error. All includes all historical eligible records through `now`.
+
+Future-dated source records are excluded from operational and financial reports while their source date is later than `now`.
+
+## 14.7 Sales and Purchase Reporting
+
+Sales reporting provides document count by status, completed count, completed amount, and completed item quantity grouped by historical item unit. Client metrics are grouped by completed `Sale.clientId`, and the historical `clientName` snapshot remains preserved. Product metrics are grouped by `productId` and historical item unit. Sales reporting periods use `saleDate`.
+
+Purchase reporting provides document count by status, completed count, completed amount, and completed item quantity grouped by historical item unit. Product metrics are grouped by `productId` and historical item unit. Purchase reporting periods use `purchaseDate`.
+
+Quantities with different units must not be mixed in Sales or Purchase reporting.
+
+## 14.8 Deferred Reporting Decisions
+
+This reporting foundation does not define Sale or Purchase numbering policy, COGS, inventory valuation, accrual accounting, accounting adjustments, a BI platform, charts, a data warehouse, exports, PDF reports, forecasting, AI analytics, business timezone configuration, or unit conversion. Each remains a separate future decision.
+
 ---
 
 # 15. Validation Rules

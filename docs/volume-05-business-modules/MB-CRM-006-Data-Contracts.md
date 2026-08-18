@@ -413,6 +413,14 @@ Reporting must not become the owner of source business entities merely because i
 
 Reporting outputs must preserve the meaning of the source business data.
 
+Each report metric must explicitly define its source collection, eligibility or status predicate, date field, reporting period, grouping dimensions, applicable unit or currency, and metric type: count, monetary amount, or signed quantity. Reporting helper contracts must apply their own explicit eligibility semantics and must not rely on an unstated caller pre-filtering assumption.
+
+For the localStorage prototype, transactional reporting consumes only successfully committed authoritative v2 transactional state. Clients may be used as an additional master-data source, while completed Sales retain their historical `clientId` and `clientName` snapshot.
+
+Reports are read-only. They do not own Sales, Purchases, Products, Stock Movements, Transactions, or Clients; they must not change source state or create business transactions.
+
+A cross-unit stock total is not a valid reporting metric. Financial balance or net cash result must not be represented as accounting profit. Financial and category metrics must use explicitly eligible completed Transactions.
+
 ---
 
 # 13. Cross-Domain Contract Rules
