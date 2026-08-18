@@ -46,6 +46,14 @@ The platform architecture must preserve clear boundaries between technical infra
 
 # 3. Repository Responsibilities
 
+## 3.0 Package Responsibility Mapping
+
+Within the current `madina-platform` monorepo, `@madina/core` is the application-domain/core package of the active CRM / ERP application. It may contain that application's domain logic, including Sales, Purchases, Inventory, Transactions, Customers or Clients, Tasks, and related domain services.
+
+`@madina/core` is not a generic reusable shared technical package. Generic reusable abstractions belong in `@madina/shared` and other packages that are genuinely shared. `@madina/ui` remains a reusable UI package.
+
+CRM-specific application or UI composition must not be placed in `@madina/core`.
+
 ## 3.1 madina-platform
 
 `madina-platform` is the shared technical platform.

@@ -411,3 +411,10 @@ Documentation
 &#x20; ↓
 
 Next Unit
+```
+
+# 11. Package Boundary Clarification
+
+`@madina/core` is the application-domain/core package of the active CRM / ERP application. It may contain that application's business and domain logic, but it must not be presented or used as a generic reusable shared technical package.
+
+`@madina/shared` and other genuinely shared packages remain the location for reusable technical abstractions. `@madina/ui` remains a reusable UI package. CRM-specific application or UI composition remains outside `@madina/core`.

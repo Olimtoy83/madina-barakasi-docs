@@ -85,6 +85,7 @@ The registry reflects documents that actually exist within the current Documenta
 | MB-100 | System Architecture   | 0.1.0   | Draft  | Canonical      |
 | MB-101 | Data Architecture     | 0.1.0   | Draft  | Canonical      |
 | MB-102 | Engineering Standards | 0.1.0   | Draft  | Standard       |
+| MB-ADR-002 | Application-Domain Core Package Boundary | 0.1.0 | Draft | ADR |
 
 ---
 

@@ -72,3 +72,10 @@ Owns Business Data
 Uses Platform Capabilities
         ↓
 Uses Infrastructure
+```
+
+## 5. Package Data Boundary Clarification
+
+Within the current `madina-platform` monorepo, business data and domain models for the active CRM / ERP application may be owned by the application-domain package `@madina/core`. This does not make those models generic shared platform data structures.
+
+`@madina/shared` and other genuinely shared packages must contain only reusable technical abstractions. Data ownership, historical meaning, and business rules for Sales, Purchases, Inventory, Transactions, Customers or Clients, and Tasks remain application-domain responsibilities.

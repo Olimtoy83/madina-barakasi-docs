@@ -217,6 +217,12 @@ A purchase must identify the relevant supplier where supplier information is req
 
 A purchase must identify the products, quantities, and applicable purchase values.
 
+A Purchase must contain at most one Purchase Item for each Product.
+
+When the same Product is added again to a Purchase, the quantity of the existing Purchase Item must be increased rather than creating another Purchase Item for that Product.
+
+This normalization rule is a Purchase business rule and must not be enforced only by the user interface.
+
 ## 9.4 Purchase Receipt
 
 Inventory must only be increased as a result of an approved receiving process.
@@ -236,6 +242,12 @@ Inventory records belong to the Inventory domain.
 ## 10.2 Inventory Movement
 
 Changes to inventory quantities must be represented by valid inventory movements or approved adjustment processes.
+
+For a completed, normalized Purchase, each Product must have one Purchase Item and one corresponding Stock Movement.
+
+The Stock Movement must remain traceable to the source Purchase or business event. Movement history must not be lost or silently overwritten.
+
+This rule does not introduce line references, an aggregation engine, or a separate movement entity.
 
 ## 10.3 Stock Receipt
 
