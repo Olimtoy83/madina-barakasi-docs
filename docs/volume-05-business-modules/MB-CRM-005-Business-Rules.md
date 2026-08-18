@@ -133,6 +133,10 @@ A product may be associated with a product category where categorization is requ
 
 Product quantities must use an explicitly defined unit where the business process requires quantity measurement.
 
+Each Product has one current operational stock unit. The current model does not provide automatic unit conversion, and units that differ must not be silently interpreted as interchangeable.
+
+Base units, alternative units, packaging units, and conversion factors remain separate future business decisions.
+
 ## 6.4 Product Price
 
 A product price must be associated with the applicable product and pricing context.
@@ -154,6 +158,8 @@ Each sale must have a unique business identity.
 ## 7.2 Sale Items
 
 A sale must contain one or more sale items when the business transaction represents product or service quantities.
+
+For a Sale Item participating in completion, its unit must exactly match the Product.unit of its referenced Product. A mismatch is invalid domain data and must result in a controlled domain validation error before any stock or finance side effects occur.
 
 A Sale must contain at most one Sale Item for each Product.
 
@@ -229,6 +235,8 @@ A purchase must identify the relevant supplier where supplier information is req
 
 A purchase must identify the products, quantities, and applicable purchase values.
 
+For a Purchase Item participating in completion, its unit must exactly match the Product.unit of its referenced Product. A mismatch is invalid domain data and must result in a controlled domain validation error before any stock or finance side effects occur.
+
 A Purchase must contain at most one Purchase Item for each Product.
 
 When the same Product is added again to a Purchase, the quantity of the existing Purchase Item must be increased rather than creating another Purchase Item for that Product.
@@ -261,11 +269,15 @@ Inventory records belong to the Inventory domain.
 
 Changes to inventory quantities must be represented by valid inventory movements or approved adjustment processes.
 
+A Stock Movement uses the Product.unit. Before a Stock Movement is created from a Sale or Purchase, the source Sale Item or Purchase Item unit must match the Product.unit.
+
 For a completed, normalized Purchase, each Product must have one Purchase Item and one corresponding Stock Movement.
 
 For a completed, normalized Sale, each Product must have one Sale Item and one corresponding Stock Movement.
 
 The Stock Movement must remain traceable to the source Purchase, Sale, or business event. Movement history must not be lost or silently overwritten.
+
+Completed historical documents and movements must not be automatically rewritten when related master data changes later.
 
 This rule does not introduce line references, an aggregation engine, or a separate movement entity.
 
