@@ -11,13 +11,13 @@
 | Document ID    | MB-DEC-INDEX              |
 | Volume         | III — Design & Experience |
 | Title          | Design Decisions Index    |
-| Version        | 0.1.0                     |
+| Version        | 0.1.1                     |
 | Status         | Draft                     |
 | Classification | Registry                  |
 | Language       | English                   |
 | Owner          | Design & Experience       |
 | Created        | 2026-08-08                |
-| Last Updated   | 2026-08-08                |
+| Last Updated   | 2026-08-20                |
 
 ---
 
@@ -36,6 +36,7 @@ It does not replace the individual decision documents.
 | ID | Decision | Status | Related Standard |
 | --- | --- | --- | --- |
 | MB-ADR-001 | Symbol Independent From Name | Draft | MB-STD-007 |
+| MB-DEC-001 | Brandmark Architecture | Approved | MB-STD-007 |
 
 ---
 
@@ -53,6 +54,25 @@ The symbol and textual name may be combined through an approved lockup, but they
 
 - MB-ADR-001 — Symbol Independent From Name
 - MB-STD-007 — Symbol Design Principles
+- MB-200 — Design System
+
+---
+
+## MB-DEC-001 — Brandmark Architecture
+
+**Status:** Approved
+
+B2.1-S1 Canonical Pass 5 is the primary Madina Barakasi brandmark.
+
+B2.1-S1-MICRO Pass 2 is the approved optical companion for the 16–23 px size range.
+
+The Canonical and Micro geometries form one controlled brandmark architecture and must not be modified without a new reviewed design decision.
+
+**Related documents:**
+
+- MB-DEC-001 — Brandmark Architecture
+- MB-STD-007 — Symbol Design Principles
+- MB-ADR-001 — Symbol Independent From Name
 - MB-200 — Design System
 
 ---

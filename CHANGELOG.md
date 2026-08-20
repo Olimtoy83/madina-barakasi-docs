@@ -1,3 +1,12 @@
+## 2026-08-20
+
+### Added
+
+- MB-DEC-001 — Brandmark Architecture v1.0.0 (Approved)
+- Approved B2.1-S1 Canonical Pass 5 as the primary Madina Barakasi brandmark.
+- Approved B2.1-S1-MICRO Pass 2 as the controlled companion for 16–23 px use.
+- Registered the brandmark architecture in the Design Decisions Index and Documentation Registry.
+
 \## 2026-08-08
 
 
