@@ -11,7 +11,7 @@
 | Document ID    | MB-201                    |
 | Volume         | III — Design & Experience |
 | Title          | Visual Identity Foundation |
-| Version        | 0.1.0                     |
+| Version        | 0.1.1                     |
 | Status         | Draft                     |
 | Classification | Specification             |
 | Language       | English                   |
@@ -27,7 +27,7 @@ MB-201 defines the visual identity foundation of Madina Barakasi.
 
 It establishes the framework that connects the approved brandmark architecture with typography, color, lockups, spacing, contrast, multilingual presentation, and future Design System tokens.
 
-This document builds on the approved brandmark decision recorded in MB-DEC-001.
+This document builds on the approved brandmark decision recorded in MB-DEC-001 and the approved Arabic typography decision recorded in MB-DEC-002.
 
 It does not redefine the approved Canonical or Micro brandmark geometry.
 
@@ -72,8 +72,11 @@ MB-201 operates under the following documents:
 - MB-STD-007 — Symbol Design Principles
 - MB-ADR-001 — Symbol Independent From Name
 - MB-DEC-001 — Brandmark Architecture
+- MB-DEC-002 — Arabic Typography Architecture
 
 MB-DEC-001 is the authoritative decision for the active Madina Barakasi brandmark architecture.
+
+MB-DEC-002 governs the canonical Arabic typography family architecture.
 
 Where this document conflicts with MB-DEC-001 regarding brandmark geometry, MB-DEC-001 governs.
 
@@ -216,11 +219,24 @@ No lockup proportions are canonical until separately normalized and approved.
 
 Typography must support both brand communication and platform interfaces without unnecessary fragmentation.
 
-The following dual-family direction has passed human review for further specification, but is not yet a canonical typography approval:
+MB-DEC-002 establishes IBM Plex Sans Arabic as the canonical primary Arabic typography foundation. Noto Sans Arabic is the controlled primary Arabic fallback.
+
+The canonical controlled fallback architecture is:
+
+```text
+IBM Plex Sans Arabic
+→ Noto Sans Arabic
+→ sans-serif
+```
+
+The approved static Arabic weight set is 400, 500, and 600.
+
+The following Latin directions have passed human review for further specification, but are not yet final canonical typography approvals:
 
 - **Source Sans 3 static 400–600** is the approved direction for brand/institutional typography.
 - **Inter static 400–600** is the approved direction for CRM / ERP operational typography.
-- The Source Sans 3 + Inter architecture passed human review as an intentional separation between brand/institutional voice and operational UI.
+- Source Sans 3 + IBM Plex Sans Arabic is the institutional pairing architecture.
+- Inter + IBM Plex Sans Arabic is the operational pairing architecture.
 
 The typography foundation must still define:
 
@@ -231,11 +247,11 @@ The typography foundation must still define:
 - Supporting text
 - Labels
 - Numerals
-- Arabic-script compatibility where required
 - Cyrillic compatibility where required
 - Latin-script compatibility
+- Exact production typography tokens and implementation specification
 
-Arabic pairing, final typography metrics, and all exact sizes, line heights, and tracking values beyond the approved wordmark baseline remain pending explicit approval.
+Arabic brand spelling, bilingual lockup geometry, final typography metrics, and all exact production sizes, line heights, and tracking values beyond the approved Arabic family architecture remain separate work.
 
 ---
 
@@ -340,7 +356,7 @@ The visual identity should support at minimum:
 - Russian / Cyrillic script
 - Uzbek / Latin or approved project script usage
 
-Arabic-script presentation may be introduced where required by product or communication context.
+Arabic-script presentation may be introduced where required by product or communication context. MB-DEC-002 governs the canonical Arabic typography family architecture in those contexts.
 
 Multilingual wordmarks must preserve:
 
@@ -442,8 +458,9 @@ The following areas remain intentionally unresolved before final canonical appro
 - Canonical wordmark typography and normalized wordmark specification
 - Final brand and institutional typography specification
 - Final CRM / ERP interface typography specification
-- Arabic typeface pairing
-- Final licensing and legal review
+- Production Arabic font asset manifest and distribution specification
+- Final organizational legal release review
+- Arabic typography implementation specification
 - Canonical brand color palette
 - Final clear-space rule
 - Final symbol + wordmark proportions
@@ -478,7 +495,7 @@ MB-201 may progress beyond Draft when:
 
 MB-201 is currently a Draft Visual Identity Foundation specification.
 
-The approved B2.1-S1 brandmark architecture is inherited from MB-DEC-001 and is not reopened by this Draft.
+The approved B2.1-S1 brandmark architecture is inherited from MB-DEC-001 and is not reopened by this Draft. The approved Arabic typography family architecture is inherited from MB-DEC-002; its downstream tokens and implementation remain separate work.
 
 ---
 

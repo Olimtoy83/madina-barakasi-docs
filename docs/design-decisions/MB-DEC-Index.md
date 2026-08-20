@@ -11,7 +11,7 @@
 | Document ID    | MB-DEC-INDEX              |
 | Volume         | III — Design & Experience |
 | Title          | Design Decisions Index    |
-| Version        | 0.1.1                     |
+| Version        | 0.1.2                     |
 | Status         | Draft                     |
 | Classification | Registry                  |
 | Language       | English                   |
@@ -37,6 +37,7 @@ It does not replace the individual decision documents.
 | --- | --- | --- | --- |
 | MB-ADR-001 | Symbol Independent From Name | Draft | MB-STD-007 |
 | MB-DEC-001 | Brandmark Architecture | Approved | MB-STD-007 |
+| MB-DEC-002 | Arabic Typography Architecture | Approved | MB-201 / MB-200 |
 
 ---
 
@@ -74,6 +75,28 @@ The Canonical and Micro geometries form one controlled brandmark architecture an
 - MB-STD-007 — Symbol Design Principles
 - MB-ADR-001 — Symbol Independent From Name
 - MB-200 — Design System
+
+---
+
+## MB-DEC-002 — Arabic Typography Architecture
+
+**Status:** Approved
+
+IBM Plex Sans Arabic is the canonical Arabic typography foundation. Noto Sans Arabic is the controlled primary Arabic fallback.
+
+The controlled fallback architecture is: IBM Plex Sans Arabic → Noto Sans Arabic → sans-serif.
+
+The approved static weights are 400, 500, and 600. Source Sans 3 + IBM Plex Sans Arabic is the institutional pairing architecture. Inter + IBM Plex Sans Arabic is the operational pairing architecture.
+
+Arabic brand spelling and bilingual lockup geometry remain outside this decision.
+
+**Related documents:**
+
+- MB-DEC-002 — Arabic Typography Architecture
+- MB-201 — Visual Identity Foundation
+- MB-200 — Design System
+- MB-DEC-001 — Brandmark Architecture
+- MB-ADR-001 — Symbol Independent From Name
 
 ---
 

@@ -7,6 +7,9 @@
 - Approved B2.1-S1-MICRO Pass 2 as the controlled companion for 16–23 px use.
 - Registered the brandmark architecture in the Design Decisions Index and Documentation Registry.
 - Added MB-201 — Visual Identity Foundation v0.1.0 (Draft).
+- Added and approved MB-DEC-002 — Arabic Typography Architecture v1.0.0.
+- Established IBM Plex Sans Arabic as the canonical Arabic typography foundation and Noto Sans Arabic as the controlled fallback.
+- Synchronized Arabic typography governance across MB-201, MB-200, the Design Decisions Index, and the Documentation Registry.
 
 \## 2026-08-08
 

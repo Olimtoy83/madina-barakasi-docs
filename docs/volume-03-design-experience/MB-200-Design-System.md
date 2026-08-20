@@ -11,13 +11,13 @@
 | Document ID    | MB-200                    |
 | Volume         | III — Design & Experience |
 | Title          | Design System             |
-| Version        | 0.1.0                     |
+| Version        | 0.1.1                     |
 | Status         | Draft                     |
 | Classification | Specification             |
 | Language       | English                   |
 | Owner          | Design & Experience       |
 | Created        | 2026-08-08                |
-| Last Updated   | 2026-08-08                |
+| Last Updated   | 2026-08-20                |
 
 ---
 
@@ -144,6 +144,10 @@ The Design System may define:
 Typography decisions must remain consistent across platform interfaces.
 
 Specific font selections and token values require explicit Design System decisions.
+
+MB-DEC-002 governs the canonical Arabic typography family architecture: IBM Plex Sans Arabic is the canonical Arabic typography foundation, and Noto Sans Arabic is its controlled fallback. The controlled fallback architecture is IBM Plex Sans Arabic → Noto Sans Arabic → sans-serif.
+
+Exact reusable typography tokens remain subject to further Design System specification work. This decision does not automatically canonicalize Source Sans 3 or Inter metrics, nor application implementation values.
 
 ---
 
@@ -303,6 +307,8 @@ Relevant decisions may be recorded through:
 
 The Design System should reference those decisions where appropriate.
 
+MB-DEC-002 is the governing Design Decision for the canonical Arabic typography family architecture.
+
 ---
 
 # 15. Relationship to Other Documentation
@@ -317,6 +323,8 @@ Related documentation includes:
 - MB-004 — Master Plan
 - Design Decision Records
 - Design Standards
+- MB-201 — Visual Identity Foundation
+- MB-DEC-002 — Arabic Typography Architecture
 
 MB-200 defines the Design System framework.
 
@@ -343,6 +351,8 @@ Canonical Design System rules should not be changed implicitly through applicati
 # 17. Current Status
 
 MB-200 is currently a structural Design System specification.
+
+The canonical Arabic typography family architecture is established by MB-DEC-002. Exact reusable typography tokens remain pending Design System specification.
 
 The following areas require future explicit decisions before becoming canonical:
 

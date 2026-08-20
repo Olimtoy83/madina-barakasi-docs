@@ -9,7 +9,7 @@
 | Field          | Value              |
 | -------------- | ------------------ |
 | Document ID    | MB-REG-001         |
-| Version        | 1.1.2              |
+| Version        | 1.1.3              |
 | Status         | Approved           |
 | Owner          | Documentation Team |
 | Classification | Canonical          |
@@ -94,12 +94,13 @@ The registry reflects documents that actually exist within the current Documenta
 
 | ID      | Document      | Version | Status | Classification |
 | ------- | ------------- | ------- | ------ | -------------- |
-| MB-200   | Design System | 0.1.0   | Draft  | Specification  |
-| MB-201 | Visual Identity Foundation | 0.1.0 | Draft | Specification |
+| MB-200   | Design System | 0.1.1   | Draft  | Specification  |
+| MB-201 | Visual Identity Foundation | 0.1.1 | Draft | Specification |
 | MB-STD-007 | Symbol Design Principles | 0.1.0 | Draft | Standard |
 | MB-ADR-001 | Symbol Independent From Name | 0.1.0 | Draft | ADR |
 | MB-DEC-001 | Brandmark Architecture | 1.0.0 | Approved | Design Decision |
-| MB-DEC-INDEX | Design Decisions Index | 0.1.1 | Draft | Registry |
+| MB-DEC-002 | Arabic Typography Architecture | 1.0.0 | Approved | Design Decision |
+| MB-DEC-INDEX | Design Decisions Index | 0.1.2 | Draft | Registry |
 | MB-DESIGN-STRUCTURE | Design System Structure | 0.1.0 | Draft | Guideline |
 
 ---
@@ -153,8 +154,8 @@ The statistics below describe the current registry entries.
 
 | Metric            | Value |
 | ----------------- | ----: |
-| Current Documents |    12 |
-| Approved          |     3 |
+| Current Documents |    13 |
+| Approved          |     4 |
 | Draft             |     9 |
 | Planned           |     3 |
 
