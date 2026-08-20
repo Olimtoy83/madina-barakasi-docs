@@ -149,7 +149,13 @@ This follows MB-ADR-001.
 
 The Madina Barakasi wordmark is a separate typographic identity element.
 
-Its final typography has not yet been approved.
+The following direction has passed human review for further specification, but is not yet a canonical typography approval:
+
+- **Source Sans 3 static 500** is the selected wordmark direction.
+- **Neutral tracking** is the selected wordmark baseline direction.
+- Source Sans 3 static weights **400–600** passed reviewed Latin, Cyrillic, Uzbek Latin, numeral, punctuation, and institutional-use specimens.
+
+Final normalized wordmark typography remains pending canonical approval.
 
 The future wordmark should support:
 
@@ -162,7 +168,7 @@ The future wordmark should support:
 
 The wordmark must not alter the geometry of the approved brandmark.
 
-Specific font-family decisions require separate review before becoming canonical.
+Specific font-family, tracking, lockup, licensing, and multilingual-pairing decisions require final review before becoming canonical.
 
 ---
 
@@ -184,7 +190,25 @@ Lockups must preserve:
 - Wordmark readability
 - Optical balance
 
-No lockup proportions are canonical until separately validated.
+The following lockup direction has passed human review for further specification:
+
+- **L2 / Balanced Optical**
+- Source Sans 3 static 500
+- Neutral tracking baseline
+- Black-on-white and white-on-black presentation passed review
+
+The reviewed validation artifact used the following reference values:
+
+- Symbol: `180 px`
+- Wordmark: `46 px`
+- Symbol-to-wordmark gap: `48 px`
+- Wordmark optical raise: `2 px`
+
+These are validation/reference values only. They are not universal canonical lockup values or Design System tokens. Final normalized lockup geometry still requires approval.
+
+For the Canonical-symbol lockup test, `24 px` was the reliable reviewed control. Canonical-symbol views at `20 px` and `16 px` were diagnostic only. This does not alter the approved symbol-size architecture.
+
+No lockup proportions are canonical until separately normalized and approved.
 
 ---
 
@@ -192,10 +216,16 @@ No lockup proportions are canonical until separately validated.
 
 Typography must support both brand communication and platform interfaces without unnecessary fragmentation.
 
-The typography foundation should eventually define:
+The following dual-family direction has passed human review for further specification, but is not yet a canonical typography approval:
 
-- Primary brand typeface
-- Interface typeface strategy
+- **Source Sans 3 static 400–600** is the approved direction for brand/institutional typography.
+- **Inter static 400–600** is the approved direction for CRM / ERP operational typography.
+- The Source Sans 3 + Inter architecture passed human review as an intentional separation between brand/institutional voice and operational UI.
+
+The typography foundation must still define:
+
+- Final canonical primary brand typeface specification
+- Final canonical interface typeface specification
 - Heading hierarchy
 - Body text hierarchy
 - Supporting text
@@ -205,7 +235,7 @@ The typography foundation should eventually define:
 - Cyrillic compatibility where required
 - Latin-script compatibility
 
-Exact font families, weights, sizes, line heights, and tracking values remain pending explicit approval.
+Arabic pairing, final typography metrics, and all exact sizes, line heights, and tracking values beyond the approved wordmark baseline remain pending explicit approval.
 
 ---
 
@@ -407,11 +437,13 @@ Implementation must not silently redefine the canonical Visual Identity.
 
 # 20. Pending Foundation Decisions
 
-The following areas remain intentionally unresolved:
+The following areas remain intentionally unresolved before final canonical approval:
 
-- Canonical wordmark typography
-- Brand typeface
-- Interface typeface strategy
+- Canonical wordmark typography and normalized wordmark specification
+- Final brand and institutional typography specification
+- Final CRM / ERP interface typography specification
+- Arabic typeface pairing
+- Final licensing and legal review
 - Canonical brand color palette
 - Final clear-space rule
 - Final symbol + wordmark proportions
