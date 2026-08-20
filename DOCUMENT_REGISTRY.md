@@ -9,7 +9,7 @@
 | Field          | Value              |
 | -------------- | ------------------ |
 | Document ID    | MB-REG-001         |
-| Version        | 1.1.1              |
+| Version        | 1.1.2              |
 | Status         | Approved           |
 | Owner          | Documentation Team |
 | Classification | Canonical          |
@@ -95,6 +95,7 @@ The registry reflects documents that actually exist within the current Documenta
 | ID      | Document      | Version | Status | Classification |
 | ------- | ------------- | ------- | ------ | -------------- |
 | MB-200   | Design System | 0.1.0   | Draft  | Specification  |
+| MB-201 | Visual Identity Foundation | 0.1.0 | Draft | Specification |
 | MB-STD-007 | Symbol Design Principles | 0.1.0 | Draft | Standard |
 | MB-ADR-001 | Symbol Independent From Name | 0.1.0 | Draft | ADR |
 | MB-DEC-001 | Brandmark Architecture | 1.0.0 | Approved | Design Decision |
