@@ -1,4 +1,4 @@
-﻿# MB-DEC-Index — Design Decisions Index
+# MB-DEC-Index — Design Decisions Index
 
 > **Index of design decisions for the Madina Barakasi Platform**
 
@@ -11,13 +11,13 @@
 | Document ID    | MB-DEC-INDEX              |
 | Volume         | III — Design & Experience |
 | Title          | Design Decisions Index    |
-| Version        | 0.1.2                     |
+| Version        | 0.1.3                     |
 | Status         | Draft                     |
 | Classification | Registry                  |
 | Language       | English                   |
 | Owner          | Design & Experience       |
 | Created        | 2026-08-08                |
-| Last Updated   | 2026-08-20                |
+| Last Updated   | 2026-08-21                |
 
 ---
 
@@ -38,6 +38,8 @@ It does not replace the individual decision documents.
 | MB-ADR-001 | Symbol Independent From Name | Draft | MB-STD-007 |
 | MB-DEC-001 | Brandmark Architecture | Approved | MB-STD-007 |
 | MB-DEC-002 | Arabic Typography Architecture | Approved | MB-201 / MB-200 |
+
+| MB-DEC-003 | Latin Wordmark and Horizontal Lockup Architecture | Approved | MB-201 / MB-200 |
 
 ---
 
@@ -100,6 +102,35 @@ Arabic brand spelling and bilingual lockup geometry remain outside this decision
 
 ---
 
+## MB-DEC-003 — Latin Wordmark and Horizontal Lockup Architecture
+
+**Status:** Approved
+
+Source Sans 3 static 500 is the canonical Madina Barakasi Latin wordmark typeface and weight.
+
+The canonical wordmark uses `0 em` tracking with native OpenType spacing and kerning.
+
+L2 / Balanced Optical is the approved horizontal lockup architecture.
+
+With `S` defined as symbol height, the approved normalized relationships are:
+
+- Wordmark size: `0.2556 S`
+- Symbol-to-wordmark gap: `0.2667 S`
+- Optical raise: `0.0111 S`
+- Practical minimum complete horizontal lockup: `S = 48 px`
+
+Vertical and Arabic / bilingual lockup architectures remain outside this decision.
+
+**Related documents:**
+
+- MB-DEC-003 — Latin Wordmark and Horizontal Lockup Architecture
+- MB-201 — Visual Identity Foundation
+- MB-200 — Design System
+- MB-DEC-001 — Brandmark Architecture
+- MB-DEC-002 — Arabic Typography Architecture
+- MB-ADR-001 — Symbol Independent From Name
+
+---
 # 4. Governance
 
 New design decisions should be documented before or alongside implementation when the decision has a material and reusable impact on the platform's design system.

@@ -9,13 +9,13 @@
 | Field          | Value              |
 | -------------- | ------------------ |
 | Document ID    | MB-REG-001         |
-| Version        | 1.1.3              |
+| Version        | 1.1.4              |
 | Status         | Approved           |
 | Owner          | Documentation Team |
 | Classification | Canonical          |
 | Language       | English            |
 | Created        | 2026-08-07         |
-| Last Updated   | 2026-08-20         |
+| Last Updated   | 2026-08-21         |
 
 ---
 
@@ -94,13 +94,14 @@ The registry reflects documents that actually exist within the current Documenta
 
 | ID      | Document      | Version | Status | Classification |
 | ------- | ------------- | ------- | ------ | -------------- |
-| MB-200   | Design System | 0.1.1   | Draft  | Specification  |
-| MB-201 | Visual Identity Foundation | 0.1.1 | Draft | Specification |
+| MB-200              | Design System                  | 0.1.2   | Draft    | Specification   |
+| MB-201              | Visual Identity Foundation     | 0.1.2   | Draft    | Specification   |
 | MB-STD-007 | Symbol Design Principles | 0.1.0 | Draft | Standard |
 | MB-ADR-001 | Symbol Independent From Name | 0.1.0 | Draft | ADR |
 | MB-DEC-001 | Brandmark Architecture | 1.0.0 | Approved | Design Decision |
 | MB-DEC-002 | Arabic Typography Architecture | 1.0.0 | Approved | Design Decision |
-| MB-DEC-INDEX | Design Decisions Index | 0.1.2 | Draft | Registry |
+| MB-DEC-003          | Latin Wordmark and Horizontal Lockup Architecture | 1.0.0 | Approved | Design Decision |
+| MB-DEC-INDEX        | Design Decisions Index         | 0.1.3   | Draft    | Registry        |
 | MB-DESIGN-STRUCTURE | Design System Structure | 0.1.0 | Draft | Guideline |
 
 ---

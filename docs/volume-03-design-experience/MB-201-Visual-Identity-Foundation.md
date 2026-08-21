@@ -11,13 +11,13 @@
 | Document ID    | MB-201                    |
 | Volume         | III — Design & Experience |
 | Title          | Visual Identity Foundation |
-| Version        | 0.1.1                     |
+| Version        | 0.1.2                     |
 | Status         | Draft                     |
 | Classification | Specification             |
 | Language       | English                   |
 | Owner          | Design & Experience       |
 | Created        | 2026-08-20                |
-| Last Updated   | 2026-08-20                |
+| Last Updated   | 2026-08-21                |
 
 ---
 
@@ -152,26 +152,21 @@ This follows MB-ADR-001.
 
 The Madina Barakasi wordmark is a separate typographic identity element.
 
-The following direction has passed human review for further specification, but is not yet a canonical typography approval:
+MB-DEC-003 establishes the canonical Latin wordmark architecture.
 
-- **Source Sans 3 static 500** is the selected wordmark direction.
-- **Neutral tracking** is the selected wordmark baseline direction.
-- Source Sans 3 static weights **400–600** passed reviewed Latin, Cyrillic, Uzbek Latin, numeral, punctuation, and institutional-use specimens.
+The canonical Madina Barakasi Latin wordmark uses:
 
-Final normalized wordmark typography remains pending canonical approval.
+- **Source Sans 3 static 500**
+- **0 em tracking**
+- Native OpenType spacing and kerning
 
-The future wordmark should support:
+The verified reviewed static asset is `SourceSans3-500.ttf`.
 
-- Clear reading
-- Professional presentation
-- Multilingual compatibility
-- Stable reproduction
-- Appropriate visual relationship with B2.1-S1
-- Long-term licensing and technical availability
+Source Sans 3 is canonical specifically for the Latin wordmark role. This approval does not establish Source Sans 3 as the universal typeface for all Madina Barakasi platform or operational interface roles.
 
-The wordmark must not alter the geometry of the approved brandmark.
+The wordmark remains a separate typographic identity element and must not alter or become a structural dependency of the approved brandmark.
 
-Specific font-family, tracking, lockup, licensing, and multilingual-pairing decisions require final review before becoming canonical.
+Broader brand/institutional typography, CRM / ERP operational typography, production asset distribution, and application implementation remain separate work.
 
 ---
 
@@ -193,25 +188,31 @@ Lockups must preserve:
 - Wordmark readability
 - Optical balance
 
-The following lockup direction has passed human review for further specification:
+MB-DEC-003 establishes **L2 / Balanced Optical** as the canonical horizontal Latin lockup architecture.
 
-- **L2 / Balanced Optical**
-- Source Sans 3 static 500
-- Neutral tracking baseline
-- Black-on-white and white-on-black presentation passed review
+Let:
 
-The reviewed validation artifact used the following reference values:
+**S = symbol height**
 
-- Symbol: `180 px`
-- Wordmark: `46 px`
-- Symbol-to-wordmark gap: `48 px`
-- Wordmark optical raise: `2 px`
+The approved normalized horizontal relationships are:
 
-These are validation/reference values only. They are not universal canonical lockup values or Design System tokens. Final normalized lockup geometry still requires approval.
+- Wordmark size = **0.2556 S**
+- Symbol-to-wordmark gap = **0.2667 S**
+- Wordmark optical raise = **0.0111 S**
 
-For the Canonical-symbol lockup test, `24 px` was the reliable reviewed control. Canonical-symbol views at `20 px` and `16 px` were diagnostic only. This does not alter the approved symbol-size architecture.
+The optical raise is specific to the horizontal lockup and is not a general Design System token.
 
-No lockup proportions are canonical until separately normalized and approved.
+The practical minimum for the complete horizontal Latin lockup is:
+
+**S = 48 px**
+
+At `S = 40 px`, the complete horizontal lockup remains diagnostic only.
+
+Below the practical horizontal-lockup minimum, symbol-only presentation should be preferred according to MB-DEC-001.
+
+The symbol-only size architecture defined by MB-DEC-001 remains unchanged.
+
+Vertical and Arabic / bilingual lockup geometry remain unresolved.
 
 ---
 
@@ -455,7 +456,6 @@ Implementation must not silently redefine the canonical Visual Identity.
 
 The following areas remain intentionally unresolved before final canonical approval:
 
-- Canonical wordmark typography and normalized wordmark specification
 - Final brand and institutional typography specification
 - Final CRM / ERP interface typography specification
 - Production Arabic font asset manifest and distribution specification
@@ -463,8 +463,6 @@ The following areas remain intentionally unresolved before final canonical appro
 - Arabic typography implementation specification
 - Canonical brand color palette
 - Final clear-space rule
-- Final symbol + wordmark proportions
-- Horizontal lockup specification
 - Vertical lockup specification
 - Multilingual lockup specification
 - Background color rules beyond monochrome polarity

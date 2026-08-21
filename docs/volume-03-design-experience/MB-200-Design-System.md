@@ -1,4 +1,4 @@
-﻿# MB-200 — Design System
+# MB-200 — Design System
 
 > **The design system of the Madina Barakasi Platform**
 
@@ -11,13 +11,13 @@
 | Document ID    | MB-200                    |
 | Volume         | III — Design & Experience |
 | Title          | Design System             |
-| Version        | 0.1.1                     |
+| Version        | 0.1.2                     |
 | Status         | Draft                     |
 | Classification | Specification             |
 | Language       | English                   |
 | Owner          | Design & Experience       |
 | Created        | 2026-08-08                |
-| Last Updated   | 2026-08-20                |
+| Last Updated   | 2026-08-21                |
 
 ---
 
@@ -147,7 +147,11 @@ Specific font selections and token values require explicit Design System decisio
 
 MB-DEC-002 governs the canonical Arabic typography family architecture: IBM Plex Sans Arabic is the canonical Arabic typography foundation, and Noto Sans Arabic is its controlled fallback. The controlled fallback architecture is IBM Plex Sans Arabic → Noto Sans Arabic → sans-serif.
 
-Exact reusable typography tokens remain subject to further Design System specification work. This decision does not automatically canonicalize Source Sans 3 or Inter metrics, nor application implementation values.
+MB-DEC-003 governs the canonical Latin wordmark and horizontal Latin lockup architecture. Source Sans 3 static 500 is canonical specifically for the Madina Barakasi Latin wordmark role, using `0 em` tracking with native OpenType spacing and kerning.
+
+MB-DEC-003 does not establish Source Sans 3 as the universal platform or operational interface typeface, and it does not canonicalize Inter operational metrics.
+
+Exact reusable typography tokens and application implementation values remain subject to further Design System specification work.
 
 ---
 

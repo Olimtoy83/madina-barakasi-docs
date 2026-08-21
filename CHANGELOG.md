@@ -1,3 +1,11 @@
+## 2026-08-21
+
+### Added
+
+- Added and approved MB-DEC-003 — Latin Wordmark and Horizontal Lockup Architecture v1.0.0.
+- Established Source Sans 3 static 500 with `0 em` tracking and native OpenType spacing and kerning as the canonical Latin wordmark.
+- Established L2 / Balanced Optical as the canonical horizontal Latin lockup architecture with normalized relationships and a practical minimum of `S = 48 px`.
+- Synchronized Latin wordmark and horizontal lockup governance across MB-201, MB-200, the Design Decisions Index, and the Documentation Registry.
 ## 2026-08-20
 
 ### Added
