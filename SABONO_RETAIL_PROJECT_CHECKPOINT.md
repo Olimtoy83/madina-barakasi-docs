@@ -10,7 +10,7 @@
 | --- | --- |
 | Document ID | MB-SABONO-RETAIL-CHK-001 |
 | Title | SABONO Retail Canonical Project Checkpoint |
-| Version | 0.1.4 |
+| Version | 0.1.5 |
 | Status | Draft |
 | Owner | Governance |
 | Classification | Registry |
@@ -92,7 +92,8 @@ Pilot 0 does not automatically replace GBS, ARCA/fiscal operation, tax/accountin
 | MADINA RETAIL — PILOT 0 ARCHITECTURE & SCOPE | **COMPLETED ANALYSIS / AUDIT** | Completed as a read-only proposal. It is **not approved architecture**. |
 | PILOT 0 ARCHITECTURE REVIEW / CUT-LINE DECISION | **COMPLETED** | User approved the final P0/P1/Deferred cut-line for Technical Design. |
 | PILOT 0 TECHNICAL DESIGN SPECIFICATION | **COMPLETED** | Recorded approved future implementation direction and remaining Technical Design open items; implementation planning has not started. |
-| PILOT 0 IMPLEMENTATION PLANNING | **COMPLETED** | Accepted canonical plan records separately authorized stages, Sale completion safety boundary, and the limited Offline blocker; implementation has not started. |
+| PILOT 0 IMPLEMENTATION PLANNING | **COMPLETED** | Accepted canonical plan records separately authorized stages, Sale completion safety boundary, and the limited Offline blocker; it did not itself start implementation. |
+| Stage 1 — Retail boundary foundation | **COMPLETED / STAGE 1 PASS** | Verified at `b62ad74503c4d3fa32509807db41d8223b6f6138`; established generic composition boundaries only. |
 
 The Technical Fit-Gap identified these major gaps: multi-location stock; split payments; offline POS; product/import requirements; supplier invoice/payment lifecycle; discount/promotion/loyalty; and reliable COGS/profit semantics.
 
@@ -218,6 +219,14 @@ The following facts are evidence for that inspected HEAD only; they are not eter
 - Reporting used `financialBalance`, not an unsupported claim of profit.
 - No current Barcode, Location, Transfer, Return/Exchange, Loyalty, Promotion, Offline Sync, ARCA adapter, or Landed Cost domains were found in that inspection.
 
+**VERIFIED REPOSITORY FACT — `madina-platform` commit `b62ad74503c4d3fa32509807db41d8223b6f6138` — `feat(retail): add generic retail module boundary`**
+
+Stage 1 — Retail boundary foundation is completed with acceptance verdict **STAGE 1 PASS**. It established a new independent `@madina/retail` package, empty Retail namespaces in `@madina/api` and `@madina/database`, and an empty server composition boundary at `/api/v1/retail`. The route boundary returns `404` because no Retail endpoint exists. `@madina/retail` does not depend on `@madina/core`, and `apps/crm` does not depend on `@madina/retail`.
+
+Stage 1 did not create Retail Product, Product Barcode, Location, Retail capability/location grants, Inventory Balance, Retail Stock Movement, Opening Count, Goods Receipt, Transfer, Sale, Sale Item, Payment Allocation, Return, Offline POS, Retail reporting, `apps/retail`, POS UI, Retail migrations, Retail database tables, Retail business mutations, or SABONO data/configuration. CRM behavior and schema remained unchanged.
+
+Verified validation evidence: Retail build and typecheck passed; database build passed and tests passed **71/71**; server build passed and tests passed **112/112**; CRM tests passed **72/72** and production build passed; full repository tests and build passed; `git diff --check` passed.
+
 # 8. Proposed Architecture — Not Approved
 
 **PROPOSED ARCHITECTURE**
@@ -294,7 +303,8 @@ Madina Platform
 
 - Madina CRM remains independently usable.
 - Generic Retail capability must not become SABONO-specific.
-- Future physical Retail direction: `apps/retail`, `packages/retail`, Retail API contracts, and Retail database repositories/migrations under the existing shared infrastructure.
+- Implemented Stage 1 composition boundary: `packages/retail`, Retail namespace in `@madina/api`, Retail namespace in `@madina/database`, and Retail server composition under `/api/v1/retail`. These boundaries are not evidence that a Retail business capability exists.
+- Future physical Retail direction may add `apps/retail`, Retail API contracts, and Retail database repositories/migrations only through separately authorized stages.
 - SABONO is a configuration/business implementation over generic Madina Retail; no SABONO-specific P0 domain package is required.
 - Retail does not depend on the current CRM `@madina/core` aggregate, and CRM does not depend on Retail or SABONO.
 - `@madina/ui` remains reusable visual primitives.
@@ -341,7 +351,7 @@ Stage 2 is required before protected Retail mutations. Stage 13 is hardening/ver
 
 # 9.2 Canonical Implementation Plan — Future Work Only
 
-**ACCEPTED IMPLEMENTATION PLAN / NO STAGE STARTED**
+**ACCEPTED IMPLEMENTATION PLAN / STAGE 1 SUBSEQUENTLY COMPLETED**
 
 The canonical future sequence is:
 
@@ -395,7 +405,7 @@ Stage 11 remains blocked by the Offline physical-goods/accepted-money rejected-s
 
 Stage 14 tooling may prepare import dry run, validation, quarantine, content hash, repeatability, bootstrap validation/reporting, and backup/restore tooling through separately authorized stages. Actual SABONO pilot bootstrap requires all required non-offline P0 operational/security stages completed and accepted, Stage 12 reporting/reconciliation, Stage 13 permission hardening, selected pilot Store/register/users, Location grants, SABONO currency/exponent, backup/restore rehearsal, catalog and opening-balance sign-off, and explicit authorization to load actual pilot data. Actual bootstrap does not mean Live Pilot ready. Because Offline is required P0 capability, final Live Pilot readiness also requires Stage 11 blocker resolution and Offline validation.
 
-**First recommended implementation stage:** **Stage 1 — Retail boundary foundation**. Its future objective is generic boundary only: `@madina/retail`, Retail API namespace, Retail database/repository namespace, Retail server route registration point, and dependency-boundary tests. It must not create Product, Barcode, Location, stock, Sale, Payment, migration, POS UI, or Retail business mutation.
+**Next recommended implementation stage:** **Stage 2 — Location + early Retail RBAC foundation** — **NOT STARTED** and requires separate explicit implementation authorization. It remains responsible for the mandatory authorization/location foundation before protected Retail mutations.
 
 # 10. Current Open Decisions and Pilot Blockers
 
@@ -433,21 +443,24 @@ Stage 14 tooling may prepare import dry run, validation, quarantine, content has
 | Business Requirements / Fit-Gap foundation | Sufficient for architecture |
 | Technical Fit-Gap | Completed |
 | Storefront Readiness Audit | Completed |
-| Pilot 0 Architecture & Scope report | Completed as read-only proposal; not yet approved |
+| Pilot 0 Architecture & Scope report | **COMPLETED AS READ-ONLY PROPOSAL** |
 | Pilot 0 Architecture Review / Cut-Line Decision | Completed |
-| Cut-line | Approved by user for Technical Design |
+| Cut-line | **APPROVED FOR TECHNICAL DESIGN** |
 | Pilot 0 Technical Design | Completed |
 | Technical Design verdict | **READY WITH TECHNICAL OPEN ITEMS** |
 | Pilot 0 Implementation Planning | Completed |
 | Implementation Plan verdict | **IMPLEMENTATION PLAN READY WITH BLOCKED OFFLINE STAGE** |
-| Pilot 0 implementation | Not started |
-| Live Pilot | Not started |
+| Pilot 0 Implementation | **IN PROGRESS** |
+| Stage 1 — Retail boundary foundation | **COMPLETED / STAGE 1 PASS** |
+| Stage 2 — Location + early Retail RBAC foundation | **NOT STARTED** |
+| Stage 11 — Offline POS sync | **BLOCKED** pending approved rejected-sync operating policy |
+| Live Pilot | **NOT STARTED** |
 
 The original architecture-report verdict was **BLOCKED — BUSINESS INPUT REQUIRED**. It remains historical evidence for the initial read-only report and has been superseded for cut-line purposes by the completed user-approved review.
 
-**Next recommended implementation activity:** **Stage 1 — Retail boundary foundation** — not started; requires separate implementation authorization.
+**Next recommended implementation activity:** **Stage 2 — Location + early Retail RBAC foundation** — **NOT STARTED**; requires separate explicit implementation authorization.
 
-It may establish the generic Retail architectural boundary only when separately authorized. It does not authorize later stages, code beyond that bounded stage, migrations, commits, implementation, or live pilot automatically.
+It must establish the mandatory authorization/location foundation before protected Retail mutations. It does not authorize later stages, migrations beyond its bounded scope, implementation, or live pilot automatically.
 
 # 13. Evidence References
 
@@ -466,11 +479,13 @@ It may establish the generic Retail architectural boundary only when separately 
 ## Repository Evidence
 
 - `madina-platform` inspected at `f02641c098a71e851779d2e59c96af8c0b27cf11` during the completed read-only Pilot 0 Architecture & Scope stage.
+- `madina-platform` verified at `b62ad74503c4d3fa32509807db41d8223b6f6138` for completed Stage 1 — Retail boundary foundation.
 
 # Version History
 
 | Version | Status | Description |
 | --- | --- | --- |
+| 0.1.5 | Draft | Recorded completed Stage 1 — Retail boundary foundation with `STAGE 1 PASS`, verified implementation and validation evidence at `b62ad74503c4d3fa32509807db41d8223b6f6138`, and the Stage 2 next-stage boundary. No Retail business capability, migration, POS UI, SABONO configuration, or later stage was started. |
 | 0.1.4 | Draft | Recorded completed accepted Pilot 0 Implementation Planning, canonical stage sequence, safe Stage 8A/8B Sale boundary, access/money/bootstrap gates, and the Offline Stage 11-only blocker; no implementation stage started. |
 | 0.1.3 | Draft | Recorded completed Pilot 0 Technical Design, its `READY WITH TECHNICAL OPEN ITEMS` verdict, independent Retail/CRM boundary, P0 stock/payment/return direction, corrected authorization-first implementation sequence, and the Offline operating-policy blocker limited to Offline POS. |
 | 0.1.2 | Draft | Recorded completed Pilot 0 Architecture Review, user-approved P0/P1/Deferred cut-line, confirmed Landed Cost rules, and confirmed full receipt return P0 scope; Technical Design remains not started. |

@@ -2,6 +2,8 @@
 
 ### Changed
 
+- Updated MB-SABONO-RETAIL-CHK-001 to v0.1.5: recorded completed Stage 1 — Retail boundary foundation with `STAGE 1 PASS` at `b62ad74503c4d3fa32509807db41d8223b6f6138`, its validated generic Retail composition boundaries, and the Stage 2 next-stage boundary. No Retail business capability, migration, POS UI, SABONO configuration, or later stage was started.
+- Updated MB-PORT-REG-001 to v0.1.9 and MB-REG-001 to v1.1.11 for Stage 1 checkpoint traceability; Pilot 0 Implementation is in progress, Stage 2 is not started, Stage 11 Offline POS remains blocked, and Live Pilot remains not started.
 - Updated MB-SABONO-RETAIL-CHK-001 to v0.1.4: recorded completed accepted Pilot 0 Implementation Planning, the canonical stage sequence, safe Stage 8A/8B Sale completion boundary, access/money/bootstrap gates, and the limited Stage 11 Offline blocker. No implementation stage started.
 - Updated MB-PORT-REG-001 to v0.1.8 and MB-REG-001 to v1.1.10 for implementation-plan checkpoint traceability; code, migrations, implementation, and live pilot remain not started.
 - Updated MB-SABONO-RETAIL-CHK-001 to v0.1.3: recorded completed Pilot 0 Technical Design, `READY WITH TECHNICAL OPEN ITEMS`, the independent Retail/CRM boundary, P0 stock/payment/return design direction, authorization-first sequencing, and the Offline POS-only operating-policy blocker.

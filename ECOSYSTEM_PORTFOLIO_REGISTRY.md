@@ -10,13 +10,13 @@
 | --- | --- |
 | Document ID | MB-PORT-REG-001 |
 | Title | Ecosystem & Project Portfolio Registry |
-| Version | 0.1.8 |
+| Version | 0.1.9 |
 | Status | Draft |
 | Owner | Governance |
 | Classification | Registry |
 | Language | English |
 | Created | 2026-09-01 |
-| Last Updated | 2026-09-01 |
+| Last Updated | 2026-09-02 |
 
 ---
 
@@ -99,13 +99,13 @@ Statements derived only from planning context are marked Pending Verification. A
 | Classification | Platform domain/module |
 | Parent | Madina Platform |
 | Repository | `madina-platform` → `apps/crm` is the current technical boundary; `madina-crm` is historical only. |
-| Lifecycle | Business discovery, Technical Fit-Gap, Storefront Readiness, read-only Pilot 0 Architecture & Scope, Architecture Review / Cut-Line Decision, Technical Design, and Implementation Planning stages completed. The accepted plan records future separately authorized stages only; implementation and live pilot have not started. |
+| Lifecycle | Business discovery, Technical Fit-Gap, Storefront Readiness, read-only Pilot 0 Architecture & Scope, Architecture Review / Cut-Line Decision, Technical Design, Implementation Planning, and Stage 1 — Retail boundary foundation are completed. Pilot 0 Implementation is in progress; Live Pilot has not started. |
 | Business Status | Confirmed Retail requirements and the approved P0/P1/Deferred cut-line are recorded in MB-SABONO-RETAIL-CHK-001 (Draft). |
-| Technical Status | `madina-platform` was inspected at `f02641c098a71e851779d2e59c96af8c0b27cf11`; the checkpoint records accepted implementation planning with verdict `IMPLEMENTATION PLAN READY WITH BLOCKED OFFLINE STAGE`, without asserting implementation or live-pilot readiness. |
+| Technical Status | Stage 1 passed at `b62ad74503c4d3fa32509807db41d8223b6f6138` (`feat(retail): add generic retail module boundary`): generic `@madina/retail`, empty API/database namespaces, and empty `/api/v1/retail` composition boundary only. No Retail business capability, migration, POS UI, or SABONO configuration is asserted. Stage 11 Offline POS remains blocked. |
 | Current Canonical Checkpoint | MB-SABONO-RETAIL-CHK-001 (Draft) |
 | Accepted / Frozen Decisions | None verified |
 | Open Questions | Offline physical-goods/accepted-money rejected-sync policy blocks Stage 11 Offline POS only; exact rounding, capability/membership, offline retention, and pilot configuration parameters remain open. P1 loyalty, advanced returns, supplier/payable, Landed Cost technical design, and partner rules remain outside P0. |
-| Next Authorized Stage | Stage 1 — Retail boundary foundation, separately authorized; it does not authorize later implementation stages automatically. |
+| Next Authorized Stage | Stage 2 — Location + early Retail RBAC foundation; not started and requires separate explicit implementation authorization. |
 | Documentation References | MB-SABONO-RETAIL-CHK-001; MB-PLATFORM-CRM-CHK-001; MB-CRM-001 through MB-CRM-008; MB-100; MB-101; MB-102; MB-ENG-001; MB-SOP-001 |
 | Evidence Basis | Confirmed business requirements recorded in controlled Draft documentation; Verified repository commit/HEAD; Controlled Draft documentation |
 
@@ -213,6 +213,7 @@ This registry must remain concise. It must not store full requirements, API or s
 
 | Version | Status | Description |
 | --- | --- | --- |
+| 0.1.9 | Draft | Recorded verified Stage 1 Retail boundary completion at `b62ad74503c4d3fa32509807db41d8223b6f6138`, Pilot 0 Implementation in progress, Stage 2 not started, and the unchanged Stage 11-only Offline blocker without asserting Retail business capability or Live Pilot readiness. |
 | 0.1.4 | Draft | Updated SADEED AUTO with verified bounded vehicle-domain evidence and retained pending-verification boundaries. |
 | 0.1.5 | Draft | Added the controlled SABONO Retail checkpoint, completed-stage record, evidence classifications, and architecture-review boundary without approving Pilot 0 architecture or implementation. |
 | 0.1.6 | Draft | Recorded the completed user-approved SABONO Pilot 0 cut-line and Technical Design boundary without recording implementation, live-pilot, or production approval. |
