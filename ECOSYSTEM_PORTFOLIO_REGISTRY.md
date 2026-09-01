@@ -10,7 +10,7 @@
 | --- | --- |
 | Document ID | MB-PORT-REG-001 |
 | Title | Ecosystem & Project Portfolio Registry |
-| Version | 0.1.7 |
+| Version | 0.1.8 |
 | Status | Draft |
 | Owner | Governance |
 | Classification | Registry |
@@ -99,13 +99,13 @@ Statements derived only from planning context are marked Pending Verification. A
 | Classification | Platform domain/module |
 | Parent | Madina Platform |
 | Repository | `madina-platform` → `apps/crm` is the current technical boundary; `madina-crm` is historical only. |
-| Lifecycle | Business discovery, Technical Fit-Gap, Storefront Readiness, read-only Pilot 0 Architecture & Scope, Architecture Review / Cut-Line Decision, and Pilot 0 Technical Design stages completed. Technical Design is recorded as a future implementation direction only; implementation planning, implementation, and live pilot have not started. |
+| Lifecycle | Business discovery, Technical Fit-Gap, Storefront Readiness, read-only Pilot 0 Architecture & Scope, Architecture Review / Cut-Line Decision, Technical Design, and Implementation Planning stages completed. The accepted plan records future separately authorized stages only; implementation and live pilot have not started. |
 | Business Status | Confirmed Retail requirements and the approved P0/P1/Deferred cut-line are recorded in MB-SABONO-RETAIL-CHK-001 (Draft). |
-| Technical Status | `madina-platform` was inspected at `f02641c098a71e851779d2e59c96af8c0b27cf11`; the checkpoint records the completed Technical Design with verdict `READY WITH TECHNICAL OPEN ITEMS`, without asserting implementation or live-pilot readiness. |
+| Technical Status | `madina-platform` was inspected at `f02641c098a71e851779d2e59c96af8c0b27cf11`; the checkpoint records accepted implementation planning with verdict `IMPLEMENTATION PLAN READY WITH BLOCKED OFFLINE STAGE`, without asserting implementation or live-pilot readiness. |
 | Current Canonical Checkpoint | MB-SABONO-RETAIL-CHK-001 (Draft) |
 | Accepted / Frozen Decisions | None verified |
-| Open Questions | Offline physical-goods/accepted-money rejected-sync policy blocks Offline POS implementation only; exact rounding, capability/membership, offline retention, and pilot configuration parameters remain open. P1 loyalty, advanced returns, supplier/payable, Landed Cost technical design, and partner rules remain outside P0. |
-| Next Authorized Stage | Pilot 0 Implementation Planning — no code until separately authorized; it does not authorize implementation automatically. |
+| Open Questions | Offline physical-goods/accepted-money rejected-sync policy blocks Stage 11 Offline POS only; exact rounding, capability/membership, offline retention, and pilot configuration parameters remain open. P1 loyalty, advanced returns, supplier/payable, Landed Cost technical design, and partner rules remain outside P0. |
+| Next Authorized Stage | Stage 1 — Retail boundary foundation, separately authorized; it does not authorize later implementation stages automatically. |
 | Documentation References | MB-SABONO-RETAIL-CHK-001; MB-PLATFORM-CRM-CHK-001; MB-CRM-001 through MB-CRM-008; MB-100; MB-101; MB-102; MB-ENG-001; MB-SOP-001 |
 | Evidence Basis | Confirmed business requirements recorded in controlled Draft documentation; Verified repository commit/HEAD; Controlled Draft documentation |
 
@@ -217,6 +217,7 @@ This registry must remain concise. It must not store full requirements, API or s
 | 0.1.5 | Draft | Added the controlled SABONO Retail checkpoint, completed-stage record, evidence classifications, and architecture-review boundary without approving Pilot 0 architecture or implementation. |
 | 0.1.6 | Draft | Recorded the completed user-approved SABONO Pilot 0 cut-line and Technical Design boundary without recording implementation, live-pilot, or production approval. |
 | 0.1.7 | Draft | Recorded completed SABONO Pilot 0 Technical Design, the limited Offline POS blocker, and the next implementation-planning boundary without recording implementation or live-pilot approval. |
+| 0.1.8 | Draft | Recorded completed SABONO Pilot 0 Implementation Planning, the first separately authorized Retail boundary stage, and the Stage 11-only Offline blocker without recording implementation or live-pilot approval. |
 | 0.1.3 | Draft | Updated Madina Arabic with verified static frontend capabilities and retained pending-verification boundaries. |
 | 0.1.2 | Draft | Recorded the Madina Platform / CRM evidence-based technical checkpoint and pending-verification boundary. |
 | 0.1.1 | Draft | Synchronized CRM repository-boundary documentation and historical repository traceability. |

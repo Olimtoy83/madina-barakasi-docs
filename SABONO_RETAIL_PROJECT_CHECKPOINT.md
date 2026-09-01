@@ -10,7 +10,7 @@
 | --- | --- |
 | Document ID | MB-SABONO-RETAIL-CHK-001 |
 | Title | SABONO Retail Canonical Project Checkpoint |
-| Version | 0.1.3 |
+| Version | 0.1.4 |
 | Status | Draft |
 | Owner | Governance |
 | Classification | Registry |
@@ -92,6 +92,7 @@ Pilot 0 does not automatically replace GBS, ARCA/fiscal operation, tax/accountin
 | MADINA RETAIL — PILOT 0 ARCHITECTURE & SCOPE | **COMPLETED ANALYSIS / AUDIT** | Completed as a read-only proposal. It is **not approved architecture**. |
 | PILOT 0 ARCHITECTURE REVIEW / CUT-LINE DECISION | **COMPLETED** | User approved the final P0/P1/Deferred cut-line for Technical Design. |
 | PILOT 0 TECHNICAL DESIGN SPECIFICATION | **COMPLETED** | Recorded approved future implementation direction and remaining Technical Design open items; implementation planning has not started. |
+| PILOT 0 IMPLEMENTATION PLANNING | **COMPLETED** | Accepted canonical plan records separately authorized stages, Sale completion safety boundary, and the limited Offline blocker; implementation has not started. |
 
 The Technical Fit-Gap identified these major gaps: multi-location stock; split payments; offline POS; product/import requirements; supplier invoice/payment lifecycle; discount/promotion/loyalty; and reliable COGS/profit semantics.
 
@@ -338,6 +339,64 @@ This blocks Offline POS implementation and Offline live-pilot readiness only. It
 
 Stage 2 is required before protected Retail mutations. Stage 13 is hardening/verification and does not replace the early authorization foundation. Stage 11 is blocked by the Offline operating-policy decision above.
 
+# 9.2 Canonical Implementation Plan — Future Work Only
+
+**ACCEPTED IMPLEMENTATION PLAN / NO STAGE STARTED**
+
+The canonical future sequence is:
+
+1. Retail boundary foundation;
+2. Location + early Retail RBAC foundation;
+3. Retail Product / Barcode / import;
+4. Inventory ledger foundation;
+5. Opening counts / reconciliation evidence;
+6. Goods Receipt;
+7. Transfer;
+8A. Sale domain / draft / idempotency foundation;
+8B. Money / Payment Allocation / atomic Sale completion;
+8C. Retail POS UI;
+9. Authorized item discount;
+10. Full completed-Sale Return;
+11. Offline POS sync;
+12. Retail reporting / reconciliation dashboard;
+13. Complete P0 permission hardening;
+14. Pilot import / bootstrap; and
+15. Pilot readiness verification.
+
+Each is a separately authorized implementation boundary. Recording this plan does not start, authorize, or complete any implementation stage.
+
+## Stage 8 Sale Safety Boundary
+
+Stage 8A is limited to Sale/SaleItem domain foundation, draft lifecycle, validation/contracts, and operation ID/payload-hash/idempotency primitives. It must not create a completed Sale, Sale stock decrement, completed-Sale business effect, completed-Sale audit event, or payment-pending completed Sale. At the end of 8A, there is no supported completed P0 Sale.
+
+Stage 8B is the first stage permitted to create a completed Retail Sale. Its invariant is `SUM(PaymentAllocation.amount) == Sale.payableTotal`.
+
+The completed-Sale transaction must atomically cover authorization/location validation; Sale/Product/item validation; deterministic money calculation; Payment Allocation and exact-total validation; guarded Store stock decrement; immutable Sale StockMovement; completed Sale/SaleItems/Payment Allocations; idempotency receipt; and audit evidence. Any failure rolls back the complete business effect.
+
+Stage 8A does not require a persistent Retail Sale migration. Stage 8B provisionally introduces combined additive migration `037_retail_sales_payment_completion_v1` for `retail_sales`, `retail_sale_items`, `retail_payment_allocations`, and `retail_operation_receipts`. Subsequent provisional direction is `038_retail_sale_discounts_v1`, `039_retail_returns_v1`, and `040_retail_reporting_indexes_v1`. Migration numbering must be rechecked against the actual registry immediately before implementation.
+
+## Access, Money, Offline, and Bootstrap Gates
+
+Existing global Auth roles remain `admin`, `manager`, `operator`, and `viewer`. The approved access model is:
+
+```text
+Authenticated User
+→ existing Auth/session/base role
+→ Retail capabilities
+→ Retail Location grants
+→ server-side Retail command authorization
+```
+
+Cashier/Warehouse/Retail Manager/Owner behavior is expressed through Retail capability profiles/grants unless future implementation evidence requires a separately approved change. CRM retains current Auth behavior and does not depend on Retail grants.
+
+Generic Stage 8B money support uses `currency_code`, configurable exponent, integer minor units, and deterministic rounding. The exact deterministic rounding rule must be selected and tested before 8B can complete a Sale. SABONO pilot currency/exponent is configuration required before actual SABONO bootstrap/payment configuration, financial acceptance, and live-pilot use; it does not block generic Retail foundation work.
+
+Stage 11 remains blocked by the Offline physical-goods/accepted-money rejected-sync operating-policy decision. It blocks Stage 11 business-effect implementation and Offline live-pilot readiness only; it does not block Stages 1–10, Stage 12 without Offline metrics, Stage 13, or allowed Stage 14 tooling.
+
+Stage 14 tooling may prepare import dry run, validation, quarantine, content hash, repeatability, bootstrap validation/reporting, and backup/restore tooling through separately authorized stages. Actual SABONO pilot bootstrap requires all required non-offline P0 operational/security stages completed and accepted, Stage 12 reporting/reconciliation, Stage 13 permission hardening, selected pilot Store/register/users, Location grants, SABONO currency/exponent, backup/restore rehearsal, catalog and opening-balance sign-off, and explicit authorization to load actual pilot data. Actual bootstrap does not mean Live Pilot ready. Because Offline is required P0 capability, final Live Pilot readiness also requires Stage 11 blocker resolution and Offline validation.
+
+**First recommended implementation stage:** **Stage 1 — Retail boundary foundation**. Its future objective is generic boundary only: `@madina/retail`, Retail API namespace, Retail database/repository namespace, Retail server route registration point, and dependency-boundary tests. It must not create Product, Barcode, Location, stock, Sale, Payment, migration, POS UI, or Retail business mutation.
+
 # 10. Current Open Decisions and Pilot Blockers
 
 | Item | Classification | Required by |
@@ -379,15 +438,16 @@ Stage 2 is required before protected Retail mutations. Stage 13 is hardening/ver
 | Cut-line | Approved by user for Technical Design |
 | Pilot 0 Technical Design | Completed |
 | Technical Design verdict | **READY WITH TECHNICAL OPEN ITEMS** |
-| Pilot 0 Implementation Planning | Not started |
+| Pilot 0 Implementation Planning | Completed |
+| Implementation Plan verdict | **IMPLEMENTATION PLAN READY WITH BLOCKED OFFLINE STAGE** |
 | Pilot 0 implementation | Not started |
 | Live Pilot | Not started |
 
 The original architecture-report verdict was **BLOCKED — BUSINESS INPUT REQUIRED**. It remains historical evidence for the initial read-only report and has been superseded for cut-line purposes by the completed user-approved review.
 
-**Next authorized activity:** **PILOT 0 IMPLEMENTATION PLANNING** — no code until separately authorized.
+**Next recommended implementation activity:** **Stage 1 — Retail boundary foundation** — not started; requires separate implementation authorization.
 
-It may sequence the approved future implementation direction, but it does not authorize code, migrations, commits, implementation, or live pilot automatically.
+It may establish the generic Retail architectural boundary only when separately authorized. It does not authorize later stages, code beyond that bounded stage, migrations, commits, implementation, or live pilot automatically.
 
 # 13. Evidence References
 
@@ -411,6 +471,7 @@ It may sequence the approved future implementation direction, but it does not au
 
 | Version | Status | Description |
 | --- | --- | --- |
+| 0.1.4 | Draft | Recorded completed accepted Pilot 0 Implementation Planning, canonical stage sequence, safe Stage 8A/8B Sale boundary, access/money/bootstrap gates, and the Offline Stage 11-only blocker; no implementation stage started. |
 | 0.1.3 | Draft | Recorded completed Pilot 0 Technical Design, its `READY WITH TECHNICAL OPEN ITEMS` verdict, independent Retail/CRM boundary, P0 stock/payment/return direction, corrected authorization-first implementation sequence, and the Offline operating-policy blocker limited to Offline POS. |
 | 0.1.2 | Draft | Recorded completed Pilot 0 Architecture Review, user-approved P0/P1/Deferred cut-line, confirmed Landed Cost rules, and confirmed full receipt return P0 scope; Technical Design remains not started. |
 | 0.1.1 | Draft | Corrected barcode and piece-sale business evidence; moved the unconfirmed `1 BOX = 6 PCS` model from Confirmed to proposed/deferred; retained Landed Cost/COGS as P1 open decisions with required business questions. |

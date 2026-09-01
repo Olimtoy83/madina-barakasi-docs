@@ -2,6 +2,8 @@
 
 ### Changed
 
+- Updated MB-SABONO-RETAIL-CHK-001 to v0.1.4: recorded completed accepted Pilot 0 Implementation Planning, the canonical stage sequence, safe Stage 8A/8B Sale completion boundary, access/money/bootstrap gates, and the limited Stage 11 Offline blocker. No implementation stage started.
+- Updated MB-PORT-REG-001 to v0.1.8 and MB-REG-001 to v1.1.10 for implementation-plan checkpoint traceability; code, migrations, implementation, and live pilot remain not started.
 - Updated MB-SABONO-RETAIL-CHK-001 to v0.1.3: recorded completed Pilot 0 Technical Design, `READY WITH TECHNICAL OPEN ITEMS`, the independent Retail/CRM boundary, P0 stock/payment/return design direction, authorization-first sequencing, and the Offline POS-only operating-policy blocker.
 - Updated MB-PORT-REG-001 to v0.1.7 and MB-REG-001 to v1.1.9 for controlled Technical Design checkpoint traceability; implementation planning, code, migrations, implementation, and live pilot remain not started.
 - Updated MB-SABONO-RETAIL-CHK-001 to v0.1.2: recorded the completed user-approved Pilot 0 Architecture Review / Cut-Line Decision, P0/P1/Deferred scope, confirmed Landed Cost rules, and full receipt return P0 scope. Technical Design, implementation, and live pilot remain not started.
