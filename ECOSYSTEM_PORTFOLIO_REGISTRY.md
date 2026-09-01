@@ -10,7 +10,7 @@
 | --- | --- |
 | Document ID | MB-PORT-REG-001 |
 | Title | Ecosystem & Project Portfolio Registry |
-| Version | 0.1.3 |
+| Version | 0.1.4 |
 | Status | Draft |
 | Owner | Governance |
 | Classification | Registry |
@@ -117,16 +117,16 @@ Statements derived only from planning context are marked Pending Verification. A
 | Former working / technical identifier | Korea Auto |
 | Classification | Platform domain/module |
 | Parent | Madina Platform |
-| Repository | Pending Verification |
-| Lifecycle | Pending Verification |
+| Repository | `madina-platform` → bounded `korea-auto` vehicle domain. |
+| Lifecycle | Verified implementation foundation; governed business lifecycle status remains pending verification. |
 | Business Status | Pending Verification |
-| Technical Status | Pending Verification |
-| Current Canonical Checkpoint | Pending Verification |
+| Technical Status | Verified `@madina/core` vehicle domain; SQLite `korea_auto_vehicles` migration/repository; transactional audit events; Fastify v1 vehicle read/list/create/update routes; API contracts; RBAC; trusted-origin protection; validation; and bounded keyset listing. Implemented scope is limited to vehicle records with make, model, year, `available`/`inactive` status, and read/list/create/update operations. |
+| Current Canonical Checkpoint | `1b22c1579f44f9296b284f0247f8374269cdece6` — `feat(korea-auto): add vehicle domain foundation` |
 | Accepted / Frozen Decisions | None verified |
-| Open Questions | Verify product/domain ownership, reported stage evidence, and implementation status. Historical technical identifiers do not create a separate portfolio item. |
-| Next Authorized Stage | Controlled architecture evidence is required before an implementation stage is recorded. |
-| Documentation References | None verified in this Documentation Library |
-| Evidence Basis | Pending Verification |
+| Open Questions | Verify business lifecycle/status, KSA operational scope, sourcing/import, sales channels, complete inventory/vehicle lifecycle, pricing/costs, customers/leads/sales, partner/investor terms, capital/profit allocation, accounting/reporting, Sharia constraints/approval, Telegram integration, SADEED-specific CRM UI, deployment/production operation, monitoring, operational ownership, roadmap, and formal acceptance/freeze. Korea Auto / `korea-auto` remain historical/technical identifiers and do not create a separate portfolio item. |
+| Next Authorized Stage | Controlled business and governance evidence review is required before a business, product, deployment, or acceptance stage is recorded. |
+| Documentation References | External repository `madina-platform` — `korea-auto` technical domain. The Auto Korea KSA partner presentation is retained only as historical/supporting, non-canonical evidence. |
+| Evidence Basis | Verified repository commit/HEAD; Pending Verification for business and governance status |
 
 ## 3.5 Madina Arabic
 
@@ -213,6 +213,7 @@ This registry must remain concise. It must not store full requirements, API or s
 
 | Version | Status | Description |
 | --- | --- | --- |
+| 0.1.4 | Draft | Updated SADEED AUTO with verified bounded vehicle-domain evidence and retained pending-verification boundaries. |
 | 0.1.3 | Draft | Updated Madina Arabic with verified static frontend capabilities and retained pending-verification boundaries. |
 | 0.1.2 | Draft | Recorded the Madina Platform / CRM evidence-based technical checkpoint and pending-verification boundary. |
 | 0.1.1 | Draft | Synchronized CRM repository-boundary documentation and historical repository traceability. |

@@ -2,6 +2,7 @@
 
 ### Changed
 
+- Updated the SADEED AUTO portfolio entry with verified bounded vehicle-domain evidence and retained pending-verification boundaries.
 - Updated the Madina Arabic portfolio entry with verified static frontend capabilities and retained pending-verification boundaries.
 - Corrected the CRM repository boundary: `madina-platform` is the active monorepo and the CRM application is implemented at `apps/crm`.
 - Retained `madina-crm` as a historical repository reference without asserting its current operating status.
