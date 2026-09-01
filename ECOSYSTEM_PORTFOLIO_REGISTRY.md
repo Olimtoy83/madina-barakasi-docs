@@ -10,7 +10,7 @@
 | --- | --- |
 | Document ID | MB-PORT-REG-001 |
 | Title | Ecosystem & Project Portfolio Registry |
-| Version | 0.1.4 |
+| Version | 0.1.5 |
 | Status | Draft |
 | Owner | Governance |
 | Classification | Registry |
@@ -98,16 +98,16 @@ Statements derived only from planning context are marked Pending Verification. A
 | Portfolio Item | SABONO Retail |
 | Classification | Platform domain/module |
 | Parent | Madina Platform |
-| Repository | Pending Verification |
-| Lifecycle | Pending Verification |
-| Business Status | Pending Verification |
-| Technical Status | Pending Verification |
-| Current Canonical Checkpoint | Pending Verification |
+| Repository | `madina-platform` → `apps/crm` is the current technical boundary; `madina-crm` is historical only. |
+| Lifecycle | Business discovery, Technical Fit-Gap, Storefront Readiness, and read-only Pilot 0 Architecture & Scope stages completed; architecture is not approved and implementation has not started. |
+| Business Status | Confirmed retail requirements are recorded in MB-SABONO-RETAIL-CHK-001 (Draft); final Pilot 0 cut line remains open. |
+| Technical Status | `madina-platform` was inspected at `f02641c098a71e851779d2e59c96af8c0b27cf11`; the checkpoint records time-bounded verified foundations and Retail gaps without asserting current HEAD or implementation readiness. |
+| Current Canonical Checkpoint | MB-SABONO-RETAIL-CHK-001 (Draft) |
 | Accepted / Frozen Decisions | None verified |
-| Open Questions | Verify business requirements, technical fit-gap evidence, ownership, and repository relationship. |
-| Next Authorized Stage | Evidence discovery and controlled architecture review required before any pilot or implementation stage is recorded. |
-| Documentation References | None verified in this Documentation Library |
-| Evidence Basis | Pending Verification |
+| Open Questions | Final Pilot 0 functional cut line; barcode source-data semantics; BOX/PCS behavior; pilot location/register and acceptance tolerances; basic product discount scope; minimum inventory scope; loyalty, return/exchange, landed-cost, partner commission, permissions, and offline conflict rules. |
+| Next Authorized Stage | Pilot 0 Architecture Review / Cut-Line Decision — no code; it does not authorize implementation automatically. |
+| Documentation References | MB-SABONO-RETAIL-CHK-001; MB-PLATFORM-CRM-CHK-001; MB-CRM-001 through MB-CRM-008; MB-100; MB-101; MB-102; MB-ENG-001; MB-SOP-001 |
+| Evidence Basis | Confirmed business requirements recorded in controlled Draft documentation; Verified repository commit/HEAD; Controlled Draft documentation |
 
 ## 3.4 SADEED AUTO | سديد أوتو
 
@@ -214,6 +214,7 @@ This registry must remain concise. It must not store full requirements, API or s
 | Version | Status | Description |
 | --- | --- | --- |
 | 0.1.4 | Draft | Updated SADEED AUTO with verified bounded vehicle-domain evidence and retained pending-verification boundaries. |
+| 0.1.5 | Draft | Added the controlled SABONO Retail checkpoint, completed-stage record, evidence classifications, and architecture-review boundary without approving Pilot 0 architecture or implementation. |
 | 0.1.3 | Draft | Updated Madina Arabic with verified static frontend capabilities and retained pending-verification boundaries. |
 | 0.1.2 | Draft | Recorded the Madina Platform / CRM evidence-based technical checkpoint and pending-verification boundary. |
 | 0.1.1 | Draft | Synchronized CRM repository-boundary documentation and historical repository traceability. |

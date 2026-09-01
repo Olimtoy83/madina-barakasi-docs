@@ -1,5 +1,15 @@
 ## 2026-09-01
 
+### Added
+
+- Added MB-SABONO-RETAIL-CHK-001 — SABONO Retail Canonical Project Checkpoint v0.1.0 (Draft).
+- Recorded confirmed business requirements, time-bounded repository facts, completed audits, proposed-but-unapproved architecture, open Pilot decisions, blockers, deferred boundaries, and the next no-code architecture review stage.
+
+### Changed
+
+- Updated MB-PORT-REG-001 with the controlled SABONO Retail checkpoint and the evidence-based architecture-review boundary; no Pilot 0 approval or implementation authorization was recorded.
+- Updated MB-REG-001 to v1.1.6 to register the new checkpoint and the current MB-PORT-REG-001 version.
+
 ### Engineering Governance
 
 - Added MB-ENG-001 — Evidence-Based Engineering Execution Protocol v0.1.0 (Draft).

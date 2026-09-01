@@ -71,6 +71,7 @@ madina-barakasi-docs/
 ├── DOCUMENT_REGISTRY.md
 ├── ECOSYSTEM_PORTFOLIO_REGISTRY.md
 ├── MADINA_PLATFORM_CRM_PROJECT_CHECKPOINT.md
+├── SABONO_RETAIL_PROJECT_CHECKPOINT.md
 ├── MASTER_INDEX.md
 └── README.md
 ```
@@ -87,6 +88,7 @@ madina-barakasi-docs/
 | ADR_REGISTRY.md | Architecture Decision Registry |
 | ECOSYSTEM_PORTFOLIO_REGISTRY.md | Ecosystem & Project Portfolio Registry |
 | MADINA_PLATFORM_CRM_PROJECT_CHECKPOINT.md | Madina Platform / CRM Canonical Project Checkpoint |
+| SABONO_RETAIL_PROJECT_CHECKPOINT.md | SABONO Retail Canonical Project Checkpoint |
 | CHANGELOG.md | Documentation Change History |
 
 ---
