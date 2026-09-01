@@ -10,7 +10,7 @@
 | --- | --- |
 | Document ID | MB-SABONO-RETAIL-CHK-001 |
 | Title | SABONO Retail Canonical Project Checkpoint |
-| Version | 0.1.5 |
+| Version | 0.1.6 |
 | Status | Draft |
 | Owner | Governance |
 | Classification | Registry |
@@ -462,7 +462,27 @@ The original architecture-report verdict was **BLOCKED — BUSINESS INPUT REQUIR
 
 It must establish the mandatory authorization/location foundation before protected Retail mutations. It does not authorize later stages, migrations beyond its bounded scope, implementation, or live pilot automatically.
 
-# 13. Evidence References
+# 13. SABONO Retail User & Operating Guide Requirement
+
+**REQUIRED PILOT DELIVERABLE — FUTURE / NOT YET CREATED**
+
+A future **SABONO Retail User & Operating Guide** is required for practical, role-oriented operating instructions for SABONO staff using Madina Retail. It must describe actual accepted system behavior, evolve with implementation, and never present planned functionality as implemented.
+
+Expected operational audiences are Cashier, Warehouse staff, Retail Manager, Owner / Chief, and Administrator. These are guide audiences only; they do not create or reinterpret global `@madina/auth` roles.
+
+After the corresponding functionality is implemented and accepted, the guide is expected to cover login and access; Retail capabilities and Location access; Product/barcode lookup; goods receipt; Location-specific stock visibility; opening stock and reconciliation; Transfers (create, dispatch, receive); POS Sale (scan/find Product, quantity, authorized item discount, Payment Allocations/split payment, completion); full completed-Sale Return; daily reconciliation; dashboard/report interpretation; common errors and safe recovery actions; actions users must not perform; and manager approval/escalation cases.
+
+User instructions are evidence-based. A workflow becomes operational documentation only after the corresponding functionality is implemented and accepted. Planned, Deferred, and Blocked capabilities must be clearly distinguished from implemented functionality; screenshots, if used, must reflect the actual accepted UI; instructions must be updated when accepted behavior materially changes; and guide language must be practical for SABONO employees. Where role or Location permissions matter, the guide must clearly state what a user may see and do.
+
+The future guide must include appropriate safety/control instructions: do not bypass Location access controls; do not correct stock through unsupported or manual database operations; do not treat CRM `Product.quantity` as authoritative Retail stock; do not invent unsupported financial adjustments; use supported workflows for completed Sale/Return operations; do not describe internal Return Payment Allocation representation as proof of external card, bank, or fiscal refund execution; and do not silently bypass blocked or rejected operations.
+
+Offline POS instructions may be added only after the Stage 11 rejected-sync operating policy is approved, Offline behavior is implemented, and actual behavior is accepted and verified. Offline conflicts must then follow that approved SABONO operating policy. No Offline procedure is recorded now.
+
+Stage 1 introduced only the generic Retail architectural boundary. It has no SABONO end-user Retail workflow requiring a user procedure, so no operational instruction is written for Stage 1. This requirement is recorded now so documentation evolves with later accepted implementation stages; it does not create a guide, cashier/warehouse/manager manual, screenshots, SOP, training material, or instructions for unimplemented functionality.
+
+Before Stage 15 — Pilot readiness verification, the required SABONO Retail User & Operating Guide must be reviewed against the actual implemented Pilot system. Stage 15 must verify, where applicable, that required operational workflows are documented; instructions and any screenshots match accepted behavior and UI; roles/Location permissions are accurately represented; Blocked/P1/Deferred functionality is not presented as available; and known operational escalation paths are documented. Documentation readiness is one component of Pilot readiness and does not by itself establish Live Pilot readiness.
+
+# 14. Evidence References
 
 ## Controlled Documentation
 
@@ -485,6 +505,7 @@ It must establish the mandatory authorization/location foundation before protect
 
 | Version | Status | Description |
 | --- | --- | --- |
+| 0.1.6 | Draft | Recorded the future SABONO Retail User & Operating Guide as a required Pilot deliverable, its evidence-based lifecycle and safety expectations, and Stage 15 documentation-readiness verification. No guide, procedure, screenshot, training material, or unimplemented workflow documentation was created. |
 | 0.1.5 | Draft | Recorded completed Stage 1 — Retail boundary foundation with `STAGE 1 PASS`, verified implementation and validation evidence at `b62ad74503c4d3fa32509807db41d8223b6f6138`, and the Stage 2 next-stage boundary. No Retail business capability, migration, POS UI, SABONO configuration, or later stage was started. |
 | 0.1.4 | Draft | Recorded completed accepted Pilot 0 Implementation Planning, canonical stage sequence, safe Stage 8A/8B Sale boundary, access/money/bootstrap gates, and the Offline Stage 11-only blocker; no implementation stage started. |
 | 0.1.3 | Draft | Recorded completed Pilot 0 Technical Design, its `READY WITH TECHNICAL OPEN ITEMS` verdict, independent Retail/CRM boundary, P0 stock/payment/return direction, corrected authorization-first implementation sequence, and the Offline operating-policy blocker limited to Offline POS. |
