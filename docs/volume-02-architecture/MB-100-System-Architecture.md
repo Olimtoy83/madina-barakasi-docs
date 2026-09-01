@@ -11,13 +11,13 @@
 | Document ID    | MB-100                 |
 | Volume         | II — Architecture      |
 | Title          | System Architecture    |
-| Version        | 0.1.0                  |
+| Version        | 0.1.1                  |
 | Status         | Draft                  |
 | Classification | Canonical              |
 | Language       | English                |
 | Owner          | Architecture           |
 | Created        | 2026-08-08             |
-| Last Updated   | 2026-08-08             |
+| Last Updated   | 2026-09-01             |
 
 ---
 
@@ -35,12 +35,13 @@ This document provides the architectural foundation for subsequent engineering d
 
 The architecture covers the following principal repositories and systems:
 
-- `madina-platform`
-- `madina-crm`
+- `madina-platform`, the active monorepo, including the CRM application at `apps/crm`
 - `madina-barakasi-docs`
 - `madina-arabic`
 
 The platform architecture must preserve clear boundaries between technical infrastructure, business applications, and documentation.
+
+`madina-crm` is retained as a historical repository reference. Its current operating status is outside the scope of this documentation correction.
 
 ---
 

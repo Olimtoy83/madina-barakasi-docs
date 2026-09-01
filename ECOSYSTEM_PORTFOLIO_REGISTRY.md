@@ -10,7 +10,7 @@
 | --- | --- |
 | Document ID | MB-PORT-REG-001 |
 | Title | Ecosystem & Project Portfolio Registry |
-| Version | 0.1.0 |
+| Version | 0.1.1 |
 | Status | Draft |
 | Owner | Governance |
 | Classification | Registry |
@@ -68,7 +68,7 @@ Statements derived only from planning context are marked Pending Verification. A
 | Technical Status | Repository HEAD verified; the repository contains `apps/crm`. |
 | Current Canonical Checkpoint | `f02641c098a71e851779d2e59c96af8c0b27cf11` — `chore(server): harden internet-facing pilot security` |
 | Accepted / Frozen Decisions | None verified. MB-ADR-002 and MB-ADR-003 are Draft, not accepted decisions. |
-| Open Questions | Confirm the controlled platform stage and resolve the CRM repository-boundary documentation drift. |
+| Open Questions | Confirm the controlled platform stage. |
 | Next Authorized Stage | Pending verification of governed project stage; this registry does not authorize implementation. |
 | Documentation References | MB-100, MB-101, MB-102; MB-ADR-002; MB-ADR-003 |
 | Evidence Basis | Verified repository commit/HEAD; Controlled Draft documentation |
@@ -80,14 +80,14 @@ Statements derived only from planning context are marked Pending Verification. A
 | Portfolio Item | Madina CRM |
 | Classification | Business application |
 | Parent | Madina Platform |
-| Repository | `madina-platform/apps/crm` verified; separate `madina-crm` repository reference remains unresolved in Draft documentation. |
+| Repository | `madina-platform/apps/crm` verified; `madina-crm` is retained as a historical repository reference. |
 | Lifecycle | Implementation evidence exists; governed lifecycle status pending verification. |
 | Business Status | Controlled Draft CRM specifications exist; no Approved CRM stage status verified. |
 | Technical Status | `apps/crm` exists in the verified `madina-platform` repository. |
 | Current Canonical Checkpoint | No CRM-specific canonical checkpoint verified. Container repository HEAD: `f02641c098a71e851779d2e59c96af8c0b27cf11`. |
 | Accepted / Frozen Decisions | None verified. MB-ADR-002 and MB-ADR-003 are Draft. |
-| Open Questions | Resolve whether CRM is represented only inside `madina-platform` or also as a separate repository; align MB-004 and MB-100 only through a separate controlled documentation stage. |
-| Next Authorized Stage | Resolve repository-boundary documentation drift and verify the governed CRM checkpoint before recording a next implementation stage. |
+| Open Questions | Verify the controlled CRM stage and canonical checkpoint. |
+| Next Authorized Stage | Verify the governed CRM checkpoint before recording a next implementation stage. |
 | Documentation References | MB-CRM-001 through MB-CRM-008; MB-100; MB-101; MB-102; MB-ADR-002; MB-ADR-003 |
 | Evidence Basis | Verified repository commit/HEAD; Controlled Draft documentation |
 
@@ -182,11 +182,11 @@ Statements derived only from planning context are marked Pending Verification. A
 | Documentation References | MASTER_INDEX.md; DOCUMENT_REGISTRY.md; ADR_REGISTRY.md; MB-004; MB-SOP-001; MB-DEC-001 through MB-DEC-003 |
 | Evidence Basis | Approved documentation; Controlled Draft documentation; Verified repository commit/HEAD |
 
-# 4. Documentation Drift Note
+# 4. Historical Repository Traceability
 
-Current Draft documents MB-004 and MB-100 describe `madina-crm` as a separate repository. Independently verified repository evidence shows `apps/crm` within `madina-platform`.
+The active CRM application is implemented at `apps/crm` within the `madina-platform` monorepo.
 
-This registry records both facts without selecting or rewriting either Draft document. The discrepancy must be resolved through a separate controlled documentation stage. Until then, the CRM repository boundary remains an open question.
+`madina-crm` is retained as a historical repository reference. Its current operating status is outside the scope of this registry update.
 
 # 5. Maintenance / Update Policy
 
@@ -213,4 +213,5 @@ This registry must remain concise. It must not store full requirements, API or s
 
 | Version | Status | Description |
 | --- | --- | --- |
+| 0.1.1 | Draft | Synchronized CRM repository-boundary documentation and historical repository traceability. |
 | 0.1.0 | Draft | Initial controlled portfolio registry foundation. |

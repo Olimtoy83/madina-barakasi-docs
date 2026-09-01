@@ -24,7 +24,7 @@
 
 | Title          | Master Plan        |
 
-| Version        | 1.0.0              |
+| Version        | 1.0.1              |
 
 | Status         | Draft              |
 
@@ -36,7 +36,7 @@
 
 | Created        | 2026-08-08         |
 
-| Last Updated   | 2026-08-08         |
+| Last Updated   | 2026-09-01         |
 
 
 
@@ -68,13 +68,11 @@ It does not replace the constitutional foundation, architecture documents, engin
 
 
 
-This Master Plan covers the Madina Barakasi ecosystem and its principal repositories:
+This Master Plan covers the Madina Barakasi ecosystem and its principal repositories and application locations:
 
 
 
-\- `madina-platform`
-
-\- `madina-crm`
+\- `madina-platform` — the active monorepo, including the CRM application at `apps/crm`
 
 \- `madina-barakasi-docs`
 
@@ -83,6 +81,8 @@ This Master Plan covers the Madina Barakasi ecosystem and its principal reposito
 
 
 It defines their responsibilities and their intended relationship.
+
+`madina-crm` is retained as a historical repository reference. Its current operating status is outside the scope of this documentation correction.
 
 
 
@@ -99,6 +99,8 @@ It defines their responsibilities and their intended relationship.
 
 
 The shared technical platform.
+
+The active CRM business application is implemented at `apps/crm` within this monorepo.
 
 
 
@@ -134,11 +136,11 @@ The platform must remain independent of ERP-specific business logic.
 
 
 
-\## 3.2 madina-crm
+\## 3.2 CRM application (`apps/crm`)
 
 
 
-The ERP / CRM application.
+The ERP / CRM business application within the active `madina-platform` monorepo.
 
 
 
@@ -184,7 +186,7 @@ Primary responsibilities include:
 
 
 
-Business-domain logic belongs here rather than in `madina-platform`.
+Business-domain logic belongs to this application rather than to generic shared platform capabilities.
 
 
 
@@ -296,7 +298,7 @@ Examples of ERP-specific concepts include:
 
 
 
-These belong to `madina-crm`.
+These belong to the CRM application at `apps/crm`.
 
 
 
@@ -354,7 +356,7 @@ Additional infrastructure is introduced only when justified by project requireme
 
 
 
-Establish the application and domain foundation of `madina-crm`.
+Establish the application and domain foundation of the CRM application at `apps/crm` within `madina-platform`.
 
 
 
@@ -798,11 +800,11 @@ At the creation of this document:
 
 
 
-\- `madina-platform` is in Platform Foundation development.
+\- `madina-platform` is the active monorepo and is in Platform Foundation development.
 
-\- `madina-platform` contains the initial shared workspace package.
+\- `madina-platform` contains the CRM application at `apps/crm` and the initial shared workspace package.
 
-\- `madina-crm` is the designated ERP repository.
+\- `madina-crm` is retained as a historical repository reference; its current operating status is outside the scope of this document update.
 
 \- `madina-barakasi-docs` is the canonical documentation repository.
 
@@ -857,5 +859,7 @@ Where conflicts arise, the higher-level approved governance and architecture doc
 | Version | Status | Description |
 
 | ------- | ------ | ----------- |
+
+| 1.0.1   | Draft  | Corrected the CRM repository boundary to the active `madina-platform` monorepo and `apps/crm`. |
 
 | 1.0.0   | Draft  | Initial Master Plan |

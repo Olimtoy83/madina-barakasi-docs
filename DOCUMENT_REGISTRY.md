@@ -15,7 +15,7 @@
 | Classification | Canonical          |
 | Language       | English            |
 | Created        | 2026-08-07         |
-| Last Updated   | 2026-08-21         |
+| Last Updated   | 2026-09-01         |
 
 ---
 
@@ -65,7 +65,7 @@ The registry reflects documents that actually exist within the current Documenta
 | MB-INDEX-000    | Master Index      | 1.0.0   | Approved | Canonical      |
 | MB-REG-001      | Document Registry | 1.1.0   | Approved | Canonical      |
 | MB-ADR-REG-001  | ADR Registry      | 1.0.0   | Approved | Registry       |
-| MB-PORT-REG-001 | Ecosystem & Project Portfolio Registry | 0.1.0 | Draft | Registry |
+| MB-PORT-REG-001 | Ecosystem & Project Portfolio Registry | 0.1.1 | Draft | Registry |
 
 ---
 
@@ -73,7 +73,7 @@ The registry reflects documents that actually exist within the current Documenta
 
 | ID     | Document    | Version | Status | Classification |
 | ------ | ----------- | ------- | ------ | -------------- |
-| MB-004 | Master Plan | 1.0.0   | Draft  | Canonical      |
+| MB-004 | Master Plan | 1.0.1   | Draft  | Canonical      |
 
 > MB-000 through MB-003 are referenced by historical registry content but are not present as files in the current repository and are therefore not registered as current documents.
 
@@ -83,8 +83,8 @@ The registry reflects documents that actually exist within the current Documenta
 
 | ID     | Document              | Version | Status | Classification |
 | ------ | --------------------- | ------- | ------ | -------------- |
-| MB-100 | System Architecture   | 0.1.0   | Draft  | Canonical      |
-| MB-101 | Data Architecture     | 0.1.0   | Draft  | Canonical      |
+| MB-100 | System Architecture   | 0.1.1   | Draft  | Canonical      |
+| MB-101 | Data Architecture     | 0.1.1   | Draft  | Canonical      |
 | MB-102 | Engineering Standards | 0.1.0   | Draft  | Standard       |
 | MB-ADR-002 | Application-Domain Core Package Boundary | 0.1.0 | Draft | ADR |
 | MB-ADR-003 | LocalStorage Transactional Aggregate Snapshot | 0.1.0 | Draft | ADR |

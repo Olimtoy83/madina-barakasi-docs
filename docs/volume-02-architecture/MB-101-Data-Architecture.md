@@ -11,13 +11,13 @@
 | Document ID    | MB-101              |
 | Volume         | II — Architecture   |
 | Title          | Data Architecture   |
-| Version        | 0.1.0               |
+| Version        | 0.1.1               |
 | Status         | Draft               |
 | Classification | Canonical           |
 | Language       | English             |
 | Owner          | Architecture        |
 | Created        | 2026-08-08          |
-| Last Updated   | 2026-08-08          |
+| Last Updated   | 2026-09-01          |
 
 ---
 
@@ -35,8 +35,7 @@ This document does not define a final database schema.
 
 The data architecture covers the relationship between:
 
-- `madina-platform`
-- `madina-crm`
+- `madina-platform`, including the CRM application at `apps/crm`
 - `madina-arabic`
 
 The documentation repository `madina-barakasi-docs` remains the canonical source for approved data architecture documentation.

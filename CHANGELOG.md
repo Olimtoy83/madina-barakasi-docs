@@ -1,5 +1,10 @@
 ## 2026-09-01
 
+### Changed
+
+- Corrected the CRM repository boundary: `madina-platform` is the active monorepo and the CRM application is implemented at `apps/crm`.
+- Retained `madina-crm` as a historical repository reference without asserting its current operating status.
+
 ### Added
 
 - Added MB-PORT-REG-001 — Ecosystem & Project Portfolio Registry v0.1.0 (Draft).
