@@ -34,7 +34,7 @@ It provides a structured overview of all documentation volumes, registries, temp
 | I | Foundation | Approved | 1.0.0 |
 | II | Architecture | Approved | 1.0.0 |
 | III | Design & Experience | In Progress | 0.1.0 |
-| IV | Engineering | Planned | 0.1.0 |
+| IV | Engineering | In Progress | 0.1.0 |
 | V | Business Modules | Planned | 0.1.0 |
 | VI | Operations | Planned | 0.1.0 |
 | VII | Knowledge Base | Planned | 0.1.0 |
@@ -96,6 +96,13 @@ madina-barakasi-docs/
 | Document | ID | Status | Version |
 | -------- | -- | ------ | ------- |
 | Master Plan | MB-004 | Draft | 1.0.0 |
+
+# Engineering Documents
+
+| Document                                      | ID         | Status | Version |
+| --------------------------------------------- | ---------- | ------ | ------- |
+| Evidence-Based Engineering Execution Protocol | MB-ENG-001 | Draft  | 0.1.0   |
+
 # Templates
 
 ---

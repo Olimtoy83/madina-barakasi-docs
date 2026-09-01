@@ -1,5 +1,13 @@
 ## 2026-09-01
 
+### Engineering Governance
+
+- Added MB-ENG-001 — Evidence-Based Engineering Execution Protocol v0.1.0 (Draft).
+- Established a proposed evidence discipline for engineering execution, validation, acceptance, correction, and repository handoff.
+- Registered MB-ENG-001 under Volume IV — Engineering.
+- Reconciled the Document Registry self-version and registry statistics.
+- Aligned the Master Index Volume IV status with the existing in-progress Engineering state.
+
 ### Changed
 
 - Updated the SADEED AUTO portfolio entry with verified bounded vehicle-domain evidence and retained pending-verification boundaries.

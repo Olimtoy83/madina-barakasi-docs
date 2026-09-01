@@ -9,7 +9,7 @@
 | Field          | Value              |
 | -------------- | ------------------ |
 | Document ID    | MB-REG-001         |
-| Version        | 1.1.4              |
+| Version        | 1.1.5              |
 | Status         | Approved           |
 | Owner          | Documentation Team |
 | Classification | Canonical          |
@@ -63,7 +63,7 @@ The registry reflects documents that actually exist within the current Documenta
 | ID              | Document          | Version | Status   | Classification |
 | --------------- | ----------------- | ------- | -------- | -------------- |
 | MB-INDEX-000    | Master Index      | 1.0.0   | Approved | Canonical      |
-| MB-REG-001      | Document Registry | 1.1.0   | Approved | Canonical      |
+| MB-REG-001              | Document Registry                                  | 1.1.5   | Approved | Canonical      |
 | MB-ADR-REG-001  | ADR Registry      | 1.0.0   | Approved | Registry       |
 | MB-PORT-REG-001 | Ecosystem & Project Portfolio Registry | 0.1.4 | Draft | Registry |
 | MB-PLATFORM-CRM-CHK-001 | Madina Platform / CRM Canonical Project Checkpoint | 0.1.0 | Draft | Registry |
@@ -112,11 +112,12 @@ The registry reflects documents that actually exist within the current Documenta
 
 | ID          | Document               | Version | Status | Classification |
 | ----------- | ---------------------- | ------- | ------ | -------------- |
+| MB-ENG-001  | Evidence-Based Engineering Execution Protocol | 0.1.0   | Draft  | Standard       |
 | MB-DATA-001 | Master Data Dictionary | 0.1.0   | Draft  | Canonical      |
 | MB-DATA-002 | ER Diagram             | 0.1.0   | Draft  | Specification  |
 | MB-API-001  | API Standards          | 0.1.0   | Draft  | Standard       |
 
-> These documents are planned registry entries and are not currently present as files in the repository.
+> MB-DATA-001, MB-DATA-002, and MB-API-001 are registered Draft entries but are not currently present as files in the repository.
 
 ---
 
@@ -157,10 +158,10 @@ The statistics below describe the current registry entries.
 
 | Metric            | Value |
 | ----------------- | ----: |
-| Current Documents |    13 |
-| Approved          |     4 |
-| Draft             |     9 |
-| Planned           |     3 |
+| Current Documents |    34 |
+| Approved          |     6 |
+| Draft             |    27 |
+| Planned           |     1 |
 
 ---
 
