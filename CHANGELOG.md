@@ -1,3 +1,11 @@
+## 2026-09-01
+
+### Added
+
+- Added MB-PORT-REG-001 — Ecosystem & Project Portfolio Registry v0.1.0 (Draft).
+- Registered the controlled cross-ecosystem portfolio registry in the Master Index and Document Registry.
+- Recorded initial verified repository checkpoints and Pending Verification boundaries without promoting supplied project context to approved facts.
+
 ## 2026-08-21
 
 ### Added

@@ -69,6 +69,7 @@ madina-barakasi-docs/
 ├── ADR_REGISTRY.md
 ├── CHANGELOG.md
 ├── DOCUMENT_REGISTRY.md
+├── ECOSYSTEM_PORTFOLIO_REGISTRY.md
 ├── MASTER_INDEX.md
 └── README.md
 ```
@@ -83,6 +84,7 @@ madina-barakasi-docs/
 | MASTER_INDEX.md | Documentation Navigation |
 | DOCUMENT_REGISTRY.md | Complete Document Catalog |
 | ADR_REGISTRY.md | Architecture Decision Registry |
+| ECOSYSTEM_PORTFOLIO_REGISTRY.md | Ecosystem & Project Portfolio Registry |
 | CHANGELOG.md | Documentation Change History |
 
 ---
