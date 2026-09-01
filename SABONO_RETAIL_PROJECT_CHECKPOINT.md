@@ -10,7 +10,7 @@
 | --- | --- |
 | Document ID | MB-SABONO-RETAIL-CHK-001 |
 | Title | SABONO Retail Canonical Project Checkpoint |
-| Version | 0.1.1 |
+| Version | 0.1.2 |
 | Status | Draft |
 | Owner | Governance |
 | Classification | Registry |
@@ -90,6 +90,7 @@ Pilot 0 does not automatically replace GBS, ARCA/fiscal operation, tax/accountin
 | SABONO Technical Fit-Gap Audit | **COMPLETED ANALYSIS / AUDIT** | Concluded current Madina CRM v1 cannot support full SABONO Pilot 0 without code changes. |
 | SABONO Storefront Readiness Audit | **COMPLETED ANALYSIS / AUDIT** | Do not repeat unless material new storefront evidence arrives. |
 | MADINA RETAIL — PILOT 0 ARCHITECTURE & SCOPE | **COMPLETED ANALYSIS / AUDIT** | Completed as a read-only proposal. It is **not approved architecture**. |
+| PILOT 0 ARCHITECTURE REVIEW / CUT-LINE DECISION | **COMPLETED** | User approved the final P0/P1/Deferred cut-line for Technical Design. |
 
 The Technical Fit-Gap identified these major gaps: multi-location stock; split payments; offline POS; product/import requirements; supplier invoice/payment lifecycle; discount/promotion/loyalty; and reliable COGS/profit semantics.
 
@@ -153,7 +154,7 @@ Loyalty levels are 5%, 10%, 15%, and 20%; card number is five digits. Eventual n
 
 **OPEN DECISION:** loyalty tier transition rules.
 
-**OPEN DECISION / PILOT CUT-LINE:** whether basic authorized Product percentage discount is P0 or P1. Full promotion/loyalty capability may be deferred, but this confirmed current need must not be silently deferred.
+**CONFIRMED PILOT 0 CUT-LINE:** basic authorized Product percentage discount is P0. It is limited to an auditable item-level percentage discount. Promotion engine, fixed promotional price, receipt-level discount, loyalty discount, and Loyalty remain P1.
 
 ## 6.6 Returns and Exchanges
 
@@ -161,7 +162,9 @@ Loyalty levels are 5%, 10%, 15%, and 20%; card number is five digits. Eventual n
 
 Customer returns and exchanges occur. A refund returns money to the customer. Current GBS records the operation and ARCA issues a separate fiscal return receipt. Return/Exchange is therefore a real business operation, not a manual stock adjustment.
 
-**OPEN DECISIONS:** partial receipt return; split-payment refund allocation; damaged/non-resellable items; promotion reversal; loyalty reversal; and detailed exchange edge cases.
+**CONFIRMED PILOT 0 CUT-LINE:** full completed Sale/full receipt return is sufficient for P0. Partial item return is P1.
+
+Damaged/non-resellable scenarios, complex promotion/loyalty reversal, and other advanced Return/Exchange cases are P1. Payment reversal, stock restoration, idempotency, audit, and exchange implementation mechanics remain Technical Design decisions rather than confirmed business rules.
 
 ## 6.7 Suppliers, Imports, and Landed Cost
 
@@ -173,12 +176,9 @@ Imports may use USD or EUR. Customs, logistics, and other attributable costs may
 
 Future Retail capability must conceptually support supplier invoice, prepayment, multiple payments, and outstanding payable.
 
-**OPEN DECISION / P1:** Landed Cost and COGS semantics remain open and do not automatically block basic Pilot 0. Do not choose an allocation method, assert COGS semantics, or calculate reliable gross profit/margin before receiving answers to all of the following:
+**CONFIRMED BUSINESS RULES / P1:** actual Product cost includes purchase price, delivery, customs, certification, bank commissions, storage, internal delivery, and customs declarant services. Additional shipment/import costs are allocated across Products proportionally to Product purchase value. When the same SKU arrives in different shipments at different costs, SABONO uses weighted-average costing.
 
-1. Which costs form actual Product cost: purchase price, delivery, customs, and what other costs?
-2. Which additional import costs actually occur for SABONO: broker, certification, bank fees, storage, internal delivery, or others?
-3. How are additional costs allocated across Products in one shipment: by value, quantity, weight/volume, manually, or a combination?
-4. When one SKU arrives in different shipments at different prices, which cost method applies: weighted average, FIFO, last purchase price, manual, or another method?
+These rules do not block Pilot 0. Remaining P1 questions are Technical Design matters: weighted-average calculation boundary, precision/rounding, late attributable expenses, capitalization timing, and corrections/reversals/audit. Do not claim reliable gross profit/margin until that P1 technical design is complete.
 
 ## 6.8 Offline POS
 
@@ -234,48 +234,72 @@ It proposed relationships such as:
 
 These are recommendations for review. They are not approved data-model decisions, migrations, API contracts, or implementation instructions.
 
+The user-approved cut-line in the next section approves scope for Technical Design only. It does not approve unspecified technical mechanics or implementation.
+
 # 9. Pilot 0 Cut-Line Status
 
-**OPEN DECISION**
+**APPROVED BY USER FOR TECHNICAL DESIGN**
 
-The architecture report proposed P0/P1/Deferred scope. That cut line is not final or approved.
+## P0 — mandatory for the controlled pilot
 
-The following need explicit architecture review:
+- Product catalog and stable source ID;
+- Product Barcode: factory/internal barcodes resolve one Product, additional barcode does not change quantity, ambiguous source data is quarantined;
+- piece-based sale;
+- Central Warehouse plus one selected pilot Store;
+- location-specific Inventory Balance and immutable attributable Stock Movements;
+- two-sided Transfer: `draft → dispatched → received`;
+- opening stock validation and daily reconciliation;
+- POS Sale / Sale Item;
+- split payments: `Sale 1—N Payment Allocations` using cash/card/transfer/other;
+- basic authorized item percentage discount;
+- full completed Sale/full receipt return;
+- Supplier goods receipt into Central Warehouse;
+- controlled offline POS functional capability;
+- minimum Retail RBAC and Location scope; and
+- reconciliation dashboard without profit/margin claim.
 
-1. **Inventory:** minimum Pilot opening-count/reconciliation capability may be P0, while the full quarterly Inventory workflow may be P1.
-2. **Basic Product percentage discount:** it is a confirmed current need; P0 versus P1 remains open.
-3. **Offline:** controlled offline operation is a real requirement, but specific safety reserves, thresholds, encryption choices, provisional receipt rules, and detailed conflict policy remain unapproved.
-4. **Returns/Exchange:** high-level business need is confirmed, but its P0/P1 treatment is not approved while material edge rules remain open.
+## P1 — after validation of the basic Pilot 0
+
+- full quarterly Inventory workflow;
+- promotion engine, fixed promotional price, receipt-level discount, loyalty discount, and Loyalty;
+- partial item returns and advanced Return/Exchange cases;
+- Supplier Invoice, prepayment, Supplier Payment, and payable lifecycle;
+- Landed Cost / weighted-average COGS; and
+- partner stock/sales/commission.
+
+## Deferred
+
+- Packaging/UOM conversion;
+- ARCA/fiscal adapter; and
+- Storefront/Marketplace.
 
 # 10. Current Open Decisions and Pilot Blockers
 
 | Item | Classification | Required by |
 | --- | --- | --- |
-| Barcode duplicate/source-data semantics | **PILOT BLOCKER** for affected scanning records | Catalog import and scanner enablement |
-| Need for Packaging/UOM conversion beyond piece sales | **PROPOSED ARCHITECTURE / DEFERRED** | Before any future packaging capability; not a current P0 blocker |
-| Exact Pilot store/register selection | **PILOT BLOCKER** | Parallel rollout planning |
-| Pilot acceptance tolerances | **PILOT BLOCKER** | Live rollout acceptance |
-| Basic Product percentage discount P0/P1 | **OPEN DECISION** | Pilot cut-line approval |
-| Minimum Inventory P0 vs full Inventory P1 | **OPEN DECISION** | Pilot cut-line approval |
-| Loyalty tier transitions | **OPEN DECISION** | Loyalty implementation |
-| Detailed Return/Exchange rules | **OPEN DECISION** | Return/Exchange implementation |
-| Landed-cost allocation and COGS method | **OPEN DECISION / P1** | Reliable COGS/profit reporting; not a current basic Pilot 0 blocker |
-| Partner commission/reward | **OPEN DECISION** | Partner settlement |
-| Final Retail permission matrix | **PILOT BLOCKER** for P0 user provisioning | Pilot rollout |
-| Offline conflict/reconciliation policy | **OPEN DECISION** | Offline/multi-register scope approval |
-| Final Pilot 0 functional cut line | **PILOT BLOCKER** | Any implementation authorization |
+| Atomic Sale/Payment/stock/return/transfer semantics | **TECHNICAL DESIGN** | Before P0 implementation |
+| Offline durable operation/idempotency/sync/conflict design | **TECHNICAL DESIGN** | Before P0 implementation |
+| P0 RBAC permission details and Location enforcement | **TECHNICAL DESIGN** | Before P0 implementation |
+| Barcode import validation/quarantine mechanics | **TECHNICAL DESIGN** | Before P0 catalog import |
+| Exact pilot Store/register, users, and dates | **LIVE PILOT PARAMETER** | Before live pilot |
+| Stock/money discrepancy tolerances and escalation rules | **LIVE PILOT PARAMETER** | Before live pilot acceptance |
+| Offline outage-test duration and reconciliation procedure | **LIVE PILOT PARAMETER** | Before live pilot validation |
+| Catalog/opening-stock sign-off | **LIVE PILOT PARAMETER** | Before live pilot |
+| Loyalty tier transitions and complete promotion/loyalty rules | **P1 BUSINESS/TECHNICAL** | Before P1 scope |
+| Advanced Return/Exchange cases | **P1 BUSINESS/TECHNICAL** | Before P1 scope |
+| Supplier Invoice/Payment/Payable details | **P1 BUSINESS/TECHNICAL** | Before P1 scope |
+| Landed Cost technical semantics | **P1 TECHNICAL DESIGN** | Before P1 costing/profit reporting |
+| Partner commission/rules | **P1 BUSINESS/TECHNICAL** | Before P1 partner scope |
+
+**NO KNOWN BUSINESS DECISION BLOCKS PILOT 0 TECHNICAL DESIGN.**
 
 # 11. Deferred Boundaries
 
-**DEFERRED** until separately authorized and sufficiently specified:
+**DEFERRED** from the approved Pilot 0 cut-line:
 
-- Marketplace Foundation;
-- Storefront redesign;
-- Product Variant architecture unless real evidence requires it;
-- ARCA/fiscal integration adapter;
-- landed-cost allocation, COGS method, and reliable profit/margin reporting (P1);
-- broad multi-store and advanced offline conflict handling;
-- replacement of GBS, tax/accounting, or other external systems.
+- Packaging/UOM conversion;
+- ARCA/fiscal adapter; and
+- Storefront/Marketplace.
 
 # 12. Current Status and Next Authorized Stage
 
@@ -285,13 +309,17 @@ The following need explicit architecture review:
 | Technical Fit-Gap | Completed |
 | Storefront Readiness Audit | Completed |
 | Pilot 0 Architecture & Scope report | Completed as read-only proposal; not yet approved |
+| Pilot 0 Architecture Review / Cut-Line Decision | Completed |
+| Cut-line | Approved by user for Technical Design |
+| Pilot 0 Technical Design | Not started |
 | Pilot 0 implementation | Not started |
+| Live Pilot | Not started |
 
-The original architecture-report verdict was **BLOCKED — BUSINESS INPUT REQUIRED**. Preserve it as the report’s historical verdict. The architecture report itself is complete; remaining business inputs primarily block final Pilot cut-line and live-rollout decisions, not continuation of documentation or architecture review.
+The original architecture-report verdict was **BLOCKED — BUSINESS INPUT REQUIRED**. It remains historical evidence for the initial read-only report and has been superseded for cut-line purposes by the completed user-approved review.
 
-**Next authorized activity:** **PILOT 0 ARCHITECTURE REVIEW / CUT-LINE DECISION** — no code.
+**Next authorized activity:** **PILOT 0 TECHNICAL DESIGN SPECIFICATION** — read-only / no implementation.
 
-Its purpose is to resolve or approve the exact P0/P1/Deferred cut line, minimum Inventory scope, basic Product percentage discount scope, controlled Offline scope, Pilot blockers, and which open business questions can safely remain deferred. It does not authorize implementation automatically.
+It must specify the user-approved P0 scope without creating migrations, code, commits, or implementation. It does not authorize implementation automatically.
 
 # 13. Evidence References
 
@@ -315,5 +343,6 @@ Its purpose is to resolve or approve the exact P0/P1/Deferred cut line, minimum 
 
 | Version | Status | Description |
 | --- | --- | --- |
+| 0.1.2 | Draft | Recorded completed Pilot 0 Architecture Review, user-approved P0/P1/Deferred cut-line, confirmed Landed Cost rules, and confirmed full receipt return P0 scope; Technical Design remains not started. |
 | 0.1.1 | Draft | Corrected barcode and piece-sale business evidence; moved the unconfirmed `1 BOX = 6 PCS` model from Confirmed to proposed/deferred; retained Landed Cost/COGS as P1 open decisions with required business questions. |
 | 0.1.0 | Draft | Initial controlled SABONO Retail continuity checkpoint; records evidence, completed audits, proposed architecture, open decisions, and next authorized review stage without approving implementation. |

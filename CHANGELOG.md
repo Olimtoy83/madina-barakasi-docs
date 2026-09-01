@@ -2,6 +2,8 @@
 
 ### Changed
 
+- Updated MB-SABONO-RETAIL-CHK-001 to v0.1.2: recorded the completed user-approved Pilot 0 Architecture Review / Cut-Line Decision, P0/P1/Deferred scope, confirmed Landed Cost rules, and full receipt return P0 scope. Technical Design, implementation, and live pilot remain not started.
+- Updated MB-PORT-REG-001 to v0.1.6 and MB-REG-001 to v1.1.8 to preserve the approved cut-line and next-stage traceability.
 - Updated MB-SABONO-RETAIL-CHK-001 to v0.1.1 with confirmed piece-sale and multiple-barcode evidence; the unconfirmed `1 BOX = 6 PCS` model is now proposed/deferred rather than a confirmed requirement.
 - Recorded Landed Cost and COGS as P1 open decisions, with required business questions before allocation, cost, gross-profit, or margin semantics are chosen.
 - Updated MB-REG-001 to v1.1.7 to retain the controlled checkpoint version in the Document Registry.
