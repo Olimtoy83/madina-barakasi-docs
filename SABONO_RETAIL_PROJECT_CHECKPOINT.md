@@ -10,7 +10,7 @@
 | --- | --- |
 | Document ID | MB-SABONO-RETAIL-CHK-001 |
 | Title | SABONO Retail Canonical Project Checkpoint |
-| Version | 0.1.2 |
+| Version | 0.1.3 |
 | Status | Draft |
 | Owner | Governance |
 | Classification | Registry |
@@ -91,6 +91,7 @@ Pilot 0 does not automatically replace GBS, ARCA/fiscal operation, tax/accountin
 | SABONO Storefront Readiness Audit | **COMPLETED ANALYSIS / AUDIT** | Do not repeat unless material new storefront evidence arrives. |
 | MADINA RETAIL — PILOT 0 ARCHITECTURE & SCOPE | **COMPLETED ANALYSIS / AUDIT** | Completed as a read-only proposal. It is **not approved architecture**. |
 | PILOT 0 ARCHITECTURE REVIEW / CUT-LINE DECISION | **COMPLETED** | User approved the final P0/P1/Deferred cut-line for Technical Design. |
+| PILOT 0 TECHNICAL DESIGN SPECIFICATION | **COMPLETED** | Recorded approved future implementation direction and remaining Technical Design open items; implementation planning has not started. |
 
 The Technical Fit-Gap identified these major gaps: multi-location stock; split payments; offline POS; product/import requirements; supplier invoice/payment lifecycle; discount/promotion/loyalty; and reliable COGS/profit semantics.
 
@@ -273,17 +274,82 @@ The user-approved cut-line in the next section approves scope for Technical Desi
 - ARCA/fiscal adapter; and
 - Storefront/Marketplace.
 
+# 9.1 Approved Technical Design — Future Implementation Direction
+
+**APPROVED TECHNICAL DESIGN / FUTURE IMPLEMENTATION DIRECTION**
+
+This section records the completed Pilot 0 Technical Design. It is not evidence that any described package, app, table, migration, API, or workflow already exists in `madina-platform`.
+
+## Physical and Product Boundaries
+
+The approved direction is:
+
+```text
+Madina Platform
+├── Madina CRM
+├── Madina Retail
+└── SABONO configuration / controlled pilot
+```
+
+- Madina CRM remains independently usable.
+- Generic Retail capability must not become SABONO-specific.
+- Future physical Retail direction: `apps/retail`, `packages/retail`, Retail API contracts, and Retail database repositories/migrations under the existing shared infrastructure.
+- SABONO is a configuration/business implementation over generic Madina Retail; no SABONO-specific P0 domain package is required.
+- Retail does not depend on the current CRM `@madina/core` aggregate, and CRM does not depend on Retail or SABONO.
+- `@madina/ui` remains reusable visual primitives.
+
+`RetailProduct` is an independent Retail catalog identity. CRM Product is not authoritative Retail Product, and CRM `Product.quantity` is not Retail stock. P0 has no implicit CRM ↔ RetailProduct two-way synchronization; SABONO catalog import targets RetailProduct. Any future CRM/Retail master-data mapping or synchronization requires separate design.
+
+## Stock, Sale, Payment, and Return Direction
+
+- Retail StockMovement is immutable operational evidence.
+- InventoryBalance is a transactionally maintained current-stock projection. Authoritative operational stock is per `Product + Location`.
+- CRM global `Product.quantity` remains legacy CRM behavior. Retail opening balances come from controlled Opening Count evidence; no automatic Retail stock backfill from CRM Product.quantity is approved.
+- Sale is location-bound and uses `Sale 1 → N Payment Allocations` with `cash`, `card`, `transfer`, and `other`. The invariant is `sum allocations == Sale payable total`.
+- Retail money direction is integer minor units, explicit currency, and a deterministic Retail rounding utility. Exact pilot currency/exponent remains pilot configuration.
+- P0 Return is full completed Sale/full receipt only. The original Sale remains immutable; a separate Return aggregate restores stock to the original Sale Location; one completed full Return is permitted per Sale.
+- Return Payment Allocations mirror original Sale allocations as **internal Retail refund representation only**. They do not prove card refund execution, bank-transfer refund execution, physical cash refund, ARCA fiscal return, or external payment/fiscal success. ARCA/payment integration remains Deferred; partial Return remains P1.
+
+## Offline Design Status
+
+The confirmed P0 functional direction is durable local operation using IndexedDB, stable client operation ID, server idempotency, automatic retry/sync, exactly-once business effect after server acceptance, and visible reconciliation exceptions.
+
+**OPEN BUSINESS DECISION — BLOCKS OFFLINE POS IMPLEMENTATION ONLY:** if an offline Sale has physically delivered goods and accepted money but later server synchronization rejects it because current server stock is insufficient, SABONO must define the authorized operating policy. Do not infer automatic negative stock, safety reserve, hidden adjustment, silent acceptance, or automatic refund/recovery behavior.
+
+This blocks Offline POS implementation and Offline live-pilot readiness only. It does not block non-offline P0 implementation planning or foundation work.
+
+## Approved Future Implementation Sequence
+
+1. Retail boundary foundation;
+2. Location + early Retail RBAC foundation;
+3. Retail Product / Barcode / import;
+4. Inventory ledger foundation;
+5. Opening counts / reconciliation evidence;
+6. Goods Receipt;
+7. Transfer;
+8. POS Sale / Payment Allocation;
+9. Authorized item discount;
+10. Full completed-Sale Return;
+11. Offline POS sync;
+12. Retail reporting / reconciliation dashboard;
+13. Complete P0 permission hardening;
+14. Pilot import / bootstrap; and
+15. Pilot readiness verification.
+
+Stage 2 is required before protected Retail mutations. Stage 13 is hardening/verification and does not replace the early authorization foundation. Stage 11 is blocked by the Offline operating-policy decision above.
+
 # 10. Current Open Decisions and Pilot Blockers
 
 | Item | Classification | Required by |
 | --- | --- | --- |
-| Atomic Sale/Payment/stock/return/transfer semantics | **TECHNICAL DESIGN** | Before P0 implementation |
-| Offline durable operation/idempotency/sync/conflict design | **TECHNICAL DESIGN** | Before P0 implementation |
-| P0 RBAC permission details and Location enforcement | **TECHNICAL DESIGN** | Before P0 implementation |
-| Barcode import validation/quarantine mechanics | **TECHNICAL DESIGN** | Before P0 catalog import |
+| Offline physical-goods/accepted-money rejected-sync policy | **OPEN BUSINESS DECISION** | Before Offline POS implementation only |
+| Exact Retail rounding implementation | **OPEN TECHNICAL DECISION** | Before POS implementation |
+| Exact Retail capability naming and membership schema | **OPEN TECHNICAL DECISION** | Before early RBAC/location foundation |
+| Offline command retention/pruning | **OPEN TECHNICAL DECISION** | Before Offline POS implementation |
 | Exact pilot Store/register, users, and dates | **LIVE PILOT PARAMETER** | Before live pilot |
 | Stock/money discrepancy tolerances and escalation rules | **LIVE PILOT PARAMETER** | Before live pilot acceptance |
 | Offline outage-test duration and reconciliation procedure | **LIVE PILOT PARAMETER** | Before live pilot validation |
+| Pilot currency/exponent | **LIVE PILOT PARAMETER** | Before POS pilot configuration |
 | Catalog/opening-stock sign-off | **LIVE PILOT PARAMETER** | Before live pilot |
 | Loyalty tier transitions and complete promotion/loyalty rules | **P1 BUSINESS/TECHNICAL** | Before P1 scope |
 | Advanced Return/Exchange cases | **P1 BUSINESS/TECHNICAL** | Before P1 scope |
@@ -311,15 +377,17 @@ The user-approved cut-line in the next section approves scope for Technical Desi
 | Pilot 0 Architecture & Scope report | Completed as read-only proposal; not yet approved |
 | Pilot 0 Architecture Review / Cut-Line Decision | Completed |
 | Cut-line | Approved by user for Technical Design |
-| Pilot 0 Technical Design | Not started |
+| Pilot 0 Technical Design | Completed |
+| Technical Design verdict | **READY WITH TECHNICAL OPEN ITEMS** |
+| Pilot 0 Implementation Planning | Not started |
 | Pilot 0 implementation | Not started |
 | Live Pilot | Not started |
 
 The original architecture-report verdict was **BLOCKED — BUSINESS INPUT REQUIRED**. It remains historical evidence for the initial read-only report and has been superseded for cut-line purposes by the completed user-approved review.
 
-**Next authorized activity:** **PILOT 0 TECHNICAL DESIGN SPECIFICATION** — read-only / no implementation.
+**Next authorized activity:** **PILOT 0 IMPLEMENTATION PLANNING** — no code until separately authorized.
 
-It must specify the user-approved P0 scope without creating migrations, code, commits, or implementation. It does not authorize implementation automatically.
+It may sequence the approved future implementation direction, but it does not authorize code, migrations, commits, implementation, or live pilot automatically.
 
 # 13. Evidence References
 
@@ -343,6 +411,7 @@ It must specify the user-approved P0 scope without creating migrations, code, co
 
 | Version | Status | Description |
 | --- | --- | --- |
+| 0.1.3 | Draft | Recorded completed Pilot 0 Technical Design, its `READY WITH TECHNICAL OPEN ITEMS` verdict, independent Retail/CRM boundary, P0 stock/payment/return direction, corrected authorization-first implementation sequence, and the Offline operating-policy blocker limited to Offline POS. |
 | 0.1.2 | Draft | Recorded completed Pilot 0 Architecture Review, user-approved P0/P1/Deferred cut-line, confirmed Landed Cost rules, and confirmed full receipt return P0 scope; Technical Design remains not started. |
 | 0.1.1 | Draft | Corrected barcode and piece-sale business evidence; moved the unconfirmed `1 BOX = 6 PCS` model from Confirmed to proposed/deferred; retained Landed Cost/COGS as P1 open decisions with required business questions. |
 | 0.1.0 | Draft | Initial controlled SABONO Retail continuity checkpoint; records evidence, completed audits, proposed architecture, open decisions, and next authorized review stage without approving implementation. |
