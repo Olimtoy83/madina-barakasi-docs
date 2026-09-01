@@ -2,6 +2,7 @@
 
 ### Changed
 
+- Updated the Madina Arabic portfolio entry with verified static frontend capabilities and retained pending-verification boundaries.
 - Corrected the CRM repository boundary: `madina-platform` is the active monorepo and the CRM application is implemented at `apps/crm`.
 - Retained `madina-crm` as a historical repository reference without asserting its current operating status.
 - Updated MB-PORT-REG-001 with the verified Madina Platform / CRM technical checkpoint and pending-verification boundary.

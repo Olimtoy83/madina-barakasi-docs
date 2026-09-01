@@ -10,7 +10,7 @@
 | --- | --- |
 | Document ID | MB-PORT-REG-001 |
 | Title | Ecosystem & Project Portfolio Registry |
-| Version | 0.1.2 |
+| Version | 0.1.3 |
 | Status | Draft |
 | Owner | Governance |
 | Classification | Registry |
@@ -138,11 +138,11 @@ Statements derived only from planning context are marked Pending Verification. A
 | Repository | `madina-arabic` |
 | Lifecycle | Repository checkpoint verified; formal lifecycle status pending verification. |
 | Business Status | Pending Verification |
-| Technical Status | Repository HEAD and pronunciation-assets commit verified. |
+| Technical Status | Verified static HTML/CSS/plain JavaScript Telegram WebApp-aware frontend with three vocabulary lessons / 12 words, Russian and Uzbek translations, a word-builder exercise, XP/streak/attempt/correct-answer tracking, browser-local `localStorage` progress, and 12 local MP3 pronunciation assets. |
 | Current Canonical Checkpoint | `9b7dc74a8ba8ff86e35c1257394279f59dcb7891` — `feat(audio): add verified pronunciation assets` |
 | Accepted / Frozen Decisions | None verified by controlled documentation. |
-| Open Questions | Verify the claimed learning-experience, audio, localization, and acceptance/freeze evidence in controlled documentation. |
-| Next Authorized Stage | Controlled review of the repository checkpoint and governance evidence before a product-stage decision is recorded. |
+| Open Questions | Verify business status, formal acceptance/freeze, production readiness/deployment, bot configuration, secure Telegram `initData` validation, backend/API, remote persistence/synchronization, monitoring, operational ownership, and roadmap. |
+| Next Authorized Stage | Repository evidence verification and controlled product-state review; this registry does not authorize deployment or feature implementation. |
 | Documentation References | External repository `madina-arabic`; no controlled project document verified in this Documentation Library. |
 | Evidence Basis | Verified repository commit/HEAD; Pending Verification for governance status |
 
@@ -213,6 +213,7 @@ This registry must remain concise. It must not store full requirements, API or s
 
 | Version | Status | Description |
 | --- | --- | --- |
+| 0.1.3 | Draft | Updated Madina Arabic with verified static frontend capabilities and retained pending-verification boundaries. |
 | 0.1.2 | Draft | Recorded the Madina Platform / CRM evidence-based technical checkpoint and pending-verification boundary. |
 | 0.1.1 | Draft | Synchronized CRM repository-boundary documentation and historical repository traceability. |
 | 0.1.0 | Draft | Initial controlled portfolio registry foundation. |
