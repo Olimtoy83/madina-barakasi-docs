@@ -65,7 +65,8 @@ The registry reflects documents that actually exist within the current Documenta
 | MB-INDEX-000    | Master Index      | 1.0.0   | Approved | Canonical      |
 | MB-REG-001      | Document Registry | 1.1.0   | Approved | Canonical      |
 | MB-ADR-REG-001  | ADR Registry      | 1.0.0   | Approved | Registry       |
-| MB-PORT-REG-001 | Ecosystem & Project Portfolio Registry | 0.1.1 | Draft | Registry |
+| MB-PORT-REG-001 | Ecosystem & Project Portfolio Registry | 0.1.2 | Draft | Registry |
+| MB-PLATFORM-CRM-CHK-001 | Madina Platform / CRM Canonical Project Checkpoint | 0.1.0 | Draft | Registry |
 
 ---
 

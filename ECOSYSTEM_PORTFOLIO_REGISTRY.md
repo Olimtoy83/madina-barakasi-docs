@@ -10,7 +10,7 @@
 | --- | --- |
 | Document ID | MB-PORT-REG-001 |
 | Title | Ecosystem & Project Portfolio Registry |
-| Version | 0.1.1 |
+| Version | 0.1.2 |
 | Status | Draft |
 | Owner | Governance |
 | Classification | Registry |
@@ -65,12 +65,12 @@ Statements derived only from planning context are marked Pending Verification. A
 | Repository | `madina-platform` |
 | Lifecycle | Implementation; governed lifecycle status pending verification |
 | Business Status | Pending Verification |
-| Technical Status | Repository HEAD verified; the repository contains `apps/crm`. |
-| Current Canonical Checkpoint | `f02641c098a71e851779d2e59c96af8c0b27cf11` — `chore(server): harden internet-facing pilot security` |
+| Technical Status | Verified technical foundations include server-backed CRM, Fastify API, SQLite persistence, authentication/RBAC, audit, reporting, workbook exchange, bounded reads, and pilot/security hardening. |
+| Current Canonical Checkpoint | MB-PLATFORM-CRM-CHK-001 (Draft): `f02641c098a71e851779d2e59c96af8c0b27cf11` — `chore(server): harden internet-facing pilot security` |
 | Accepted / Frozen Decisions | None verified. MB-ADR-002 and MB-ADR-003 are Draft, not accepted decisions. |
-| Open Questions | Confirm the controlled platform stage. |
-| Next Authorized Stage | Pending verification of governed project stage; this registry does not authorize implementation. |
-| Documentation References | MB-100, MB-101, MB-102; MB-ADR-002; MB-ADR-003 |
+| Open Questions | Verify formal acceptance, production deployment/rehearsal evidence, and operational ownership. |
+| Next Authorized Stage | Production Pilot Readiness Verification; this registry does not authorize deployment, an external pilot, or new CRM feature development. |
+| Documentation References | MB-PLATFORM-CRM-CHK-001; MB-100, MB-101, MB-102; MB-ADR-002; MB-ADR-003 |
 | Evidence Basis | Verified repository commit/HEAD; Controlled Draft documentation |
 
 ## 3.2 Madina CRM
@@ -81,14 +81,14 @@ Statements derived only from planning context are marked Pending Verification. A
 | Classification | Business application |
 | Parent | Madina Platform |
 | Repository | `madina-platform/apps/crm` verified; `madina-crm` is retained as a historical repository reference. |
-| Lifecycle | Implementation evidence exists; governed lifecycle status pending verification. |
+| Lifecycle | Implementation evidence exists; the controlled technical checkpoint is Draft and governed lifecycle status remains pending verification. |
 | Business Status | Controlled Draft CRM specifications exist; no Approved CRM stage status verified. |
-| Technical Status | `apps/crm` exists in the verified `madina-platform` repository. |
-| Current Canonical Checkpoint | No CRM-specific canonical checkpoint verified. Container repository HEAD: `f02641c098a71e851779d2e59c96af8c0b27cf11`. |
+| Technical Status | Verified server-backed CRM foundations include domain workflows, persistence, authentication/RBAC, audit, reporting, workbook exchange, and bounded operational reads. |
+| Current Canonical Checkpoint | MB-PLATFORM-CRM-CHK-001 (Draft): repository checkpoint `f02641c098a71e851779d2e59c96af8c0b27cf11`. |
 | Accepted / Frozen Decisions | None verified. MB-ADR-002 and MB-ADR-003 are Draft. |
-| Open Questions | Verify the controlled CRM stage and canonical checkpoint. |
-| Next Authorized Stage | Verify the governed CRM checkpoint before recording a next implementation stage. |
-| Documentation References | MB-CRM-001 through MB-CRM-008; MB-100; MB-101; MB-102; MB-ADR-002; MB-ADR-003 |
+| Open Questions | Verify formal Functional v1 and Visual v1 acceptance, production/deployment evidence, and operational ownership. |
+| Next Authorized Stage | Production Pilot Readiness Verification; this registry does not authorize deployment, an external pilot, or new CRM feature development. |
+| Documentation References | MB-PLATFORM-CRM-CHK-001; MB-CRM-001 through MB-CRM-008; MB-100; MB-101; MB-102; MB-ADR-002; MB-ADR-003 |
 | Evidence Basis | Verified repository commit/HEAD; Controlled Draft documentation |
 
 ## 3.3 SABONO Retail
@@ -213,5 +213,6 @@ This registry must remain concise. It must not store full requirements, API or s
 
 | Version | Status | Description |
 | --- | --- | --- |
+| 0.1.2 | Draft | Recorded the Madina Platform / CRM evidence-based technical checkpoint and pending-verification boundary. |
 | 0.1.1 | Draft | Synchronized CRM repository-boundary documentation and historical repository traceability. |
 | 0.1.0 | Draft | Initial controlled portfolio registry foundation. |

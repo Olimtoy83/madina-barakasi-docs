@@ -4,12 +4,14 @@
 
 - Corrected the CRM repository boundary: `madina-platform` is the active monorepo and the CRM application is implemented at `apps/crm`.
 - Retained `madina-crm` as a historical repository reference without asserting its current operating status.
+- Updated MB-PORT-REG-001 with the verified Madina Platform / CRM technical checkpoint and pending-verification boundary.
 
 ### Added
 
 - Added MB-PORT-REG-001 — Ecosystem & Project Portfolio Registry v0.1.0 (Draft).
 - Registered the controlled cross-ecosystem portfolio registry in the Master Index and Document Registry.
 - Recorded initial verified repository checkpoints and Pending Verification boundaries without promoting supplied project context to approved facts.
+- Added MB-PLATFORM-CRM-CHK-001 — Madina Platform / CRM Canonical Project Checkpoint v0.1.0 (Draft).
 
 ## 2026-08-21
 
