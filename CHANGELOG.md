@@ -1,3 +1,11 @@
+## 2026-09-02
+
+### Changed
+
+- Updated MB-SABONO-RETAIL-CHK-001 to v0.1.1 with confirmed piece-sale and multiple-barcode evidence; the unconfirmed `1 BOX = 6 PCS` model is now proposed/deferred rather than a confirmed requirement.
+- Recorded Landed Cost and COGS as P1 open decisions, with required business questions before allocation, cost, gross-profit, or margin semantics are chosen.
+- Updated MB-REG-001 to v1.1.7 to retain the controlled checkpoint version in the Document Registry.
+
 ## 2026-09-01
 
 ### Added

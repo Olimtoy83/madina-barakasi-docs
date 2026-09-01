@@ -10,13 +10,13 @@
 | --- | --- |
 | Document ID | MB-SABONO-RETAIL-CHK-001 |
 | Title | SABONO Retail Canonical Project Checkpoint |
-| Version | 0.1.0 |
+| Version | 0.1.1 |
 | Status | Draft |
 | Owner | Governance |
 | Classification | Registry |
 | Language | English |
 | Created | 2026-09-01 |
-| Last Updated | 2026-09-01 |
+| Last Updated | 2026-09-02 |
 
 ---
 
@@ -131,15 +131,17 @@ It requires reconciliation and audit semantics; it must not be reduced to arbitr
 
 **CONFIRMED BUSINESS REQUIREMENT**
 
-The catalog is approximately 1,700 Products. A Product may have multiple barcodes. Business intent is that one barcode should not intentionally identify different Products.
+The catalog is approximately 1,700 Products. SABONO accounts for the discussed goods in pieces. A Product may have multiple barcodes: a primary/factory barcode and one or more additional internal barcodes. Every barcode assigned to the Product must identify that same Product in POS.
+
+An additional internal barcode does not by itself mean a multi-piece package and does not automatically change quantity. To sell six pieces, the cashier scans the Product six times or sets quantity to six.
 
 A real source-data/accounting case exists for `WL-992025 / A` with barcode `5052609920253`. It must not be discarded as an Excel typo.
 
 **OPEN DECISION / PILOT BLOCKER:** exact source-data barcode semantics. Do not adopt global `UNIQUE(barcode)` as an approved invariant. Affected records require investigation or quarantine before Pilot scanning.
 
-**CONFIRMED BUSINESS REQUIREMENT:** a sellable box can have its own barcode; for example, `1 BOX = 6 PCS`. SABONO can sell a complete BOX and individual PCS. Packaging/selling-unit/quantity-conversion capability is required, without automatically introducing Product Variants.
+**CORRECTED BUSINESS EVIDENCE:** the previously discussed `1 BOX = 6 PCS` model is not confirmed as a current Packaging/UOM conversion requirement. It must not be treated as a confirmed business rule.
 
-**OPEN DECISION / PILOT BLOCKER for affected Products:** whether identical pieces in separate boxes share an SKU-level barcode or each physical piece has a unique barcode.
+**PROPOSED ARCHITECTURE / DEFERRED:** a generic Packaging/UOM conversion capability may still have future value if a confirmed business scenario requires it. It is not a current P0 requirement, does not follow from an additional internal barcode, and does not automatically require Product Variants.
 
 ## 6.5 Discounts, Promotions, Loyalty, and Customer
 
@@ -171,7 +173,12 @@ Imports may use USD or EUR. Customs, logistics, and other attributable costs may
 
 Future Retail capability must conceptually support supplier invoice, prepayment, multiple payments, and outstanding payable.
 
-**OPEN DECISION:** landed-cost allocation method. Do not choose quantity, value, weight, manual, or mixed allocation without business input.
+**OPEN DECISION / P1:** Landed Cost and COGS semantics remain open and do not automatically block basic Pilot 0. Do not choose an allocation method, assert COGS semantics, or calculate reliable gross profit/margin before receiving answers to all of the following:
+
+1. Which costs form actual Product cost: purchase price, delivery, customs, and what other costs?
+2. Which additional import costs actually occur for SABONO: broker, certification, bank fees, storage, internal delivery, or others?
+3. How are additional costs allocated across Products in one shipment: by value, quantity, weight/volume, manually, or a combination?
+4. When one SKU arrives in different shipments at different prices, which cost method applies: weighted average, FIFO, last purchase price, manual, or another method?
 
 ## 6.8 Offline POS
 
@@ -213,12 +220,12 @@ The following facts are evidence for that inspected HEAD only; they are not eter
 
 **PROPOSED ARCHITECTURE**
 
-The completed read-only architecture report evaluated generic boundaries for Catalog/Product, Product Barcode, Packaging/UOM conversion, Location, Inventory Balance, immutable Stock Movement, Transfer, Inventory Count/Reconciliation, Sale/Sale Item, Payment Allocation/Split Payment, Customer, Loyalty, Promotion/Discount, Return/Exchange, Supplier, Supplier Invoice, Supplier Payment, Expense/Landed Cost, Partner stock/sales, Retail RBAC/location scope, offline synchronization, and fiscal adapter.
+The completed read-only architecture report evaluated generic boundaries for Catalog/Product, Product Barcode, potential Packaging/UOM conversion, Location, Inventory Balance, immutable Stock Movement, Transfer, Inventory Count/Reconciliation, Sale/Sale Item, Payment Allocation/Split Payment, Customer, Loyalty, Promotion/Discount, Return/Exchange, Supplier, Supplier Invoice, Supplier Payment, Expense/Landed Cost, Partner stock/sales, Retail RBAC/location scope, offline synchronization, and fiscal adapter.
 
 It proposed relationships such as:
 
 - `Product 1—N Barcode`;
-- Product to sellable Packaging/UOM conversions;
+- Product to possible sellable Packaging/UOM conversions;
 - Product + Location to inventory balance;
 - `Sale 1—N SaleItem`;
 - `Sale 1—N PaymentAllocation`;
@@ -245,14 +252,14 @@ The following need explicit architecture review:
 | Item | Classification | Required by |
 | --- | --- | --- |
 | Barcode duplicate/source-data semantics | **PILOT BLOCKER** for affected scanning records | Catalog import and scanner enablement |
-| BOX/PCS barcode behavior | **PILOT BLOCKER** for affected packaging Products | Packaging conversion enablement |
+| Need for Packaging/UOM conversion beyond piece sales | **PROPOSED ARCHITECTURE / DEFERRED** | Before any future packaging capability; not a current P0 blocker |
 | Exact Pilot store/register selection | **PILOT BLOCKER** | Parallel rollout planning |
 | Pilot acceptance tolerances | **PILOT BLOCKER** | Live rollout acceptance |
 | Basic Product percentage discount P0/P1 | **OPEN DECISION** | Pilot cut-line approval |
 | Minimum Inventory P0 vs full Inventory P1 | **OPEN DECISION** | Pilot cut-line approval |
 | Loyalty tier transitions | **OPEN DECISION** | Loyalty implementation |
 | Detailed Return/Exchange rules | **OPEN DECISION** | Return/Exchange implementation |
-| Landed-cost allocation | **OPEN DECISION** | Reliable COGS/profit reporting |
+| Landed-cost allocation and COGS method | **OPEN DECISION / P1** | Reliable COGS/profit reporting; not a current basic Pilot 0 blocker |
 | Partner commission/reward | **OPEN DECISION** | Partner settlement |
 | Final Retail permission matrix | **PILOT BLOCKER** for P0 user provisioning | Pilot rollout |
 | Offline conflict/reconciliation policy | **OPEN DECISION** | Offline/multi-register scope approval |
@@ -266,7 +273,7 @@ The following need explicit architecture review:
 - Storefront redesign;
 - Product Variant architecture unless real evidence requires it;
 - ARCA/fiscal integration adapter;
-- landed-cost allocation and reliable profit/margin reporting;
+- landed-cost allocation, COGS method, and reliable profit/margin reporting (P1);
 - broad multi-store and advanced offline conflict handling;
 - replacement of GBS, tax/accounting, or other external systems.
 
@@ -308,4 +315,5 @@ Its purpose is to resolve or approve the exact P0/P1/Deferred cut line, minimum 
 
 | Version | Status | Description |
 | --- | --- | --- |
+| 0.1.1 | Draft | Corrected barcode and piece-sale business evidence; moved the unconfirmed `1 BOX = 6 PCS` model from Confirmed to proposed/deferred; retained Landed Cost/COGS as P1 open decisions with required business questions. |
 | 0.1.0 | Draft | Initial controlled SABONO Retail continuity checkpoint; records evidence, completed audits, proposed architecture, open decisions, and next authorized review stage without approving implementation. |
