@@ -2,6 +2,8 @@
 
 ### Changed
 
+- Updated MB-SABONO-RETAIL-CHK-001 to v0.1.7: recorded completed Stage 2 — Location + early Retail RBAC foundation at `197173b6922a0242e15c0a211e965ac465c9b18b`, its bounded generic implementation/security/runtime-regression evidence, and accepted validation. Stage 3 remains not started; Stage 11 Offline POS remains blocked; Live Pilot remains not started.
+- Updated MB-PORT-REG-001 to v0.1.11 and MB-REG-001 to v1.1.13 for Stage 2 checkpoint traceability. The SABONO Retail User & Operating Guide requirement and Stage 15 documentation-readiness gate remain unchanged; no guide or Stage 3+ workflow documentation was created.
 - Updated MB-SABONO-RETAIL-CHK-001 to v0.1.6: recorded the future SABONO Retail User & Operating Guide as a required Pilot deliverable, its evidence-based lifecycle/safety expectations, and the Stage 15 documentation-readiness gate. No guide, procedure, screenshot, training material, or unimplemented workflow documentation was created.
 - Updated MB-PORT-REG-001 to v0.1.10 and MB-REG-001 to v1.1.12 for User & Operating Guide requirement traceability; implementation status and the Stage 2 / Stage 11 / Live Pilot boundaries remain unchanged.
 - Updated MB-SABONO-RETAIL-CHK-001 to v0.1.5: recorded completed Stage 1 — Retail boundary foundation with `STAGE 1 PASS` at `b62ad74503c4d3fa32509807db41d8223b6f6138`, its validated generic Retail composition boundaries, and the Stage 2 next-stage boundary. No Retail business capability, migration, POS UI, SABONO configuration, or later stage was started.

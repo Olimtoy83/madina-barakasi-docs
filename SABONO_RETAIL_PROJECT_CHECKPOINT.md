@@ -10,7 +10,7 @@
 | --- | --- |
 | Document ID | MB-SABONO-RETAIL-CHK-001 |
 | Title | SABONO Retail Canonical Project Checkpoint |
-| Version | 0.1.6 |
+| Version | 0.1.7 |
 | Status | Draft |
 | Owner | Governance |
 | Classification | Registry |
@@ -94,10 +94,23 @@ Pilot 0 does not automatically replace GBS, ARCA/fiscal operation, tax/accountin
 | PILOT 0 TECHNICAL DESIGN SPECIFICATION | **COMPLETED** | Recorded approved future implementation direction and remaining Technical Design open items; implementation planning has not started. |
 | PILOT 0 IMPLEMENTATION PLANNING | **COMPLETED** | Accepted canonical plan records separately authorized stages, Sale completion safety boundary, and the limited Offline blocker; it did not itself start implementation. |
 | Stage 1 — Retail boundary foundation | **COMPLETED / STAGE 1 PASS** | Verified at `b62ad74503c4d3fa32509807db41d8223b6f6138`; established generic composition boundaries only. |
+| Stage 2 — Location + early Retail RBAC foundation | **COMPLETED / STAGE 2 PASS** | Verified at `197173b6922a0242e15c0a211e965ac465c9b18b` (`feat(retail): add location access foundation`); established the generic Retail Location and early access foundation only. |
 
 The Technical Fit-Gap identified these major gaps: multi-location stock; split payments; offline POS; product/import requirements; supplier invoice/payment lifecycle; discount/promotion/loyalty; and reliable COGS/profit semantics.
 
 Existing Madina Platform foundations are to be reused and extended, not replaced.
+
+## Stage 2 Verification Record
+
+**VERIFIED REPOSITORY FACT**
+
+Stage 2 introduced the generic Retail Location/access foundation: the `RetailLocation` model with `central_warehouse` and `store` types and `active` and `inactive` statuses; additive migration `031_retail_access_locations_v1`; persistent `retail_locations` and `retail_user_location_grants`; Location create/list/read; Location grant/revoke; and append-only audit evidence for relevant mutations. Existing Auth user identities are reused; no separate Retail user identity system was introduced.
+
+Existing global Auth roles remain `admin`, `manager`, `operator`, and `viewer`. Stage 2 did not introduce SABONO- or Retail-specific global roles. Retail capability and Location access are a separate authorization layer. Server-side Location-scoped authorization requires an authenticated session, the required Retail capability, an active Location, and an active Location grant. CRM does not depend on Retail, and `@madina/retail` does not depend on `@madina/core`.
+
+During Stage 2 validation, the new runtime `createAuditEvent` import from the root `@madina/shared` barrel activated an extensionless-barrel runtime failure under the current Node runtime. Stage 2 corrected that regression by removing the new root-barrel runtime import and constructing the required audit evidence locally in the repository implementation. The existing extensionless shared barrel predated Stage 2; Stage 2 newly activated it at runtime. Final validation passed after the correction.
+
+Stage 2 did not introduce SABONO-specific data, Product, Barcode, Inventory, Stock Movement business domain, Goods Receipt, Transfer, Retail Sale, Payment Allocation, discount engine, Return, Offline POS, Retail reporting, or POS UI. Stage 3 and later functionality remains outside Stage 2.
 
 # 6. Confirmed Retail Requirements
 
@@ -351,7 +364,7 @@ Stage 2 is required before protected Retail mutations. Stage 13 is hardening/ver
 
 # 9.2 Canonical Implementation Plan — Future Work Only
 
-**ACCEPTED IMPLEMENTATION PLAN / STAGE 1 SUBSEQUENTLY COMPLETED**
+**ACCEPTED IMPLEMENTATION PLAN / STAGES 1–2 SUBSEQUENTLY COMPLETED**
 
 The canonical future sequence is:
 
@@ -405,7 +418,7 @@ Stage 11 remains blocked by the Offline physical-goods/accepted-money rejected-s
 
 Stage 14 tooling may prepare import dry run, validation, quarantine, content hash, repeatability, bootstrap validation/reporting, and backup/restore tooling through separately authorized stages. Actual SABONO pilot bootstrap requires all required non-offline P0 operational/security stages completed and accepted, Stage 12 reporting/reconciliation, Stage 13 permission hardening, selected pilot Store/register/users, Location grants, SABONO currency/exponent, backup/restore rehearsal, catalog and opening-balance sign-off, and explicit authorization to load actual pilot data. Actual bootstrap does not mean Live Pilot ready. Because Offline is required P0 capability, final Live Pilot readiness also requires Stage 11 blocker resolution and Offline validation.
 
-**Next recommended implementation stage:** **Stage 2 — Location + early Retail RBAC foundation** — **NOT STARTED** and requires separate explicit implementation authorization. It remains responsible for the mandatory authorization/location foundation before protected Retail mutations.
+**Next planned implementation stage:** **Stage 3 — Retail Product / Barcode / import** — **NOT STARTED**. This is a planned next stage only and requires separate explicit implementation authorization.
 
 # 10. Current Open Decisions and Pilot Blockers
 
@@ -452,15 +465,15 @@ Stage 14 tooling may prepare import dry run, validation, quarantine, content has
 | Implementation Plan verdict | **IMPLEMENTATION PLAN READY WITH BLOCKED OFFLINE STAGE** |
 | Pilot 0 Implementation | **IN PROGRESS** |
 | Stage 1 — Retail boundary foundation | **COMPLETED / STAGE 1 PASS** |
-| Stage 2 — Location + early Retail RBAC foundation | **NOT STARTED** |
+| Stage 2 — Location + early Retail RBAC foundation | **COMPLETED / STAGE 2 PASS** |
 | Stage 11 — Offline POS sync | **BLOCKED** pending approved rejected-sync operating policy |
 | Live Pilot | **NOT STARTED** |
 
 The original architecture-report verdict was **BLOCKED — BUSINESS INPUT REQUIRED**. It remains historical evidence for the initial read-only report and has been superseded for cut-line purposes by the completed user-approved review.
 
-**Next recommended implementation activity:** **Stage 2 — Location + early Retail RBAC foundation** — **NOT STARTED**; requires separate explicit implementation authorization.
+**Next planned implementation stage:** **Stage 3 — Retail Product / Barcode / import** — **NOT STARTED**; it requires separate explicit implementation authorization.
 
-It must establish the mandatory authorization/location foundation before protected Retail mutations. It does not authorize later stages, migrations beyond its bounded scope, implementation, or live pilot automatically.
+Stage 2 established the mandatory authorization/location foundation before protected Retail mutations. Its completion does not authorize Stage 3, later migrations, implementation beyond Stage 2, or Live Pilot automatically.
 
 # 13. SABONO Retail User & Operating Guide Requirement
 
@@ -500,11 +513,13 @@ Before Stage 15 — Pilot readiness verification, the required SABONO Retail Use
 
 - `madina-platform` inspected at `f02641c098a71e851779d2e59c96af8c0b27cf11` during the completed read-only Pilot 0 Architecture & Scope stage.
 - `madina-platform` verified at `b62ad74503c4d3fa32509807db41d8223b6f6138` for completed Stage 1 — Retail boundary foundation.
+- `madina-platform` verified at `197173b6922a0242e15c0a211e965ac465c9b18b` for completed Stage 2 — Location + early Retail RBAC foundation. Accepted validation: Retail route tests 2/2 PASS; database tests 74/74 PASS; server tests 113/113 PASS; CRM tests 72/72 PASS; CRM production build PASS; full `pnpm build` PASS; full `pnpm test` PASS; and `git diff --check` PASS.
 
 # Version History
 
 | Version | Status | Description |
 | --- | --- | --- |
+| 0.1.7 | Draft | Recorded completed Stage 2 — Location + early Retail RBAC foundation with `STAGE 2 PASS` at `197173b6922a0242e15c0a211e965ac465c9b18b`, factual scope/security/runtime-regression evidence, and accepted validation. Stage 3 remains not started; Stage 11 Offline POS remains blocked; Live Pilot remains not started. |
 | 0.1.6 | Draft | Recorded the future SABONO Retail User & Operating Guide as a required Pilot deliverable, its evidence-based lifecycle and safety expectations, and Stage 15 documentation-readiness verification. No guide, procedure, screenshot, training material, or unimplemented workflow documentation was created. |
 | 0.1.5 | Draft | Recorded completed Stage 1 — Retail boundary foundation with `STAGE 1 PASS`, verified implementation and validation evidence at `b62ad74503c4d3fa32509807db41d8223b6f6138`, and the Stage 2 next-stage boundary. No Retail business capability, migration, POS UI, SABONO configuration, or later stage was started. |
 | 0.1.4 | Draft | Recorded completed accepted Pilot 0 Implementation Planning, canonical stage sequence, safe Stage 8A/8B Sale boundary, access/money/bootstrap gates, and the Offline Stage 11-only blocker; no implementation stage started. |
