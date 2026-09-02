@@ -10,7 +10,7 @@
 | --- | --- |
 | Document ID | MB-PORT-REG-001 |
 | Title | Ecosystem & Project Portfolio Registry |
-| Version | 0.1.14 |
+| Version | 0.1.15 |
 | Status | Draft |
 | Owner | Governance |
 | Classification | Registry |
@@ -99,13 +99,13 @@ Statements derived only from planning context are marked Pending Verification. A
 | Classification | Platform domain/module |
 | Parent | Madina Platform |
 | Repository | `madina-platform` → `apps/crm` is the current technical boundary; `madina-crm` is historical only. |
-| Lifecycle | Business discovery, Technical Fit-Gap, Storefront Readiness, read-only Pilot 0 Architecture & Scope, Architecture Review / Cut-Line Decision, Technical Design, Implementation Planning, and Stages 1–5 are completed. Pilot 0 Implementation is in progress; Live Pilot has not started. |
+| Lifecycle | Business discovery, Technical Fit-Gap, Storefront Readiness, read-only Pilot 0 Architecture & Scope, Architecture Review / Cut-Line Decision, Technical Design, Implementation Planning, and Stages 1–6 are completed. Pilot 0 Implementation is in progress; Live Pilot has not started. |
 | Business Status | Confirmed Retail requirements and the approved P0/P1/Deferred cut-line are recorded in MB-SABONO-RETAIL-CHK-001 (Draft). |
 | Technical Status | Stage 1 passed at `b62ad74503c4d3fa32509807db41d8223b6f6138` (`feat(retail): add generic retail module boundary`). Stage 2 passed at `197173b6922a0242e15c0a211e965ac465c9b18b` (`feat(retail): add location access foundation`). Stage 3 passed at `0311c87cf48bdf2413da0068cc89b99928c13c8e` (`feat(retail): add product barcode import foundation`). Stage 4 passed at `d9b3dae2c055209d1f7402e87c22bb057d717817` (`feat(retail): add inventory ledger foundation`): generic location-scoped immutable inventory ledger/balance foundation, integer movement deltas, guarded negative stock, source/reference idempotency, inventory audit evidence, and protected inventory reads only. Retail Product has no global quantity/stock; CRM Product, CRM `StockMovement`, and `apps/crm` remain independent. No Opening Count/Reconciliation workflow, Goods Receipt, Transfer, Sale/Return stock effect, POS UI, or later-stage capability is asserted. Stage 11 Offline POS remains blocked. |
 | Current Canonical Checkpoint | MB-SABONO-RETAIL-CHK-001 (Draft) |
 | Accepted / Frozen Decisions | None verified |
 | Open Questions | Offline physical-goods/accepted-money rejected-sync policy blocks Stage 11 Offline POS only; exact rounding, capability/membership, offline retention, and pilot configuration parameters remain open. P1 loyalty, advanced returns, supplier/payable, Landed Cost technical design, and partner rules remain outside P0. A future SABONO Retail User & Operating Guide is a required Pilot deliverable and must be reviewed against actual accepted implementation before Stage 15; it is not yet created. |
-| Next Authorized Stage | Stage 6 — Goods Receipt; planned next stage only, not started, and requires separate explicit implementation authorization. |
+| Next Authorized Stage | Stage 7 — Transfer; planned next stage only, not started, and requires separate explicit implementation authorization. |
 | Documentation References | MB-SABONO-RETAIL-CHK-001; MB-PLATFORM-CRM-CHK-001; MB-CRM-001 through MB-CRM-008; MB-100; MB-101; MB-102; MB-ENG-001; MB-SOP-001 |
 | Evidence Basis | Confirmed business requirements recorded in controlled Draft documentation; Verified repository commit/HEAD; Controlled Draft documentation |
 
@@ -213,6 +213,7 @@ This registry must remain concise. It must not store full requirements, API or s
 
 | Version | Status | Description |
 | --- | --- | --- |
+| 0.1.15 | Draft | Recorded verified Stage 6 Goods Receipt completion at `414ae5b0db8b625440ecb591b716b0a441e0bb01`; Stage 7 remains not started, Stage 11 remains blocked, and Live Pilot remains not started. |
 | 0.1.14 | Draft | Recorded verified Stage 5 reconciliation evidence completion at `a4fe65170eae53b164a79c820751417473724ab3`; Stage 6 remains not started, Stage 11 remains blocked, and Live Pilot remains not started. |
 | 0.1.13 | Draft | Recorded verified Stage 4 completion at `d9b3dae2c055209d1f7402e87c22bb057d717817`, bounded location-scoped ledger/balance and validation evidence; Stage 5 remains not started, Stage 11 remains blocked, and Live Pilot remains not started. |
 | 0.1.12 | Draft | Recorded verified Stage 3 completion at `0311c87cf48bdf2413da0068cc89b99928c13c8e`, bounded generic Product/Barcode/import and validation evidence; Stage 4 remains not started, Stage 11 remains blocked, and Live Pilot remains not started. |

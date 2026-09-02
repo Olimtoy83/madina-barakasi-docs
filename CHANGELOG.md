@@ -2,6 +2,8 @@
 
 ### Changed
 
+- Updated MB-SABONO-RETAIL-CHK-001 to v0.1.11 for Stage 6 Goods Receipt at `414ae5b0db8b625440ecb591b716b0a441e0bb01`; atomic completion, audit-failure rollback evidence, and Stage 4 ledger authority are recorded. Stage 7 remains not started; Stage 11 remains blocked; Live Pilot remains not started.
+- Updated MB-PORT-REG-001 to v0.1.15 and MB-REG-001 to v1.1.17 for Stage 6 checkpoint traceability; no Stage 7+ workflow documentation was created.
 - Updated MB-SABONO-RETAIL-CHK-001 to v0.1.10 for Stage 5 reconciliation evidence at `a4fe65170eae53b164a79c820751417473724ab3`. Daily reconciliation remains evidence-only; opening stock initialization is not implemented; Stage 6 remains not started, Stage 11 remains blocked, and Live Pilot remains not started.
 - Updated MB-PORT-REG-001 to v0.1.14 and MB-REG-001 to v1.1.16 for Stage 5 checkpoint traceability; no Stage 6+ workflow documentation was created.
 - Updated MB-SABONO-RETAIL-CHK-001 to v0.1.9: recorded completed Stage 4 — Inventory ledger foundation at `d9b3dae2c055209d1f7402e87c22bb057d717817`, its bounded location-scoped ledger/balance, integer quantity, guarded negative-stock, source/reference idempotency, immutable-history, authorization, audit, and validation evidence. Stage 5 remains not started; Stage 11 Offline POS remains blocked; Live Pilot remains not started.
