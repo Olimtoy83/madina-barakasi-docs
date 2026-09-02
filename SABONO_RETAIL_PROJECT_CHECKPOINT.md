@@ -10,7 +10,7 @@
 | --- | --- |
 | Document ID | MB-SABONO-RETAIL-CHK-001 |
 | Title | SABONO Retail Canonical Project Checkpoint |
-| Version | 0.1.9 |
+| Version | 0.1.10 |
 | Status | Draft |
 | Owner | Governance |
 | Classification | Registry |
@@ -97,6 +97,7 @@ Pilot 0 does not automatically replace GBS, ARCA/fiscal operation, tax/accountin
 | Stage 2 — Location + early Retail RBAC foundation | **COMPLETED / STAGE 2 PASS** | Verified at `197173b6922a0242e15c0a211e965ac465c9b18b` (`feat(retail): add location access foundation`); established the generic Retail Location and early access foundation only. |
 | Stage 3 — Retail Product / Barcode / import | **COMPLETED / STAGE 3 PASS** | Verified at `0311c87cf48bdf2413da0068cc89b99928c13c8e` (`feat(retail): add product barcode import foundation`); established generic Product, Barcode, and controlled import foundation only. |
 | Stage 4 — Inventory ledger foundation | **COMPLETED / STAGE 4 PASS** | Verified at `d9b3dae2c055209d1f7402e87c22bb057d717817` (`feat(retail): add inventory ledger foundation`); established the generic location-scoped inventory ledger and balance foundation only. |
+| Stage 5 — Opening Counts / Reconciliation Evidence | **COMPLETED / STAGE 5 PASS** | Verified at `a4fe65170eae53b164a79c820751417473724ab3` (`feat(retail): add inventory reconciliation foundation`); established evidence-only location-scoped reconciliation foundation. |
 
 The Technical Fit-Gap identified these major gaps: multi-location stock; split payments; offline POS; product/import requirements; supplier invoice/payment lifecycle; discount/promotion/loyalty; and reliable COGS/profit semantics.
 
@@ -141,6 +142,20 @@ Stage 4 added only protected inventory read routes for balances by Location and 
 The inventory ledger is stock-effect evidence. Audit is separate actor/system action evidence; implemented inventory-changing primitives append truthful inventory audit events and audit does not replace movement history. Retail inventory remains independent from CRM Product, CRM `Product.quantity`, and CRM `StockMovement`; `apps/crm` still does not depend on `@madina/retail`, and `@madina/retail` still does not depend on `@madina/core`.
 
 Stage 4 did not implement an Opening Count or Reconciliation workflow, Goods Receipt, Transfer, Sale stock effects, Payment Allocation, discount engine, Return stock effects, Offline POS, Retail reporting/dashboard, Landed Cost/COGS, supplier payable lifecycle, or actual SABONO stock/bootstrap. Stage 5 and later workflows remain outside Stage 4.
+
+## Stage 5 Verification Record
+
+**VERIFIED REPOSITORY FACT**
+
+Stage 5 introduced additive migration `034_retail_inventory_reconciliation_v1`, with location-scoped reconciliation sessions (`opening` or `daily`; `open` or `completed`) and one Product count line per session. A line snapshots expected quantity from the Stage 4 Retail inventory balance when count evidence is recorded; actual quantity is an explicit non-negative safe integer physical count; `variance = actual - expected`; classifications are `matched`, `shortage`, and `surplus`.
+
+Completed reconciliation evidence is immutable and later inventory movements do not rewrite its expected/actual/variance snapshot. Daily reconciliation is evidence-only: a variance does not automatically change Retail inventory balance, create a shortage/surplus movement, or expose a generic arbitrary stock-adjust endpoint. Reconciliation does not replace the authoritative Stage 4 ledger/balance.
+
+Opening stock initialization was **NOT IMPLEMENTED**. The current architecture has no common transaction/UoW boundary between reconciliation and the Stage 4 ledger sufficient to prove atomic cross-repository opening initialization; no workaround was introduced.
+
+Protected routes are `GET/POST /locations/:locationId/reconciliations`, `GET /locations/:locationId/reconciliations/:sessionId`, `POST /locations/:locationId/reconciliations/:sessionId/counts`, and `POST /locations/:locationId/reconciliations/:sessionId/complete`. They use `retail:reconciliation:read` and `retail:reconciliation:manage` with the Stage 2 authenticated session, active Location, and active Location grant. Focused tests verified: no session 401; missing capability, missing/revoked grant, inactive Location, and Location A→B substitution 403; body `locationId`/`role`/`capability` cannot elevate access; an authorized user can create/count/complete/read; and revocation blocks completed-history reads.
+
+Stage 5 preserved Retail Product without quantity/stock, CRM `Product.quantity` and CRM `StockMovement` unchanged, global Auth roles unchanged, and the separate Retail capability/Location-grant layer. It did not implement Goods Receipt, Transfer, Sale/Payment Allocation, Discount, Return, Offline POS, reporting/dashboard, quarterly Inventory workflow, Landed Cost/COGS, supplier payable lifecycle, or real SABONO bootstrap.
 
 # 6. Confirmed Retail Requirements
 
@@ -448,7 +463,7 @@ Stage 11 remains blocked by the Offline physical-goods/accepted-money rejected-s
 
 Stage 14 tooling may prepare import dry run, validation, quarantine, content hash, repeatability, bootstrap validation/reporting, and backup/restore tooling through separately authorized stages. Actual SABONO pilot bootstrap requires all required non-offline P0 operational/security stages completed and accepted, Stage 12 reporting/reconciliation, Stage 13 permission hardening, selected pilot Store/register/users, Location grants, SABONO currency/exponent, backup/restore rehearsal, catalog and opening-balance sign-off, and explicit authorization to load actual pilot data. Actual bootstrap does not mean Live Pilot ready. Because Offline is required P0 capability, final Live Pilot readiness also requires Stage 11 blocker resolution and Offline validation.
 
-**Next planned implementation stage:** **Stage 5 — Opening counts / reconciliation evidence** — **NOT STARTED**. This is a planned next stage only and requires separate explicit implementation authorization.
+**Next planned implementation stage:** **Stage 6 — Goods Receipt** — **NOT STARTED**. This is planned only and requires separate explicit implementation authorization.
 
 # 10. Current Open Decisions and Pilot Blockers
 
@@ -498,13 +513,14 @@ Stage 14 tooling may prepare import dry run, validation, quarantine, content has
 | Stage 2 — Location + early Retail RBAC foundation | **COMPLETED / STAGE 2 PASS** |
 | Stage 3 — Retail Product / Barcode / import | **COMPLETED / STAGE 3 PASS** |
 | Stage 4 — Inventory ledger foundation | **COMPLETED / STAGE 4 PASS** |
-| Stage 5 — Opening counts / reconciliation evidence | **NOT STARTED** |
+| Stage 5 — Opening counts / reconciliation evidence | **COMPLETED / STAGE 5 PASS** |
+| Stage 6 — Goods Receipt | **NOT STARTED** |
 | Stage 11 — Offline POS sync | **BLOCKED** pending approved rejected-sync operating policy |
 | Live Pilot | **NOT STARTED** |
 
 The original architecture-report verdict was **BLOCKED — BUSINESS INPUT REQUIRED**. It remains historical evidence for the initial read-only report and has been superseded for cut-line purposes by the completed user-approved review.
 
-**Next planned implementation stage:** **Stage 5 — Opening counts / reconciliation evidence** — **NOT STARTED**; it requires separate explicit implementation authorization.
+**Next planned implementation stage:** **Stage 6 — Goods Receipt** — **NOT STARTED**; it requires separate explicit implementation authorization.
 
 Stage 4 established generic location-scoped inventory ledger/balance infrastructure only. Its completion does not authorize Stage 5, later migrations, implementation beyond Stage 4, or Live Pilot automatically.
 
@@ -551,11 +567,13 @@ Before Stage 15 — Pilot readiness verification, the required SABONO Retail Use
 - `madina-platform` verified at `197173b6922a0242e15c0a211e965ac465c9b18b` for completed Stage 2 — Location + early Retail RBAC foundation. Accepted validation: Retail route tests 2/2 PASS; database tests 74/74 PASS; server tests 113/113 PASS; CRM tests 72/72 PASS; CRM production build PASS; full `pnpm build` PASS; full `pnpm test` PASS; and `git diff --check` PASS.
 - `madina-platform` verified at `0311c87cf48bdf2413da0068cc89b99928c13c8e` for completed Stage 3 — Retail Product / Barcode / import. Accepted validation: database tests 76/76 PASS; focused Retail API/security 3/3 PASS; server tests 114/114 PASS; CRM tests 72/72 PASS; CRM production build PASS; full `pnpm build` PASS; full `pnpm test` PASS; API TypeScript contracts PASS; and `git diff --check` PASS.
 - `madina-platform` verified at `d9b3dae2c055209d1f7402e87c22bb057d717817` for completed Stage 4 — Inventory ledger foundation. Accepted validation: database tests 79/79 PASS; full `pnpm build` PASS; full `pnpm test` PASS; and `git diff --check` PASS.
+- `madina-platform` verified at `a4fe65170eae53b164a79c820751417473724ab3` for completed Stage 5 — Opening Counts / Reconciliation Evidence. Accepted validation: focused Retail routes 5 tests PASS; database tests 80/80 PASS; server tests PASS; CRM tests and production build PASS; full `pnpm build` PASS; full `pnpm test` PASS; and `git diff --check` PASS.
 
 # Version History
 
 | Version | Status | Description |
 | --- | --- | --- |
+| 0.1.10 | Draft | Recorded completed Stage 5 reconciliation evidence foundation at `a4fe65170eae53b164a79c820751417473724ab3`; opening initialization remains not implemented, Stage 6 remains not started, Stage 11 remains blocked, and Live Pilot remains not started. |
 | 0.1.9 | Draft | Recorded completed Stage 4 — Inventory ledger foundation with `STAGE 4 PASS` at `d9b3dae2c055209d1f7402e87c22bb057d717817`, bounded location-scoped ledger/balance, integer quantity, guarded negative-stock, source/reference idempotency, immutable history, authorization, audit, and validation evidence. Stage 5 remains not started; Stage 11 Offline POS remains blocked; Live Pilot remains not started. |
 | 0.1.8 | Draft | Recorded completed Stage 3 — Retail Product / Barcode / import with `STAGE 3 PASS` at `0311c87cf48bdf2413da0068cc89b99928c13c8e`, bounded Product/Barcode/import, conflict/quarantine, authorization, audit, and validation evidence. Stage 4 remains not started; Stage 11 Offline POS remains blocked; Live Pilot remains not started. |
 | 0.1.7 | Draft | Recorded completed Stage 2 — Location + early Retail RBAC foundation with `STAGE 2 PASS` at `197173b6922a0242e15c0a211e965ac465c9b18b`, factual scope/security/runtime-regression evidence, and accepted validation. Stage 3 remains not started; Stage 11 Offline POS remains blocked; Live Pilot remains not started. |
