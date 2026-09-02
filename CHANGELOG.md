@@ -2,6 +2,8 @@
 
 ### Changed
 
+- Updated MB-SABONO-RETAIL-CHK-001 to v0.1.9: recorded completed Stage 4 — Inventory ledger foundation at `d9b3dae2c055209d1f7402e87c22bb057d717817`, its bounded location-scoped ledger/balance, integer quantity, guarded negative-stock, source/reference idempotency, immutable-history, authorization, audit, and validation evidence. Stage 5 remains not started; Stage 11 Offline POS remains blocked; Live Pilot remains not started.
+- Updated MB-PORT-REG-001 to v0.1.13 and MB-REG-001 to v1.1.15 for Stage 4 checkpoint traceability. The SABONO Retail User & Operating Guide requirement and Stage 15 documentation-readiness gate remain unchanged; no guide or Stage 5+ workflow documentation was created.
 - Updated MB-SABONO-RETAIL-CHK-001 to v0.1.8: recorded completed Stage 3 — Retail Product / Barcode / import at `0311c87cf48bdf2413da0068cc89b99928c13c8e`, its bounded Product/Barcode/import, conflict/quarantine, authorization, audit, and validation evidence. Stage 4 remains not started; Stage 11 Offline POS remains blocked; Live Pilot remains not started.
 - Updated MB-PORT-REG-001 to v0.1.12 and MB-REG-001 to v1.1.14 for Stage 3 checkpoint traceability. The SABONO Retail User & Operating Guide requirement and Stage 15 documentation-readiness gate remain unchanged; no guide or Stage 4+ workflow documentation was created.
 - Updated MB-SABONO-RETAIL-CHK-001 to v0.1.7: recorded completed Stage 2 — Location + early Retail RBAC foundation at `197173b6922a0242e15c0a211e965ac465c9b18b`, its bounded generic implementation/security/runtime-regression evidence, and accepted validation. Stage 3 remains not started; Stage 11 Offline POS remains blocked; Live Pilot remains not started.

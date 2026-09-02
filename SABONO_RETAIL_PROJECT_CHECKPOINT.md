@@ -10,7 +10,7 @@
 | --- | --- |
 | Document ID | MB-SABONO-RETAIL-CHK-001 |
 | Title | SABONO Retail Canonical Project Checkpoint |
-| Version | 0.1.8 |
+| Version | 0.1.9 |
 | Status | Draft |
 | Owner | Governance |
 | Classification | Registry |
@@ -96,6 +96,7 @@ Pilot 0 does not automatically replace GBS, ARCA/fiscal operation, tax/accountin
 | Stage 1 — Retail boundary foundation | **COMPLETED / STAGE 1 PASS** | Verified at `b62ad74503c4d3fa32509807db41d8223b6f6138`; established generic composition boundaries only. |
 | Stage 2 — Location + early Retail RBAC foundation | **COMPLETED / STAGE 2 PASS** | Verified at `197173b6922a0242e15c0a211e965ac465c9b18b` (`feat(retail): add location access foundation`); established the generic Retail Location and early access foundation only. |
 | Stage 3 — Retail Product / Barcode / import | **COMPLETED / STAGE 3 PASS** | Verified at `0311c87cf48bdf2413da0068cc89b99928c13c8e` (`feat(retail): add product barcode import foundation`); established generic Product, Barcode, and controlled import foundation only. |
+| Stage 4 — Inventory ledger foundation | **COMPLETED / STAGE 4 PASS** | Verified at `d9b3dae2c055209d1f7402e87c22bb057d717817` (`feat(retail): add inventory ledger foundation`); established the generic location-scoped inventory ledger and balance foundation only. |
 
 The Technical Fit-Gap identified these major gaps: multi-location stock; split payments; offline POS; product/import requirements; supplier invoice/payment lifecycle; discount/promotion/loyalty; and reliable COGS/profit semantics.
 
@@ -126,6 +127,20 @@ The controlled JSON Product/Barcode import foundation supports dry-run, transact
 The Stage 3 API foundation supports Product list/search/read, barcode lookup, Product create/update, barcode add, and import/dry-run. Catalog reads require `retail:products:read`; catalog mutations require `retail:products:manage`; imports require `retail:products:import`. Location grants were not applied to catalog-global operations. Existing global Auth roles remain unchanged. Implemented audit evidence is Product created, Product updated, Barcode added, and import applied.
 
 Retail Product remains independent from CRM Product. CRM Product schema and `Product.quantity` semantics are unchanged; `apps/crm` does not depend on `@madina/retail`, `@madina/retail` does not depend on `@madina/core`, and no SABONO-specific hard-coded business domain leaked into generic Retail. Stage 3 did not add Inventory Balance, Retail stock quantity, Stock Movement, Goods Receipt, Transfer, Retail Sale, Payment Allocation, discount engine, Return, Offline POS, Retail reporting, POS UI, Landed Cost/COGS, or a real SABONO catalog/stock bootstrap.
+
+## Stage 4 Verification Record
+
+**VERIFIED REPOSITORY FACT**
+
+Stage 4 introduced the generic Retail inventory ledger foundation through additive migration `033_retail_inventory_ledger_v1`. Retail stock is location-scoped: a balance is identified by `Retail Product + Retail Location`; Retail Product itself remains without a global quantity or stock field. Current P0 piece-based movements use deterministic non-zero safe integer deltas.
+
+Every accepted balance effect is attributable to an immutable Retail inventory movement with Product, Location, signed quantity delta, controlled movement type, source type, source ID, source line ID, and creation timestamp. The ledger is append-only: ordinary update/delete operations are blocked. Balance and movement writes, together with the implemented audit evidence, occur inside the same `BEGIN IMMEDIATE` repository transaction. Stock-decreasing movements that would make on-hand quantity negative are rejected, and the unique source/reference identity prevents a repeated effect from silently applying twice.
+
+Stage 4 added only protected inventory read routes for balances by Location and movement history by Product + Location. Those reads reuse the Stage 2 authenticated-session, Retail capability, active Location, and active Location-grant boundary. Catalog-global Product permissions remain separate. Stage 4 did not expose an unrestricted arbitrary stock-adjustment business endpoint.
+
+The inventory ledger is stock-effect evidence. Audit is separate actor/system action evidence; implemented inventory-changing primitives append truthful inventory audit events and audit does not replace movement history. Retail inventory remains independent from CRM Product, CRM `Product.quantity`, and CRM `StockMovement`; `apps/crm` still does not depend on `@madina/retail`, and `@madina/retail` still does not depend on `@madina/core`.
+
+Stage 4 did not implement an Opening Count or Reconciliation workflow, Goods Receipt, Transfer, Sale stock effects, Payment Allocation, discount engine, Return stock effects, Offline POS, Retail reporting/dashboard, Landed Cost/COGS, supplier payable lifecycle, or actual SABONO stock/bootstrap. Stage 5 and later workflows remain outside Stage 4.
 
 # 6. Confirmed Retail Requirements
 
@@ -433,7 +448,7 @@ Stage 11 remains blocked by the Offline physical-goods/accepted-money rejected-s
 
 Stage 14 tooling may prepare import dry run, validation, quarantine, content hash, repeatability, bootstrap validation/reporting, and backup/restore tooling through separately authorized stages. Actual SABONO pilot bootstrap requires all required non-offline P0 operational/security stages completed and accepted, Stage 12 reporting/reconciliation, Stage 13 permission hardening, selected pilot Store/register/users, Location grants, SABONO currency/exponent, backup/restore rehearsal, catalog and opening-balance sign-off, and explicit authorization to load actual pilot data. Actual bootstrap does not mean Live Pilot ready. Because Offline is required P0 capability, final Live Pilot readiness also requires Stage 11 blocker resolution and Offline validation.
 
-**Next planned implementation stage:** **Stage 4 — Inventory ledger foundation** — **NOT STARTED**. This is a planned next stage only and requires separate explicit implementation authorization.
+**Next planned implementation stage:** **Stage 5 — Opening counts / reconciliation evidence** — **NOT STARTED**. This is a planned next stage only and requires separate explicit implementation authorization.
 
 # 10. Current Open Decisions and Pilot Blockers
 
@@ -482,15 +497,16 @@ Stage 14 tooling may prepare import dry run, validation, quarantine, content has
 | Stage 1 — Retail boundary foundation | **COMPLETED / STAGE 1 PASS** |
 | Stage 2 — Location + early Retail RBAC foundation | **COMPLETED / STAGE 2 PASS** |
 | Stage 3 — Retail Product / Barcode / import | **COMPLETED / STAGE 3 PASS** |
-| Stage 4 — Inventory ledger foundation | **NOT STARTED** |
+| Stage 4 — Inventory ledger foundation | **COMPLETED / STAGE 4 PASS** |
+| Stage 5 — Opening counts / reconciliation evidence | **NOT STARTED** |
 | Stage 11 — Offline POS sync | **BLOCKED** pending approved rejected-sync operating policy |
 | Live Pilot | **NOT STARTED** |
 
 The original architecture-report verdict was **BLOCKED — BUSINESS INPUT REQUIRED**. It remains historical evidence for the initial read-only report and has been superseded for cut-line purposes by the completed user-approved review.
 
-**Next planned implementation stage:** **Stage 4 — Inventory ledger foundation** — **NOT STARTED**; it requires separate explicit implementation authorization.
+**Next planned implementation stage:** **Stage 5 — Opening counts / reconciliation evidence** — **NOT STARTED**; it requires separate explicit implementation authorization.
 
-Stage 3 established generic Product/Barcode/import foundation. Its completion does not authorize Stage 4, later migrations, implementation beyond Stage 3, or Live Pilot automatically.
+Stage 4 established generic location-scoped inventory ledger/balance infrastructure only. Its completion does not authorize Stage 5, later migrations, implementation beyond Stage 4, or Live Pilot automatically.
 
 # 13. SABONO Retail User & Operating Guide Requirement
 
@@ -509,6 +525,8 @@ The future guide must include appropriate safety/control instructions: do not by
 Offline POS instructions may be added only after the Stage 11 rejected-sync operating policy is approved, Offline behavior is implemented, and actual behavior is accepted and verified. Offline conflicts must then follow that approved SABONO operating policy. No Offline procedure is recorded now.
 
 Stage 1 introduced only the generic Retail architectural boundary. It has no SABONO end-user Retail workflow requiring a user procedure, so no operational instruction is written for Stage 1. This requirement is recorded now so documentation evolves with later accepted implementation stages; it does not create a guide, cashier/warehouse/manager manual, screenshots, SOP, training material, or instructions for unimplemented functionality.
+
+Stage 4 adds foundational ledger infrastructure and protected reads only. It does not create a complete end-user opening-count, reconciliation, receipt, transfer, or POS workflow, so no Stage 4 operating procedure is created.
 
 Before Stage 15 — Pilot readiness verification, the required SABONO Retail User & Operating Guide must be reviewed against the actual implemented Pilot system. Stage 15 must verify, where applicable, that required operational workflows are documented; instructions and any screenshots match accepted behavior and UI; roles/Location permissions are accurately represented; Blocked/P1/Deferred functionality is not presented as available; and known operational escalation paths are documented. Documentation readiness is one component of Pilot readiness and does not by itself establish Live Pilot readiness.
 
@@ -532,11 +550,13 @@ Before Stage 15 — Pilot readiness verification, the required SABONO Retail Use
 - `madina-platform` verified at `b62ad74503c4d3fa32509807db41d8223b6f6138` for completed Stage 1 — Retail boundary foundation.
 - `madina-platform` verified at `197173b6922a0242e15c0a211e965ac465c9b18b` for completed Stage 2 — Location + early Retail RBAC foundation. Accepted validation: Retail route tests 2/2 PASS; database tests 74/74 PASS; server tests 113/113 PASS; CRM tests 72/72 PASS; CRM production build PASS; full `pnpm build` PASS; full `pnpm test` PASS; and `git diff --check` PASS.
 - `madina-platform` verified at `0311c87cf48bdf2413da0068cc89b99928c13c8e` for completed Stage 3 — Retail Product / Barcode / import. Accepted validation: database tests 76/76 PASS; focused Retail API/security 3/3 PASS; server tests 114/114 PASS; CRM tests 72/72 PASS; CRM production build PASS; full `pnpm build` PASS; full `pnpm test` PASS; API TypeScript contracts PASS; and `git diff --check` PASS.
+- `madina-platform` verified at `d9b3dae2c055209d1f7402e87c22bb057d717817` for completed Stage 4 — Inventory ledger foundation. Accepted validation: database tests 79/79 PASS; full `pnpm build` PASS; full `pnpm test` PASS; and `git diff --check` PASS.
 
 # Version History
 
 | Version | Status | Description |
 | --- | --- | --- |
+| 0.1.9 | Draft | Recorded completed Stage 4 — Inventory ledger foundation with `STAGE 4 PASS` at `d9b3dae2c055209d1f7402e87c22bb057d717817`, bounded location-scoped ledger/balance, integer quantity, guarded negative-stock, source/reference idempotency, immutable history, authorization, audit, and validation evidence. Stage 5 remains not started; Stage 11 Offline POS remains blocked; Live Pilot remains not started. |
 | 0.1.8 | Draft | Recorded completed Stage 3 — Retail Product / Barcode / import with `STAGE 3 PASS` at `0311c87cf48bdf2413da0068cc89b99928c13c8e`, bounded Product/Barcode/import, conflict/quarantine, authorization, audit, and validation evidence. Stage 4 remains not started; Stage 11 Offline POS remains blocked; Live Pilot remains not started. |
 | 0.1.7 | Draft | Recorded completed Stage 2 — Location + early Retail RBAC foundation with `STAGE 2 PASS` at `197173b6922a0242e15c0a211e965ac465c9b18b`, factual scope/security/runtime-regression evidence, and accepted validation. Stage 3 remains not started; Stage 11 Offline POS remains blocked; Live Pilot remains not started. |
 | 0.1.6 | Draft | Recorded the future SABONO Retail User & Operating Guide as a required Pilot deliverable, its evidence-based lifecycle and safety expectations, and Stage 15 documentation-readiness verification. No guide, procedure, screenshot, training material, or unimplemented workflow documentation was created. |
