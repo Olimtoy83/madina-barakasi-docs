@@ -10,13 +10,13 @@
 | --- | --- |
 | Document ID | MB-SABONO-RETAIL-CHK-001 |
 | Title | SABONO Retail Canonical Project Checkpoint |
-| Version | 0.1.11 |
+| Version | 0.1.12 |
 | Status | Draft |
 | Owner | Governance |
 | Classification | Registry |
 | Language | English |
 | Created | 2026-09-01 |
-| Last Updated | 2026-09-02 |
+| Last Updated | 2026-09-09 |
 
 ---
 
@@ -99,6 +99,7 @@ Pilot 0 does not automatically replace GBS, ARCA/fiscal operation, tax/accountin
 | Stage 4 — Inventory ledger foundation | **COMPLETED / STAGE 4 PASS** | Verified at `d9b3dae2c055209d1f7402e87c22bb057d717817` (`feat(retail): add inventory ledger foundation`); established the generic location-scoped inventory ledger and balance foundation only. |
 | Stage 5 — Opening Counts / Reconciliation Evidence | **COMPLETED / STAGE 5 PASS** | Verified at `a4fe65170eae53b164a79c820751417473724ab3` (`feat(retail): add inventory reconciliation foundation`); established evidence-only location-scoped reconciliation foundation. |
 | Stage 6 — Goods Receipt | **COMPLETED / STAGE 6 PASS** | Verified at `414ae5b0db8b625440ecb591b716b0a441e0bb01` (`feat(retail): add goods receipt foundation`); established generic location-scoped Central Warehouse Goods Receipt foundation only. |
+| Stage 7 — Transfer | **COMPLETED / STAGE 7 PASS** | Verified at `5bb3f274efda8d969f290036831602032f1f492d` (`feat(retail): add transfer foundation`); established generic Retail Transfer foundation only. |
 
 The Technical Fit-Gap identified these major gaps: multi-location stock; split payments; offline POS; product/import requirements; supplier invoice/payment lifecycle; discount/promotion/loyalty; and reliable COGS/profit semantics.
 
@@ -169,6 +170,18 @@ Completion is atomic across receipt completion state, inventory movement, balanc
 Implemented server routes under `/api/v1/retail` are `GET/POST /locations/:locationId/goods-receipts`, `GET/PATCH /locations/:locationId/goods-receipts/:receiptId`, and `POST /locations/:locationId/goods-receipts/:receiptId/complete`. The server enforces `retail:goods-receipts:read` and `retail:goods-receipts:manage`, authenticated session, active Location, and active Location grant. Tests verified denial without session/capability/grant, revoked grant, inactive Location, Store destination, horizontal Location substitution, and payload role/capability/location escalation; authorized active-grant access succeeds and completed history remains Location-protected.
 
 Validation: targeted Goods Receipt database tests 3/3 PASS; focused Retail route/security tests from fresh server build 6/6 PASS; database 82/82 PASS; CRM 72/72 PASS; full `pnpm build`, full `pnpm test`, and `git diff --check` PASS. Global Auth roles and `apps/crm` dependencies remain unchanged. Transfer, Sale, Sale Item workflow, Payment Allocation, Discount, Return, Offline POS, reporting/dashboard, quarterly Inventory workflow, real SABONO data/bootstrap, and all Stage 7+ workflows remain unimplemented.
+
+## Stage 7 Verification Record
+
+**VERIFIED REPOSITORY FACT**
+
+Stage 7 introduced additive migration `036_retail_transfers_v1` and a generic Madina Retail Transfer aggregate with source and destination Retail Locations, Product lines, and lifecycle `draft → dispatched → received`. Source and destination must differ. Dispatch records attributable negative Stage 4 `transfer` inventory movements at the persisted source Location; receive records attributable positive `transfer` movements at the persisted destination Location. Dispatch and receive use distinct transition source references, and repeated transitions do not duplicate stock effects. Existing negative-stock protection remains enforced.
+
+Transfer routes enforce the minimal `retail:transfers:read` and `retail:transfers:manage` capabilities together with authenticated server-side authorization for both persisted Transfer Locations: each must be active and have an active user grant. Request path/body substitution and role, capability, grant, or Location fields cannot elevate authorization. Received Transfer evidence is immutable through ordinary API behavior. Lifecycle mutations create audit evidence. Direct injected audit failures proved dispatch rollback PASS and receive rollback PASS.
+
+Accepted validation at `5bb3f274efda8d969f290036831602032f1f492d` (`feat(retail): add transfer foundation`): focused Transfer repository 2/2 PASS; focused Transfer API/security PASS; database 85/85 PASS; server suite PASS; CRM tests 72/72 PASS; CRM production build PASS; full `pnpm build` PASS; full `pnpm test` PASS; and `git diff --check` PASS.
+
+During acceptance, nine Audit/Commerce Workbook tests initially failed because their session fixtures combined current `createdAt` with fixed `expiresAt = 2026-09-04T12:00:00.000Z`. Exact Stage 6 baseline `414ae5b0db8b625440ecb591b716b0a441e0bb01` reproduced the same nine `CHECK constraint failed: expires_at >= created_at` failures. This was classified as a **PRE-EXISTING TEST FIXTURE DEFECT**, not a production Auth defect. The minimal repair derives `expiresAt` from fixture `now + 24 hours`; the database integrity constraint was not weakened. All required regression gates passed after repair.
 
 # 6. Confirmed Retail Requirements
 
@@ -528,13 +541,14 @@ Stage 14 tooling may prepare import dry run, validation, quarantine, content has
 | Stage 4 — Inventory ledger foundation | **COMPLETED / STAGE 4 PASS** |
 | Stage 5 — Opening counts / reconciliation evidence | **COMPLETED / STAGE 5 PASS** |
 | Stage 6 — Goods Receipt | **COMPLETED / STAGE 6 PASS** |
-| Stage 7 — Transfer | **NOT STARTED** |
+| Stage 7 — Transfer | **COMPLETED / STAGE 7 PASS** |
+| Stage 8A — Sale foundation | **NOT STARTED** |
 | Stage 11 — Offline POS sync | **BLOCKED** pending approved rejected-sync operating policy |
 | Live Pilot | **NOT STARTED** |
 
 The original architecture-report verdict was **BLOCKED — BUSINESS INPUT REQUIRED**. It remains historical evidence for the initial read-only report and has been superseded for cut-line purposes by the completed user-approved review.
 
-**Next planned implementation stage:** **Stage 7 — Transfer** — **NOT STARTED**; planned only and requires separate explicit implementation authorization.
+**Next planned implementation stage:** **Stage 8A — Sale foundation** — **NOT STARTED**; planned only and requires separate explicit implementation authorization.
 
 Stage 4 established generic location-scoped inventory ledger/balance infrastructure only. Its completion does not authorize Stage 5, later migrations, implementation beyond Stage 4, or Live Pilot automatically.
 
@@ -583,11 +597,13 @@ Before Stage 15 — Pilot readiness verification, the required SABONO Retail Use
 - `madina-platform` verified at `d9b3dae2c055209d1f7402e87c22bb057d717817` for completed Stage 4 — Inventory ledger foundation. Accepted validation: database tests 79/79 PASS; full `pnpm build` PASS; full `pnpm test` PASS; and `git diff --check` PASS.
 - `madina-platform` verified at `a4fe65170eae53b164a79c820751417473724ab3` for completed Stage 5 — Opening Counts / Reconciliation Evidence. Accepted validation: focused Retail routes 5 tests PASS; database tests 80/80 PASS; server tests PASS; CRM tests and production build PASS; full `pnpm build` PASS; full `pnpm test` PASS; and `git diff --check` PASS.
 - `madina-platform` verified at `414ae5b0db8b625440ecb591b716b0a441e0bb01` for completed Stage 6 — Goods Receipt. Accepted validation: targeted Goods Receipt database tests 3/3 PASS; focused Retail route/security tests 6/6 PASS; database tests 82/82 PASS; CRM tests 72/72 PASS; full `pnpm build` PASS; full `pnpm test` PASS; and `git diff --check` PASS.
+- `madina-platform` verified at `5bb3f274efda8d969f290036831602032f1f492d` for completed Stage 7 — Transfer. Accepted validation: focused Transfer repository 2/2 PASS; focused Transfer API/security PASS; database tests 85/85 PASS; server suite PASS; CRM tests 72/72 PASS; CRM production build PASS; full `pnpm build` PASS; full `pnpm test` PASS; and `git diff --check` PASS.
 
 # Version History
 
 | Version | Status | Description |
 | --- | --- | --- |
+| 0.1.12 | Draft | Recorded completed Stage 7 Transfer foundation at `5bb3f274efda8d969f290036831602032f1f492d`; Stage 8A remains not started, Stage 11 remains blocked, and Live Pilot remains not started. |
 | 0.1.11 | Draft | Recorded completed Stage 6 Goods Receipt foundation at `414ae5b0db8b625440ecb591b716b0a441e0bb01`; Stage 7 remains not started, Stage 11 remains blocked, and Live Pilot remains not started. |
 | 0.1.10 | Draft | Recorded completed Stage 5 reconciliation evidence foundation at `a4fe65170eae53b164a79c820751417473724ab3`; opening initialization remains not implemented, Stage 6 remains not started, Stage 11 remains blocked, and Live Pilot remains not started. |
 | 0.1.9 | Draft | Recorded completed Stage 4 — Inventory ledger foundation with `STAGE 4 PASS` at `d9b3dae2c055209d1f7402e87c22bb057d717817`, bounded location-scoped ledger/balance, integer quantity, guarded negative-stock, source/reference idempotency, immutable history, authorization, audit, and validation evidence. Stage 5 remains not started; Stage 11 Offline POS remains blocked; Live Pilot remains not started. |
