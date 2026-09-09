@@ -10,13 +10,13 @@
 | --- | --- |
 | Document ID | MB-SABONO-RETAIL-CHK-001 |
 | Title | SABONO Retail Canonical Project Checkpoint |
-| Version | 0.1.12 |
+| Version | 0.1.13 |
 | Status | Draft |
 | Owner | Governance |
 | Classification | Registry |
 | Language | English |
 | Created | 2026-09-01 |
-| Last Updated | 2026-09-09 |
+| Last Updated | 2026-09-10 |
 
 ---
 
@@ -100,6 +100,7 @@ Pilot 0 does not automatically replace GBS, ARCA/fiscal operation, tax/accountin
 | Stage 5 — Opening Counts / Reconciliation Evidence | **COMPLETED / STAGE 5 PASS** | Verified at `a4fe65170eae53b164a79c820751417473724ab3` (`feat(retail): add inventory reconciliation foundation`); established evidence-only location-scoped reconciliation foundation. |
 | Stage 6 — Goods Receipt | **COMPLETED / STAGE 6 PASS** | Verified at `414ae5b0db8b625440ecb591b716b0a441e0bb01` (`feat(retail): add goods receipt foundation`); established generic location-scoped Central Warehouse Goods Receipt foundation only. |
 | Stage 7 — Transfer | **COMPLETED / STAGE 7 PASS** | Verified at `5bb3f274efda8d969f290036831602032f1f492d` (`feat(retail): add transfer foundation`); established generic Retail Transfer foundation only. |
+| Stage 8A — Sale Domain / Draft / Idempotency Foundation | **COMPLETED / STAGE 8A PASS** | Verified at `c7392fff356b90e9f10191f4de3b5a56fdc8a6ff` (`feat(retail): add sale draft foundation`); established generic pure-domain draft and idempotency primitives only. |
 
 The Technical Fit-Gap identified these major gaps: multi-location stock; split payments; offline POS; product/import requirements; supplier invoice/payment lifecycle; discount/promotion/loyalty; and reliable COGS/profit semantics.
 
@@ -182,6 +183,18 @@ Transfer routes enforce the minimal `retail:transfers:read` and `retail:transfer
 Accepted validation at `5bb3f274efda8d969f290036831602032f1f492d` (`feat(retail): add transfer foundation`): focused Transfer repository 2/2 PASS; focused Transfer API/security PASS; database 85/85 PASS; server suite PASS; CRM tests 72/72 PASS; CRM production build PASS; full `pnpm build` PASS; full `pnpm test` PASS; and `git diff --check` PASS.
 
 During acceptance, nine Audit/Commerce Workbook tests initially failed because their session fixtures combined current `createdAt` with fixed `expiresAt = 2026-09-04T12:00:00.000Z`. Exact Stage 6 baseline `414ae5b0db8b625440ecb591b716b0a441e0bb01` reproduced the same nine `CHECK constraint failed: expires_at >= created_at` failures. This was classified as a **PRE-EXISTING TEST FIXTURE DEFECT**, not a production Auth defect. The minimal repair derives `expiresAt` from fixture `now + 24 hours`; the database integrity constraint was not weakened. All required regression gates passed after repair.
+
+## Stage 8A Verification Record
+
+**VERIFIED REPOSITORY FACT**
+
+Stage 8A introduced a generic Retail Sale draft-domain foundation only. The Stage 8A Sale status is only `draft`. `RetailSaleDraft` carries its ID, Location ID, draft status, creation operation identity, line collection, and timestamps. `RetailSaleItem` carries only `id`, `saleId`, `productId`, and a positive safe-integer `quantity`. Empty draft lines are allowed; invalid IDs, invalid quantities, duplicate line IDs, and duplicate Product lines are rejected. Product identity is `productId` only.
+
+The draft payload has a canonical deterministic representation. A Web Crypto SHA-256 hash is derived from that business payload, excluding the client operation ID and timestamps. Operation identity records client operation ID, operation kind `retail_sale_draft_create`, schema version `1`, payload hash, and timestamp. The same operation ID, kind, version, and hash is `REPLAY_SAFE`; the same operation ID with a differing kind, version, or hash is `IDEMPOTENCY_CONFLICT`.
+
+Stage 8A added no persistent Retail Sale, migration `037`, `retail_sales`, `retail_sale_items`, `retail_operation_receipts`, Sale HTTP route, Payment Allocation, money/payment completion semantics, inventory effect, Sale StockMovement, completed Sale, completed-Sale audit action, POS UI, Offline behavior, ARCA/Tinda behavior, or CRM coupling. Stage 8B remains the first stage permitted to create a completed Retail Sale.
+
+Accepted validation at `c7392fff356b90e9f10191f4de3b5a56fdc8a6ff` (`feat(retail): add sale draft foundation`): focused Stage 8A tests 4/4 PASS; existing Retail route/security regression 7/7 PASS; database suite 85/85 PASS; server suite PASS; CRM tests 72/72 PASS; CRM production build PASS; full `pnpm build` PASS; full `pnpm test` PASS; and `git diff --check` PASS.
 
 # 6. Confirmed Retail Requirements
 
@@ -542,13 +555,15 @@ Stage 14 tooling may prepare import dry run, validation, quarantine, content has
 | Stage 5 — Opening counts / reconciliation evidence | **COMPLETED / STAGE 5 PASS** |
 | Stage 6 — Goods Receipt | **COMPLETED / STAGE 6 PASS** |
 | Stage 7 — Transfer | **COMPLETED / STAGE 7 PASS** |
-| Stage 8A — Sale foundation | **NOT STARTED** |
+| Stage 8A — Sale foundation | **COMPLETED / STAGE 8A PASS** |
+| Stage 8B — Sale payment/completion | **NOT STARTED** |
+| Stage 8C — Retail POS UI | **NOT STARTED** |
 | Stage 11 — Offline POS sync | **BLOCKED** pending approved rejected-sync operating policy |
 | Live Pilot | **NOT STARTED** |
 
 The original architecture-report verdict was **BLOCKED — BUSINESS INPUT REQUIRED**. It remains historical evidence for the initial read-only report and has been superseded for cut-line purposes by the completed user-approved review.
 
-**Next planned implementation stage:** **Stage 8A — Sale foundation** — **NOT STARTED**; planned only and requires separate explicit implementation authorization.
+**Next planned implementation stage:** **Stage 8B — Sale payment/completion** — **NOT STARTED**; planned only and requires separate explicit implementation authorization.
 
 Stage 4 established generic location-scoped inventory ledger/balance infrastructure only. Its completion does not authorize Stage 5, later migrations, implementation beyond Stage 4, or Live Pilot automatically.
 
@@ -598,11 +613,13 @@ Before Stage 15 — Pilot readiness verification, the required SABONO Retail Use
 - `madina-platform` verified at `a4fe65170eae53b164a79c820751417473724ab3` for completed Stage 5 — Opening Counts / Reconciliation Evidence. Accepted validation: focused Retail routes 5 tests PASS; database tests 80/80 PASS; server tests PASS; CRM tests and production build PASS; full `pnpm build` PASS; full `pnpm test` PASS; and `git diff --check` PASS.
 - `madina-platform` verified at `414ae5b0db8b625440ecb591b716b0a441e0bb01` for completed Stage 6 — Goods Receipt. Accepted validation: targeted Goods Receipt database tests 3/3 PASS; focused Retail route/security tests 6/6 PASS; database tests 82/82 PASS; CRM tests 72/72 PASS; full `pnpm build` PASS; full `pnpm test` PASS; and `git diff --check` PASS.
 - `madina-platform` verified at `5bb3f274efda8d969f290036831602032f1f492d` for completed Stage 7 — Transfer. Accepted validation: focused Transfer repository 2/2 PASS; focused Transfer API/security PASS; database tests 85/85 PASS; server suite PASS; CRM tests 72/72 PASS; CRM production build PASS; full `pnpm build` PASS; full `pnpm test` PASS; and `git diff --check` PASS.
+- `madina-platform` verified at `c7392fff356b90e9f10191f4de3b5a56fdc8a6ff` for completed Stage 8A — Sale Domain / Draft / Idempotency Foundation. Accepted validation: focused Stage 8A tests 4/4 PASS; Retail route/security regression 7/7 PASS; database suite 85/85 PASS; server suite PASS; CRM tests 72/72 PASS; CRM production build PASS; full `pnpm build` PASS; full `pnpm test` PASS; and `git diff --check` PASS.
 
 # Version History
 
 | Version | Status | Description |
 | --- | --- | --- |
+| 0.1.13 | Draft | Recorded completed Stage 8A Sale draft/idempotency foundation at `c7392fff356b90e9f10191f4de3b5a56fdc8a6ff`; Stage 8B remains not started, Stage 11 remains blocked, and Live Pilot remains not started. |
 | 0.1.12 | Draft | Recorded completed Stage 7 Transfer foundation at `5bb3f274efda8d969f290036831602032f1f492d`; Stage 8A remains not started, Stage 11 remains blocked, and Live Pilot remains not started. |
 | 0.1.11 | Draft | Recorded completed Stage 6 Goods Receipt foundation at `414ae5b0db8b625440ecb591b716b0a441e0bb01`; Stage 7 remains not started, Stage 11 remains blocked, and Live Pilot remains not started. |
 | 0.1.10 | Draft | Recorded completed Stage 5 reconciliation evidence foundation at `a4fe65170eae53b164a79c820751417473724ab3`; opening initialization remains not implemented, Stage 6 remains not started, Stage 11 remains blocked, and Live Pilot remains not started. |

@@ -10,13 +10,13 @@
 | --- | --- |
 | Document ID | MB-PORT-REG-001 |
 | Title | Ecosystem & Project Portfolio Registry |
-| Version | 0.1.16 |
+| Version | 0.1.17 |
 | Status | Draft |
 | Owner | Governance |
 | Classification | Registry |
 | Language | English |
 | Created | 2026-09-01 |
-| Last Updated | 2026-09-09 |
+| Last Updated | 2026-09-10 |
 
 ---
 
@@ -99,13 +99,13 @@ Statements derived only from planning context are marked Pending Verification. A
 | Classification | Platform domain/module |
 | Parent | Madina Platform |
 | Repository | `madina-platform` → `apps/crm` is the current technical boundary; `madina-crm` is historical only. |
-| Lifecycle | Business discovery, Technical Fit-Gap, Storefront Readiness, read-only Pilot 0 Architecture & Scope, Architecture Review / Cut-Line Decision, Technical Design, Implementation Planning, and Stages 1–7 are completed. Pilot 0 Implementation is in progress; Live Pilot has not started. |
+| Lifecycle | Business discovery, Technical Fit-Gap, Storefront Readiness, read-only Pilot 0 Architecture & Scope, Architecture Review / Cut-Line Decision, Technical Design, Implementation Planning, and Stages 1–8A are completed. Pilot 0 Implementation is in progress; Live Pilot has not started. |
 | Business Status | Confirmed Retail requirements and the approved P0/P1/Deferred cut-line are recorded in MB-SABONO-RETAIL-CHK-001 (Draft). |
-| Technical Status | Stages 1–6 passed as recorded in MB-SABONO-RETAIL-CHK-001. Stage 7 passed at `5bb3f274efda8d969f290036831602032f1f492d` (`feat(retail): add transfer foundation`): generic persisted Retail Transfer lifecycle, attributable Stage 4 source/destination stock effects, both-Location authorization, audit/rollback evidence, and accepted regression validation. Retail Product has no global quantity/stock; CRM Product, CRM `StockMovement`, and `apps/crm` remain independent. Stage 8A Sale foundation is not started. Stage 11 Offline POS remains blocked. |
+| Technical Status | Stages 1–7 passed as recorded in MB-SABONO-RETAIL-CHK-001. Stage 8A passed at `c7392fff356b90e9f10191f4de3b5a56fdc8a6ff` (`feat(retail): add sale draft foundation`): generic draft-only Retail Sale/SaleItem contracts, validation, canonical Web Crypto SHA-256 payload hashing, and operation identity comparison only. No Retail Sale persistence, Sale route, payment, inventory effect, completion, audit completion, CRM coupling, or Stage 8B behavior was added. Stage 8B is not started; Stage 11 Offline POS remains blocked. |
 | Current Canonical Checkpoint | MB-SABONO-RETAIL-CHK-001 (Draft) |
 | Accepted / Frozen Decisions | None verified |
 | Open Questions | Offline physical-goods/accepted-money rejected-sync policy blocks Stage 11 Offline POS only; exact rounding, capability/membership, offline retention, and pilot configuration parameters remain open. P1 loyalty, advanced returns, supplier/payable, Landed Cost technical design, and partner rules remain outside P0. A future SABONO Retail User & Operating Guide is a required Pilot deliverable and must be reviewed against actual accepted implementation before Stage 15; it is not yet created. |
-| Next Authorized Stage | Stage 8A — Sale foundation; planned next stage only, not started, and requires separate explicit implementation authorization. |
+| Next Authorized Stage | Stage 8B — Sale payment/completion; planned next stage only, not started, and requires separate explicit implementation authorization. |
 | Documentation References | MB-SABONO-RETAIL-CHK-001; MB-PLATFORM-CRM-CHK-001; MB-CRM-001 through MB-CRM-008; MB-100; MB-101; MB-102; MB-ENG-001; MB-SOP-001 |
 | Evidence Basis | Confirmed business requirements recorded in controlled Draft documentation; Verified repository commit/HEAD; Controlled Draft documentation |
 
@@ -213,6 +213,7 @@ This registry must remain concise. It must not store full requirements, API or s
 
 | Version | Status | Description |
 | --- | --- | --- |
+| 0.1.17 | Draft | Recorded verified Stage 8A Sale draft/idempotency completion at `c7392fff356b90e9f10191f4de3b5a56fdc8a6ff`; Stage 8B remains not started, Stage 11 remains blocked, and Live Pilot remains not started. |
 | 0.1.16 | Draft | Recorded verified Stage 7 Transfer completion at `5bb3f274efda8d969f290036831602032f1f492d`; Stage 8A remains not started, Stage 11 remains blocked, and Live Pilot remains not started. |
 | 0.1.15 | Draft | Recorded verified Stage 6 Goods Receipt completion at `414ae5b0db8b625440ecb591b716b0a441e0bb01`; Stage 7 remains not started, Stage 11 remains blocked, and Live Pilot remains not started. |
 | 0.1.14 | Draft | Recorded verified Stage 5 reconciliation evidence completion at `a4fe65170eae53b164a79c820751417473724ab3`; Stage 6 remains not started, Stage 11 remains blocked, and Live Pilot remains not started. |
