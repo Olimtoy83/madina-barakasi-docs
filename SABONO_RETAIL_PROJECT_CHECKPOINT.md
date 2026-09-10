@@ -10,7 +10,7 @@
 | --- | --- |
 | Document ID | MB-SABONO-RETAIL-CHK-001 |
 | Title | SABONO Retail Canonical Project Checkpoint |
-| Version | 0.1.13 |
+| Version | 0.1.14 |
 | Status | Draft |
 | Owner | Governance |
 | Classification | Registry |
@@ -101,6 +101,7 @@ Pilot 0 does not automatically replace GBS, ARCA/fiscal operation, tax/accountin
 | Stage 6 — Goods Receipt | **COMPLETED / STAGE 6 PASS** | Verified at `414ae5b0db8b625440ecb591b716b0a441e0bb01` (`feat(retail): add goods receipt foundation`); established generic location-scoped Central Warehouse Goods Receipt foundation only. |
 | Stage 7 — Transfer | **COMPLETED / STAGE 7 PASS** | Verified at `5bb3f274efda8d969f290036831602032f1f492d` (`feat(retail): add transfer foundation`); established generic Retail Transfer foundation only. |
 | Stage 8A — Sale Domain / Draft / Idempotency Foundation | **COMPLETED / STAGE 8A PASS** | Verified at `c7392fff356b90e9f10191f4de3b5a56fdc8a6ff` (`feat(retail): add sale draft foundation`); established generic pure-domain draft and idempotency primitives only. |
+| Stage 8B — Money / Payment Allocation / Atomic Sale Completion | **COMPLETED / STAGE 8B PASS** | Verified at `561952326f7440e141110ce162d8717bb542e98f` (`feat(retail): add atomic sale completion`); established persisted atomic completed-Sale, authoritative pricing/currency, Payment Allocation, inventory effect, idempotency receipt, and audit foundation. |
 
 The Technical Fit-Gap identified these major gaps: multi-location stock; split payments; offline POS; product/import requirements; supplier invoice/payment lifecycle; discount/promotion/loyalty; and reliable COGS/profit semantics.
 
@@ -480,7 +481,7 @@ Stage 8B is the first stage permitted to create a completed Retail Sale. Its inv
 
 The completed-Sale transaction must atomically cover authorization/location validation; Sale/Product/item validation; deterministic money calculation; Payment Allocation and exact-total validation; guarded Store stock decrement; immutable Sale StockMovement; completed Sale/SaleItems/Payment Allocations; idempotency receipt; and audit evidence. Any failure rolls back the complete business effect.
 
-Stage 8A does not require a persistent Retail Sale migration. Stage 8B provisionally introduces combined additive migration `037_retail_sales_payment_completion_v1` for `retail_sales`, `retail_sale_items`, `retail_payment_allocations`, and `retail_operation_receipts`. Subsequent provisional direction is `038_retail_sale_discounts_v1`, `039_retail_returns_v1`, and `040_retail_reporting_indexes_v1`. Migration numbering must be rechecked against the actual registry immediately before implementation.
+Stage 8A does not require a persistent Retail Sale migration. Stage 8B introduced additive migration `037_retail_sales_payment_completion_v1` for `retail_sales`, `retail_sale_items`, `retail_payment_allocations`, and `retail_operation_receipts`. Subsequent provisional direction is `038_retail_sale_discounts_v1`, `039_retail_returns_v1`, and `040_retail_reporting_indexes_v1`. Migration numbering must be rechecked against the actual registry immediately before implementation.
 
 ## Access, Money, Offline, and Bootstrap Gates
 
@@ -496,21 +497,19 @@ Authenticated User
 
 Cashier/Warehouse/Retail Manager/Owner behavior is expressed through Retail capability profiles/grants unless future implementation evidence requires a separately approved change. CRM retains current Auth behavior and does not depend on Retail grants.
 
-Generic Stage 8B money support uses `currency_code`, configurable exponent, integer minor units, and deterministic rounding. The exact deterministic rounding rule must be selected and tested before 8B can complete a Sale. SABONO pilot currency/exponent is configuration required before actual SABONO bootstrap/payment configuration, financial acceptance, and live-pilot use; it does not block generic Retail foundation work.
+Generic Stage 8B money support uses `currency_code`, configurable exponent, and safe-integer minor units with checked integer arithmetic. Stage 8B requires no division or rounding; `ROUNDING_NOT_APPLICABLE_IN_STAGE_8B`. SABONO pilot currency/exponent remains configuration required before actual SABONO bootstrap/payment configuration, financial acceptance, and live-pilot use; it does not block generic Retail foundation work.
 
 Stage 11 remains blocked by the Offline physical-goods/accepted-money rejected-sync operating-policy decision. It blocks Stage 11 business-effect implementation and Offline live-pilot readiness only; it does not block Stages 1–10, Stage 12 without Offline metrics, Stage 13, or allowed Stage 14 tooling.
 
 Stage 14 tooling may prepare import dry run, validation, quarantine, content hash, repeatability, bootstrap validation/reporting, and backup/restore tooling through separately authorized stages. Actual SABONO pilot bootstrap requires all required non-offline P0 operational/security stages completed and accepted, Stage 12 reporting/reconciliation, Stage 13 permission hardening, selected pilot Store/register/users, Location grants, SABONO currency/exponent, backup/restore rehearsal, catalog and opening-balance sign-off, and explicit authorization to load actual pilot data. Actual bootstrap does not mean Live Pilot ready. Because Offline is required P0 capability, final Live Pilot readiness also requires Stage 11 blocker resolution and Offline validation.
 
-**Next planned implementation stage:** **Stage 6 — Goods Receipt** — **NOT STARTED**. This is planned only and requires separate explicit implementation authorization.
+**Next planned implementation stage:** **Stage 8C — Retail POS UI** — **NOT STARTED**. This is planned only and requires separate explicit implementation authorization.
 
 # 10. Current Open Decisions and Pilot Blockers
 
 | Item | Classification | Required by |
 | --- | --- | --- |
 | Offline physical-goods/accepted-money rejected-sync policy | **OPEN BUSINESS DECISION** | Before Offline POS implementation only |
-| Exact Retail rounding implementation | **OPEN TECHNICAL DECISION** | Before POS implementation |
-| Exact Retail capability naming and membership schema | **OPEN TECHNICAL DECISION** | Before early RBAC/location foundation |
 | Offline command retention/pruning | **OPEN TECHNICAL DECISION** | Before Offline POS implementation |
 | Exact pilot Store/register, users, and dates | **LIVE PILOT PARAMETER** | Before live pilot |
 | Stock/money discrepancy tolerances and escalation rules | **LIVE PILOT PARAMETER** | Before live pilot acceptance |
@@ -556,14 +555,14 @@ Stage 14 tooling may prepare import dry run, validation, quarantine, content has
 | Stage 6 — Goods Receipt | **COMPLETED / STAGE 6 PASS** |
 | Stage 7 — Transfer | **COMPLETED / STAGE 7 PASS** |
 | Stage 8A — Sale foundation | **COMPLETED / STAGE 8A PASS** |
-| Stage 8B — Sale payment/completion | **NOT STARTED** |
+| Stage 8B — Sale payment/completion | **COMPLETED / STAGE 8B PASS** |
 | Stage 8C — Retail POS UI | **NOT STARTED** |
 | Stage 11 — Offline POS sync | **BLOCKED** pending approved rejected-sync operating policy |
 | Live Pilot | **NOT STARTED** |
 
 The original architecture-report verdict was **BLOCKED — BUSINESS INPUT REQUIRED**. It remains historical evidence for the initial read-only report and has been superseded for cut-line purposes by the completed user-approved review.
 
-**Next planned implementation stage:** **Stage 8B — Sale payment/completion** — **NOT STARTED**; planned only and requires separate explicit implementation authorization.
+**Next planned implementation stage:** **Stage 8C — Retail POS UI** — **NOT STARTED**; planned only and requires separate explicit implementation authorization.
 
 Stage 4 established generic location-scoped inventory ledger/balance infrastructure only. Its completion does not authorize Stage 5, later migrations, implementation beyond Stage 4, or Live Pilot automatically.
 
@@ -614,11 +613,13 @@ Before Stage 15 — Pilot readiness verification, the required SABONO Retail Use
 - `madina-platform` verified at `414ae5b0db8b625440ecb591b716b0a441e0bb01` for completed Stage 6 — Goods Receipt. Accepted validation: targeted Goods Receipt database tests 3/3 PASS; focused Retail route/security tests 6/6 PASS; database tests 82/82 PASS; CRM tests 72/72 PASS; full `pnpm build` PASS; full `pnpm test` PASS; and `git diff --check` PASS.
 - `madina-platform` verified at `5bb3f274efda8d969f290036831602032f1f492d` for completed Stage 7 — Transfer. Accepted validation: focused Transfer repository 2/2 PASS; focused Transfer API/security PASS; database tests 85/85 PASS; server suite PASS; CRM tests 72/72 PASS; CRM production build PASS; full `pnpm build` PASS; full `pnpm test` PASS; and `git diff --check` PASS.
 - `madina-platform` verified at `c7392fff356b90e9f10191f4de3b5a56fdc8a6ff` for completed Stage 8A — Sale Domain / Draft / Idempotency Foundation. Accepted validation: focused Stage 8A tests 4/4 PASS; Retail route/security regression 7/7 PASS; database suite 85/85 PASS; server suite PASS; CRM tests 72/72 PASS; CRM production build PASS; full `pnpm build` PASS; full `pnpm test` PASS; and `git diff --check` PASS.
+- `madina-platform` verified at `561952326f7440e141110ce162d8717bb542e98f` for completed Stage 8B — Money / Payment Allocation / atomic Sale completion. Accepted validation: targeted Sale runtime coverage PASS; concurrency 4/4 PASS; database suite 86/86 PASS; Retail API/security 9/9 PASS after validation-status regression coverage; full `pnpm build` PASS; full `pnpm test` PASS; and `git diff --check` PASS.
 
 # Version History
 
 | Version | Status | Description |
 | --- | --- | --- |
+| 0.1.14 | Draft | Recorded completed Stage 8B atomic Sale completion at `561952326f7440e141110ce162d8717bb542e98f`; Stage 8C remains not started, Stage 11 remains blocked, and Live Pilot remains not started. |
 | 0.1.13 | Draft | Recorded completed Stage 8A Sale draft/idempotency foundation at `c7392fff356b90e9f10191f4de3b5a56fdc8a6ff`; Stage 8B remains not started, Stage 11 remains blocked, and Live Pilot remains not started. |
 | 0.1.12 | Draft | Recorded completed Stage 7 Transfer foundation at `5bb3f274efda8d969f290036831602032f1f492d`; Stage 8A remains not started, Stage 11 remains blocked, and Live Pilot remains not started. |
 | 0.1.11 | Draft | Recorded completed Stage 6 Goods Receipt foundation at `414ae5b0db8b625440ecb591b716b0a441e0bb01`; Stage 7 remains not started, Stage 11 remains blocked, and Live Pilot remains not started. |
