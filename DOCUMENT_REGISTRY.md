@@ -67,7 +67,7 @@ The registry reflects documents that actually exist within the current Documenta
 | MB-ADR-REG-001  | ADR Registry      | 1.0.0   | Approved | Registry       |
 | MB-PORT-REG-001 | Ecosystem & Project Portfolio Registry | 0.1.17 | Draft | Registry |
 | MB-PLATFORM-CRM-CHK-001 | Madina Platform / CRM Canonical Project Checkpoint | 0.1.0 | Draft | Registry |
-| MB-SABONO-RETAIL-CHK-001 | SABONO Retail Canonical Project Checkpoint | 0.1.18 | Draft | Registry |
+| MB-SABONO-RETAIL-CHK-001 | SABONO Retail Canonical Project Checkpoint | 0.1.19 | Draft | Registry |
 
 ---
 
