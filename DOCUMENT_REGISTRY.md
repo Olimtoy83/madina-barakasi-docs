@@ -9,7 +9,7 @@
 | Field          | Value              |
 | -------------- | ------------------ |
 | Document ID    | MB-REG-001         |
-| Version        | 1.1.20             |
+| Version        | 1.1.21             |
 | Status         | Approved           |
 | Owner          | Documentation Team |
 | Classification | Canonical          |
@@ -63,11 +63,11 @@ The registry reflects documents that actually exist within the current Documenta
 | ID              | Document          | Version | Status   | Classification |
 | --------------- | ----------------- | ------- | -------- | -------------- |
 | MB-INDEX-000    | Master Index      | 1.0.0   | Approved | Canonical      |
-| MB-REG-001              | Document Registry                                  | 1.1.20  | Approved | Canonical      |
+| MB-REG-001              | Document Registry                                  | 1.1.21  | Approved | Canonical      |
 | MB-ADR-REG-001  | ADR Registry      | 1.0.0   | Approved | Registry       |
 | MB-PORT-REG-001 | Ecosystem & Project Portfolio Registry | 0.1.17 | Draft | Registry |
 | MB-PLATFORM-CRM-CHK-001 | Madina Platform / CRM Canonical Project Checkpoint | 0.1.0 | Draft | Registry |
-| MB-SABONO-RETAIL-CHK-001 | SABONO Retail Canonical Project Checkpoint | 0.1.27 | Draft | Registry |
+| MB-SABONO-RETAIL-CHK-001 | SABONO Retail Canonical Project Checkpoint | 0.1.28 | Draft | Registry |
 
 ---
 
