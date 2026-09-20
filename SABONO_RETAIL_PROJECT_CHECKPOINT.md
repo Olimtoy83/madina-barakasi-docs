@@ -10,7 +10,7 @@
 | --- | --- |
 | Document ID | MB-SABONO-RETAIL-CHK-001 |
 | Title | SABONO Retail Canonical Project Checkpoint |
-| Version | 0.1.30 |
+| Version | 0.1.31 |
 | Status | Draft |
 | Owner | Governance |
 | Classification | Registry |
@@ -445,7 +445,7 @@ This blocks Offline POS implementation and Offline live-pilot readiness only. It
 14. Pilot import / bootstrap; and
 15. Pilot readiness verification.
 
-Stage 2 is required before protected Retail mutations. Stage 13 is hardening/verification and does not replace the early authorization foundation. Stage 11 is blocked by the Offline operating-policy decision above.
+Stage 2 is required before protected Retail mutations. Stage 13 is hardening/verification and does not replace the early authorization foundation. Stage 11.3 does not authorize Stage 11.4 or any Live Pilot work.
 
 # 9.2 Canonical Implementation Plan — Future Work Only
 
@@ -499,11 +499,11 @@ Cashier/Warehouse/Retail Manager/Owner behavior is expressed through Retail capa
 
 Generic Stage 8B money support uses `currency_code`, configurable exponent, and safe-integer minor units with checked integer arithmetic. Stage 8B requires no division or rounding; `ROUNDING_NOT_APPLICABLE_IN_STAGE_8B`. SABONO pilot currency/exponent remains configuration required before actual SABONO bootstrap/payment configuration, financial acceptance, and live-pilot use; it does not block generic Retail foundation work.
 
-Stage 11 remains blocked by the Offline physical-goods/accepted-money rejected-sync operating-policy decision. It blocks Stage 11 business-effect implementation and Offline live-pilot readiness only; it does not block Stages 1–10, Stage 12 without Offline metrics, Stage 13, or allowed Stage 14 tooling.
+The approved Offline policy now permits only the accepted Stage 11.3 normal-stock path. Controlled conflict/review handling remains outside Stage 11.3 and is not implemented; Stage 11 overall and Offline live-pilot readiness remain incomplete.
 
-Stage 14 tooling may prepare import dry run, validation, quarantine, content hash, repeatability, bootstrap validation/reporting, and backup/restore tooling through separately authorized stages. Actual SABONO pilot bootstrap requires all required non-offline P0 operational/security stages completed and accepted, Stage 12 reporting/reconciliation, Stage 13 permission hardening, selected pilot Store/register/users, Location grants, SABONO currency/exponent, backup/restore rehearsal, catalog and opening-balance sign-off, and explicit authorization to load actual pilot data. Actual bootstrap does not mean Live Pilot ready. Because Offline is required P0 capability, final Live Pilot readiness also requires Stage 11 blocker resolution and Offline validation.
+Stage 14 tooling may prepare import dry run, validation, quarantine, content hash, repeatability, bootstrap validation/reporting, and backup/restore tooling through separately authorized stages. Actual SABONO pilot bootstrap requires all required non-offline P0 operational/security stages completed and accepted, Stage 12 reporting/reconciliation, Stage 13 permission hardening, selected pilot Store/register/users, Location grants, SABONO currency/exponent, backup/restore rehearsal, catalog and opening-balance sign-off, and explicit authorization to load actual pilot data. Actual bootstrap does not mean Live Pilot ready. Because Offline is required P0 capability, final Live Pilot readiness also requires Stage 11 overall completion and Offline validation.
 
-**Current implementation stage:** **Stage 10 — Full Completed-Sale Return — COMPLETED / STAGE 10 PASS**. Stage 10.1 policy was accepted; Stages 10.2, 10.3, and 10.4 passed at `fce280d4c9daa742ee60970beb07cf82f8c52e37`, `d278b1c830f9a2d1840e50255d716ef2b5ea3f6c`, and `91b0cc26d8b1d82f0f724cb9145414d29108d255`. Final Stage 10.4 runtime acceptance passed. Return recovery reload remains **NOT EXERCISED**; the historical Sale-recovery disappearance was not reproduced and is not a confirmed defect. Stage 11 remains **BLOCKED** pending the approved rejected-sync operating policy, and Live Pilot remains **NOT STARTED**. Further implementation requires separate explicit authorization.
+**Current implementation stage:** **Stage 11.3 — Offline Sale Sync / Normal-Stock Path — COMPLETED / STAGE 11.3 PASS** at `4e8dce9520823572232c3a08bcbea8da9a4564ac` (`feat(retail): add offline sale sync`). Stage 11 overall is **NOT PASS**; Stage 11.4 is **NOT STARTED**; Live Pilot remains **NOT STARTED**. Further implementation requires separate explicit authorization.
 
 # 10. Current Open Decisions and Pilot Blockers
 
@@ -559,12 +559,31 @@ Stage 14 tooling may prepare import dry run, validation, quarantine, content has
 | Stage 8C — Retail POS UI | **COMPLETED / STAGE 8C PASS** |
 | Stage 9 — Authorized Item Discount | **COMPLETED / STAGE 9 PASS** |
 | Stage 10 — Full Completed-Sale Return | **COMPLETED / STAGE 10 PASS** |
-| Stage 11 — Offline POS sync | **BLOCKED** pending approved rejected-sync operating policy |
+| Stage 11.3 — Offline Sale Sync / normal-stock path | **COMPLETED / STAGE 11.3 PASS** |
+| Stage 11 overall | **NOT PASS**; Stage 11.4 is **NOT STARTED** |
 | Live Pilot | **NOT STARTED** |
 
 The original architecture-report verdict was **BLOCKED — BUSINESS INPUT REQUIRED**. It remains historical evidence for the initial read-only report and has been superseded for cut-line purposes by the completed user-approved review.
 
-**Current implementation stage:** **Stage 10 — Full Completed-Sale Return — COMPLETED / STAGE 10 PASS**. Stage 10.1 policy was accepted; Stages 10.2, 10.3, and 10.4 passed at `fce280d4c9daa742ee60970beb07cf82f8c52e37`, `d278b1c830f9a2d1840e50255d716ef2b5ea3f6c`, and `91b0cc26d8b1d82f0f724cb9145414d29108d255`. Final Stage 10.4 runtime acceptance passed. Return recovery reload remains **NOT EXERCISED**; the historical Sale-recovery disappearance was not reproduced and is not a confirmed defect. Stage 11 remains **BLOCKED** pending the approved rejected-sync operating policy, and Live Pilot remains **NOT STARTED**. Further implementation requires separate explicit authorization.
+**Current implementation stage:** **Stage 11.3 — Offline Sale Sync / Normal-Stock Path — COMPLETED / STAGE 11.3 PASS** at `4e8dce9520823572232c3a08bcbea8da9a4564ac` (`feat(retail): add offline sale sync`). Stage 11 overall is **NOT PASS**; Stage 11.4 is **NOT STARTED**; Live Pilot remains **NOT STARTED**. Further implementation requires separate explicit authorization.
+
+## Stage 11.3 Verification Record
+
+**VERIFIED REPOSITORY FACT**
+
+Stage 11 policy, Stage 11.1 Offline Contract, and Stage 11.1A Trust Contract are approved. Stage 11.2 Offline Authority Foundation passed at `1a4c6457b79ffcdc22a4579b9c5f5b2d53f574c5`; it established enrolled terminal/public-key metadata, key versions, terminal/authority lifecycle, bounded terminal/user/Location authority, immutable Product/Location-price evidence, permits, immutable evidence foundation, generic terminal-management capability, and audit support. It did not create Offline Sale Sync business effects. Stage 11.2A passed at `59b51e8e67b2a578230f913c8992b1304cf2a406` (`feat(retail): verify offline terminal signatures`) with Ed25519, `ed25519-spki-der-base64-v1` SPKI DER standard-Base64 public keys, `ed25519-raw-base64-v1:<base64>` signatures, SHA-256 lowercase-hex over canonical UTF-8 envelope bytes, and a strict deterministic version-1 envelope. Hash alone is not authentication.
+
+Stage 11.3 passed at `4e8dce9520823572232c3a08bcbea8da9a4564ac` (`feat(retail): add offline sale sync`). It implements only the normal-stock endpoint `POST /api/v1/retail/locations/:locationId/offline-sales/sync`. A real authenticated caller with current capability, active Location access, trusted Origin, enrolled terminal/key version, bounded eligible authority, valid permit, real Ed25519 signature, canonical envelope, matching Location/currency, immutable authority Product/price evidence, Cash-only/zero-discount shape, server-recomputed totals, and sufficient stock may synchronize.
+
+An accepted sync atomically creates a completed Sale, SaleItem(s), exactly one Cash PaymentAllocation, ordinary inventory movement(s), permit linkage, immutable Offline evidence, an Offline Sync receipt, and audit evidence. Exact replay returns the accepted result without duplicating business effects. Offline Sync idempotency is separate from online Sale idempotency.
+
+The terminal signature proves key possession and payload integrity; it does not prove physical handover, physical cash payment, or trusted wall-clock completion. `claimedOfflineCompletedAt` is historical evidence only. A first receipt while authority remains eligible may be accepted if all other checks pass. A first receipt after authority expiry or terminal/authority revocation fails closed and is reserved for future quarantine-review policy; Stage 11.3 implements no quarantine workflow. Already accepted historical Sales are not rewritten after later revocation.
+
+The historical inactive-Product exception is narrow: a Product active at authority issue, present in immutable authority Product/Location-price evidence, and included in an otherwise valid signed historical Offline Sale may synchronize after later inactivation. The Product is not reactivated or mutated; ordinary `/sales/complete` remains active-Product-only; new authority cannot authorize inactive Product; arbitrary inventory operations cannot use this seam; and the existing historical Return exception remains separate. The implementation is specifically the `retail_offline_sale_sync` historical-movement seam, not a general inactive-Product bypass.
+
+If quantity exceeds available stock, the API returns `VERIFIED_OFFLINE_STOCK_CONFLICT` and creates no completed Sale, PaymentAllocation, Sale movement, negative inventory, accepted receipt, or accepted permit consumption. Controlled negative stock, incident persistence, reconciliation, quarantine, and manager quarantine acceptance are not implemented and remain later Stage 11 work.
+
+Acceptance A1 completed the real Fastify HTTP A–S failure matrix; rejected cases proved zero unauthorized persisted effects. Acceptance A2 passed ordinary online-Sale regression A–G, including active-Product-only online behavior, non-negative inventory, current server price validation, and idempotency namespace separation. The final relevant Retail Fastify suite passed 15/15; server, database, and Retail builds passed. Runtime Acceptance B passed against a listening local API and temporary SQLite database: first sync 201, exact replay 200 without duplicate effects, completed-Sale GET 200, and a valid stock-conflict operation 409 `VERIFIED_OFFLINE_STOCK_CONFLICT` with zero effects. Existing Return compatibility and deterministic late-transaction rollback were also exercised as acceptance evidence. Stage 11 overall remains **NOT PASS**; Stage 11.4 and Live Pilot are **NOT STARTED**.
 
 Stage 4 established generic location-scoped inventory ledger/balance infrastructure only. Its completion does not authorize Stage 5, later migrations, implementation beyond Stage 4, or Live Pilot automatically.
 
@@ -582,7 +601,7 @@ User instructions are evidence-based. A workflow becomes operational documentati
 
 The future guide must include appropriate safety/control instructions: do not bypass Location access controls; do not correct stock through unsupported or manual database operations; do not treat CRM `Product.quantity` as authoritative Retail stock; do not invent unsupported financial adjustments; use supported workflows for completed Sale/Return operations; do not describe internal Return Payment Allocation representation as proof of external card, bank, or fiscal refund execution; and do not silently bypass blocked or rejected operations.
 
-Offline POS instructions may be added only after the Stage 11 rejected-sync operating policy is approved, Offline behavior is implemented, and actual behavior is accepted and verified. Offline conflicts must then follow that approved SABONO operating policy. No Offline procedure is recorded now.
+Offline POS instructions may be added only after Stage 11 overall is complete and actual operational behavior is accepted and verified. Stage 11.3 covers only the normal-stock sync path; no Offline procedure is recorded now.
 
 Stage 1 introduced only the generic Retail architectural boundary. It has no SABONO end-user Retail workflow requiring a user procedure, so no operational instruction is written for Stage 1. This requirement is recorded now so documentation evolves with later accepted implementation stages; it does not create a guide, cashier/warehouse/manager manual, screenshots, SOP, training material, or instructions for unimplemented functionality.
 
@@ -645,6 +664,7 @@ Before Stage 15 — Pilot readiness verification, the required SABONO Retail Use
 
 | Version | Status | Description |
 | --- | --- | --- |
+| 0.1.31 | Draft | Recorded approved Stage 11 policy, passed Stage 11.2/11.2A foundations, and Stage 11.3 Offline Sale Sync normal-stock path at `4e8dce9520823572232c3a08bcbea8da9a4564ac`; Acceptance A1/A2 and Runtime B passed. Stage 11 overall is **NOT PASS**, Stage 11.4 is not started, and Live Pilot remains not started. |
 | 0.1.30 | Draft | Recorded accepted Stage 10.1 policy and passed Stages 10.2–10.4, including final Stage 10.4 runtime acceptance at `91b0cc26d8b1d82f0f724cb9145414d29108d255`; Stage 10 is **COMPLETED / STAGE 10 PASS**. Stage 11 remains blocked, Return recovery reload remains not exercised, and Live Pilot remains not started. |
 | 0.1.29 | Draft | Recorded accepted/pushed Stage 9 Batches 9.1–9.4 and Final Stage 9 Acceptance at `12d32626f988927fb65880430b325559d48f0f52`; Stage 9 — Authorized Item Discount is now **COMPLETED / STAGE 9 PASS**. Stage 10 Return remains not started, Stage 11 Offline POS remains blocked, and Live Pilot remains not started. |
 | 0.1.28 | Draft | Recorded accepted/pushed Stage 8C Batch 8C.15 POS Operational Layout & UI Readiness at `8307f82bcbfcae6708f16fab427c218c6eac6d82` and Final Stage 8C Acceptance Review; Stage 8C is now **COMPLETED / STAGE 8C PASS**. Stage 11 remains blocked and Live Pilot remains not started. |

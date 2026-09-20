@@ -1,3 +1,10 @@
+## 2026-09-20
+
+### Changed
+
+- Updated MB-SABONO-RETAIL-CHK-001 to v0.1.31 for approved Stage 11 policy, passed Stage 11.2/11.2A foundations, and passed Stage 11.3 Offline Sale Sync normal-stock path at `4e8dce9520823572232c3a08bcbea8da9a4564ac`; Acceptance A1/A2 and Runtime B evidence are recorded. Stage 11 overall is not pass, Stage 11.4 is not started, and Live Pilot remains not started.
+- Updated MB-PORT-REG-001 to v0.1.20 and MB-REG-001 to v1.1.24 for Stage 11.3 checkpoint traceability. No Stage 11.4, Live Pilot, or technical repository work was added.
+
 ## 2026-09-02
 
 ### Changed

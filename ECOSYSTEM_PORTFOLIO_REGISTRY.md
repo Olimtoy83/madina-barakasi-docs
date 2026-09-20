@@ -10,7 +10,7 @@
 | --- | --- |
 | Document ID | MB-PORT-REG-001 |
 | Title | Ecosystem & Project Portfolio Registry |
-| Version | 0.1.19 |
+| Version | 0.1.20 |
 | Status | Draft |
 | Owner | Governance |
 | Classification | Registry |
@@ -99,13 +99,13 @@ Statements derived only from planning context are marked Pending Verification. A
 | Classification | Platform domain/module |
 | Parent | Madina Platform |
 | Repository | `madina-platform` → `apps/crm` is the current technical boundary; `madina-crm` is historical only. |
-| Lifecycle | Business discovery, Technical Fit-Gap, Storefront Readiness, read-only Pilot 0 Architecture & Scope, Architecture Review / Cut-Line Decision, Technical Design, Implementation Planning, and Stages 1–10 are completed. Live Pilot has not started. |
+| Lifecycle | Business discovery, Technical Fit-Gap, Storefront Readiness, read-only Pilot 0 Architecture & Scope, Architecture Review / Cut-Line Decision, Technical Design, Implementation Planning, Stages 1–10, and Stage 11.3 normal-stock Offline Sale Sync are completed. Live Pilot has not started. |
 | Business Status | Confirmed Retail requirements and the approved P0/P1/Deferred cut-line are recorded in MB-SABONO-RETAIL-CHK-001 (Draft). |
-| Technical Status | Stages 1–10 passed as recorded in MB-SABONO-RETAIL-CHK-001. Stage 10 — Full Completed-Sale Return passed at `91b0cc26d8b1d82f0f724cb9145414d29108d255`, following immutable persistence at `fce280d4c9daa742ee60970beb07cf82f8c52e37` and the protected server contract at `d278b1c830f9a2d1840e50255d716ef2b5ea3f6c`. Accepted scope permits deterministic partial discounted Returns, original-payment-method refund allocation, and POS owner-bound Return recovery. Final runtime acceptance passed; Return recovery reload remains not exercised. Stage 11 Offline POS remains blocked. Live Pilot has not started. |
+| Technical Status | Stages 1–10 passed as recorded in MB-SABONO-RETAIL-CHK-001. Stage 11.3 Offline Sale Sync / normal-stock path passed at `4e8dce9520823572232c3a08bcbea8da9a4564ac` (`feat(retail): add offline sale sync`) with real Ed25519 verification, bounded authority/permit checks, Cash-only zero-discount envelope, immutable price evidence, stock precheck, atomic effects, and separate idempotency. Stage 11 overall is not pass; Stage 11.4 and Live Pilot are not started. |
 | Current Canonical Checkpoint | MB-SABONO-RETAIL-CHK-001 (Draft) |
 | Accepted / Frozen Decisions | None verified |
-| Open Questions | Offline physical-goods/accepted-money rejected-sync policy blocks Stage 11 Offline POS only; exact rounding, capability/membership, offline retention, and pilot configuration parameters remain open. P1 loyalty, advanced returns, supplier/payable, Landed Cost technical design, and partner rules remain outside P0. A future SABONO Retail User & Operating Guide is a required Pilot deliverable and must be reviewed against actual accepted implementation before Stage 15; it is not yet created. |
-| Next Authorized Stage | No subsequent implementation stage is authorized. Stage 11 Offline POS remains blocked; Stage 12 reporting/reconciliation remains planned and requires separate explicit implementation authorization. |
+| Open Questions | Stage 11 controlled conflict/quarantine-review policy and implementation remain later work; exact rounding, capability/membership, offline retention, and pilot configuration parameters remain open. P1 loyalty, advanced returns, supplier/payable, Landed Cost technical design, and partner rules remain outside P0. A future SABONO Retail User & Operating Guide is a required Pilot deliverable and must be reviewed against actual accepted implementation before Stage 15; it is not yet created. |
+| Next Authorized Stage | No subsequent implementation stage is authorized. Stage 11.4 is not started; Stage 12 reporting/reconciliation remains planned and requires separate explicit implementation authorization. |
 | Documentation References | MB-SABONO-RETAIL-CHK-001; MB-PLATFORM-CRM-CHK-001; MB-CRM-001 through MB-CRM-008; MB-100; MB-101; MB-102; MB-ENG-001; MB-SOP-001 |
 | Evidence Basis | Confirmed business requirements recorded in controlled Draft documentation; Verified repository commit/HEAD; Controlled Draft documentation |
 
@@ -213,6 +213,7 @@ This registry must remain concise. It must not store full requirements, API or s
 
 | Version | Status | Description |
 | --- | --- | --- |
+| 0.1.20 | Draft | Synchronized SABONO Retail through passed Stage 11.3 Offline Sale Sync normal-stock path at `4e8dce9520823572232c3a08bcbea8da9a4564ac`; Stage 11 overall is not pass, Stage 11.4 is not started, and Live Pilot remains not started. |
 | 0.1.19 | Draft | Synchronized SABONO Retail portfolio state through Stage 10 Return acceptance at `91b0cc26d8b1d82f0f724cb9145414d29108d255`; Stages 1–10 are recorded completed, Stage 11 Offline POS remains blocked, and Live Pilot remains not started. |
 | 0.1.18 | Draft | Synchronized SABONO Retail portfolio state through Final Stage 9 Acceptance at `12d32626f988927fb65880430b325559d48f0f52`; Stages 8B, 8C, and 9 are recorded completed, Stage 10 Return is not started, Stage 11 Offline POS remains blocked, and Live Pilot remains not started. |
 | 0.1.17 | Draft | Recorded verified Stage 8A Sale draft/idempotency completion at `c7392fff356b90e9f10191f4de3b5a56fdc8a6ff`; Stage 8B remains not started, Stage 11 remains blocked, and Live Pilot remains not started. |
