@@ -10,13 +10,13 @@
 | --- | --- |
 | Document ID | MB-SABONO-RETAIL-CHK-001 |
 | Title | SABONO Retail Canonical Project Checkpoint |
-| Version | 0.1.29 |
+| Version | 0.1.30 |
 | Status | Draft |
 | Owner | Governance |
 | Classification | Registry |
 | Language | English |
 | Created | 2026-09-01 |
-| Last Updated | 2026-09-19 |
+| Last Updated | 2026-09-20 |
 
 ---
 
@@ -263,7 +263,7 @@ Loyalty levels are 5%, 10%, 15%, and 20%; card number is five digits. Eventual n
 
 Customer returns and exchanges occur. A refund returns money to the customer. Current GBS records the operation and ARCA issues a separate fiscal return receipt. Return/Exchange is therefore a real business operation, not a manual stock adjustment.
 
-**CONFIRMED PILOT 0 CUT-LINE:** full completed Sale/full receipt return is sufficient for P0. Partial item return is P1.
+**CONFIRMED PILOT 0 CUT-LINE:** Completed-Sale Return is included in P0. Partial discounted Returns are permitted under the accepted Stage 10.1 policy; advanced Return/Exchange cases remain P1.
 
 Damaged/non-resellable scenarios, complex promotion/loyalty reversal, and other advanced Return/Exchange cases are P1. Payment reversal, stock restoration, idempotency, audit, and exchange implementation mechanics remain Technical Design decisions rather than confirmed business rules.
 
@@ -361,7 +361,7 @@ The user-approved cut-line in the next section approves scope for Technical Desi
 - POS Sale / Sale Item;
 - split payments: `Sale 1—N Payment Allocations` using cash/card/transfer/other;
 - basic authorized item percentage discount;
-- full completed Sale/full receipt return;
+- completed-Sale Return;
 - Supplier goods receipt into Central Warehouse;
 - controlled offline POS functional capability;
 - minimum Retail RBAC and Location scope; and
@@ -371,7 +371,7 @@ The user-approved cut-line in the next section approves scope for Technical Desi
 
 - full quarterly Inventory workflow;
 - promotion engine, fixed promotional price, receipt-level discount, loyalty discount, and Loyalty;
-- partial item returns and advanced Return/Exchange cases;
+- advanced Return/Exchange cases;
 - Supplier Invoice, prepayment, Supplier Payment, and payable lifecycle;
 - Landed Cost / weighted-average COGS; and
 - partner stock/sales/commission.
@@ -416,8 +416,8 @@ Madina Platform
 - CRM global `Product.quantity` remains legacy CRM behavior. Retail opening balances come from controlled Opening Count evidence; no automatic Retail stock backfill from CRM Product.quantity is approved.
 - Sale is location-bound and uses `Sale 1 → N Payment Allocations` with `cash`, `card`, `transfer`, and `other`. The invariant is `sum allocations == Sale payable total`.
 - Retail money direction is integer minor units, explicit currency, and a deterministic Retail rounding utility. Exact pilot currency/exponent remains pilot configuration.
-- P0 Return is full completed Sale/full receipt only. The original Sale remains immutable; a separate Return aggregate restores stock to the original Sale Location; one completed full Return is permitted per Sale.
-- Return Payment Allocations mirror original Sale allocations as **internal Retail refund representation only**. They do not prove card refund execution, bank-transfer refund execution, physical cash refund, ARCA fiscal return, or external payment/fiscal success. ARCA/payment integration remains Deferred; partial Return remains P1.
+- P0 Return keeps the original Sale immutable and uses a separate Return aggregate to restore stock to the original Sale Location. The accepted Stage 10.1 policy permits partial discounted Returns using deterministic payable-total refund calculation.
+- Return Payment Allocations consume remaining capacities of the original Payment Allocations in stable ordinal/id order as **internal Retail refund representation only**. They do not prove card refund execution, bank-transfer refund execution, physical cash refund, ARCA fiscal return, or external payment/fiscal success. ARCA/payment integration remains Deferred.
 
 ## Offline Design Status
 
@@ -503,7 +503,7 @@ Stage 11 remains blocked by the Offline physical-goods/accepted-money rejected-s
 
 Stage 14 tooling may prepare import dry run, validation, quarantine, content hash, repeatability, bootstrap validation/reporting, and backup/restore tooling through separately authorized stages. Actual SABONO pilot bootstrap requires all required non-offline P0 operational/security stages completed and accepted, Stage 12 reporting/reconciliation, Stage 13 permission hardening, selected pilot Store/register/users, Location grants, SABONO currency/exponent, backup/restore rehearsal, catalog and opening-balance sign-off, and explicit authorization to load actual pilot data. Actual bootstrap does not mean Live Pilot ready. Because Offline is required P0 capability, final Live Pilot readiness also requires Stage 11 blocker resolution and Offline validation.
 
-**Current implementation stage:** **Stage 9 — Authorized Item Discount — COMPLETED / STAGE 9 PASS**. Stage 9 Batches 9.1–9.4 are completed, accepted, and pushed. The final Stage 9 implementation commit is `12d32626f988927fb65880430b325559d48f0f52`. Final Stage 9 Acceptance Review confirmed the authorized item-discount contract, including amount and percentage POS controls, server-authoritative base pricing, amount-based persisted discount evidence, discount-aware completion/idempotency/recovery, and capability enforcement. Stage 10 — Return is **NOT STARTED**. Stage 11 remains **BLOCKED** pending the approved rejected-sync operating policy, and Live Pilot remains **NOT STARTED**. Further implementation requires separate explicit authorization.
+**Current implementation stage:** **Stage 10 — Full Completed-Sale Return — COMPLETED / STAGE 10 PASS**. Stage 10.1 policy was accepted; Stages 10.2, 10.3, and 10.4 passed at `fce280d4c9daa742ee60970beb07cf82f8c52e37`, `d278b1c830f9a2d1840e50255d716ef2b5ea3f6c`, and `91b0cc26d8b1d82f0f724cb9145414d29108d255`. Final Stage 10.4 runtime acceptance passed. Return recovery reload remains **NOT EXERCISED**; the historical Sale-recovery disappearance was not reproduced and is not a confirmed defect. Stage 11 remains **BLOCKED** pending the approved rejected-sync operating policy, and Live Pilot remains **NOT STARTED**. Further implementation requires separate explicit authorization.
 
 # 10. Current Open Decisions and Pilot Blockers
 
@@ -558,12 +558,13 @@ Stage 14 tooling may prepare import dry run, validation, quarantine, content has
 | Stage 8B — Sale payment/completion | **COMPLETED / STAGE 8B PASS** |
 | Stage 8C — Retail POS UI | **COMPLETED / STAGE 8C PASS** |
 | Stage 9 — Authorized Item Discount | **COMPLETED / STAGE 9 PASS** |
+| Stage 10 — Full Completed-Sale Return | **COMPLETED / STAGE 10 PASS** |
 | Stage 11 — Offline POS sync | **BLOCKED** pending approved rejected-sync operating policy |
 | Live Pilot | **NOT STARTED** |
 
 The original architecture-report verdict was **BLOCKED — BUSINESS INPUT REQUIRED**. It remains historical evidence for the initial read-only report and has been superseded for cut-line purposes by the completed user-approved review.
 
-**Current implementation stage:** **Stage 9 — Authorized Item Discount — COMPLETED / STAGE 9 PASS**. Stage 9 Batches 9.1–9.4 are completed, accepted, and pushed. The final Stage 9 implementation commit is `12d32626f988927fb65880430b325559d48f0f52`. Final Stage 9 Acceptance Review confirmed the authorized item-discount contract, including amount and percentage POS controls, server-authoritative base pricing, amount-based persisted discount evidence, discount-aware completion/idempotency/recovery, and capability enforcement. Stage 10 — Return is **NOT STARTED**. Stage 11 remains **BLOCKED** pending the approved rejected-sync operating policy, and Live Pilot remains **NOT STARTED**. Further implementation requires separate explicit authorization.
+**Current implementation stage:** **Stage 10 — Full Completed-Sale Return — COMPLETED / STAGE 10 PASS**. Stage 10.1 policy was accepted; Stages 10.2, 10.3, and 10.4 passed at `fce280d4c9daa742ee60970beb07cf82f8c52e37`, `d278b1c830f9a2d1840e50255d716ef2b5ea3f6c`, and `91b0cc26d8b1d82f0f724cb9145414d29108d255`. Final Stage 10.4 runtime acceptance passed. Return recovery reload remains **NOT EXERCISED**; the historical Sale-recovery disappearance was not reproduced and is not a confirmed defect. Stage 11 remains **BLOCKED** pending the approved rejected-sync operating policy, and Live Pilot remains **NOT STARTED**. Further implementation requires separate explicit authorization.
 
 Stage 4 established generic location-scoped inventory ledger/balance infrastructure only. Its completion does not authorize Stage 5, later migrations, implementation beyond Stage 4, or Live Pilot automatically.
 
@@ -638,10 +639,13 @@ Before Stage 15 — Pilot readiness verification, the required SABONO Retail Use
 
 - `madina-platform` verified at `12d32626f988927fb65880430b325559d48f0f52` for Stage 9 Batch 9.4 — Permission-aware POS Item Discount UI and Final Stage 9 Acceptance. The POS exposes item-discount controls only through `retail:sales:discount`, supports fixed monetary discounts and percentage entry, converts percentage rules to final monetary `discountAmountMinor`, recalculates percentage discounts on quantity/re-add while fixed discounts remain fixed, uses safe integer/BigInt percentage arithmetic and nearest-minor-unit rounding, rejects zero/full/invalid discounts, invalidates prepared checkout/payment state after explicit discount changes, and keeps the server completion contract amount-based. Runtime acceptance verified amount and percentage flows including 10%, 10.5%, 0.01%, quantity recalculation, fixed-discount preservation, invalid 0%/100% rejection, payable payment targeting, successful discounted Sale completion, recovery cleanup, clean Console, and no horizontal overflow at 320px. Permission-negative browser runtime was not naturally exercised; code gating and server enforcement provide the accepted authorization evidence. Final independent regression: CRM tests 29 files / 270 tests PASS and CRM build PASS; server tests 120/120 PASS and server build PASS; database tests 96/96 PASS and database build PASS; `@madina/retail` build and typecheck PASS. The Retail package has no test script. Repository working tree was clean and `HEAD = origin/main = 12d32626f988927fb65880430b325559d48f0f52`. Final verdict: **Stage 9 — COMPLETED / STAGE 9 PASS**. Stage 10 Return is not started, Stage 11 Offline POS remains blocked, and Live Pilot remains not started.
 
+- `madina-platform` verified at `91b0cc26d8b1d82f0f724cb9145414d29108d255` for Stage 10 — Full Completed-Sale Return. Stage 10.1 accepted partial discounted Returns with deterministic payable-total allocation, original-payment-method capacity consumption, inactive historical Product exception, and `retail:sales:return` for admin/manager only. Stage 10.2 at `fce280d4c9daa742ee60970beb07cf82f8c52e37` established immutable Return persistence, atomic stock restoration, idempotency, and audit evidence; Stage 10.3 at `d278b1c830f9a2d1840e50255d716ef2b5ea3f6c` exposed the protected completed-Sale read and Return contract; Stage 10.4 added the POS workflow and separate owner-bound Return recovery. Automated evidence: CRM 31 files / 280 tests PASS, CRM production build PASS, and `git diff --check` PASS. Runtime acceptance verified a discounted mixed-payment Sale, two partial Returns totaling the original payable amount, original-method refund capacities, positive Return inventory movements, all-returned UI, normal Return-recovery cleanup, and 320px no-overflow. Sale recovery persistence acceptance passed; Return recovery reload remains **NOT EXERCISED**. The historical Sale-recovery disappearance was not reproduced and is not a confirmed defect. No Offline, fiscal, or Live Pilot scope was added.
+
 # Version History
 
 | Version | Status | Description |
 | --- | --- | --- |
+| 0.1.30 | Draft | Recorded accepted Stage 10.1 policy and passed Stages 10.2–10.4, including final Stage 10.4 runtime acceptance at `91b0cc26d8b1d82f0f724cb9145414d29108d255`; Stage 10 is **COMPLETED / STAGE 10 PASS**. Stage 11 remains blocked, Return recovery reload remains not exercised, and Live Pilot remains not started. |
 | 0.1.29 | Draft | Recorded accepted/pushed Stage 9 Batches 9.1–9.4 and Final Stage 9 Acceptance at `12d32626f988927fb65880430b325559d48f0f52`; Stage 9 — Authorized Item Discount is now **COMPLETED / STAGE 9 PASS**. Stage 10 Return remains not started, Stage 11 Offline POS remains blocked, and Live Pilot remains not started. |
 | 0.1.28 | Draft | Recorded accepted/pushed Stage 8C Batch 8C.15 POS Operational Layout & UI Readiness at `8307f82bcbfcae6708f16fab427c218c6eac6d82` and Final Stage 8C Acceptance Review; Stage 8C is now **COMPLETED / STAGE 8C PASS**. Stage 11 remains blocked and Live Pilot remains not started. |
 | 0.1.27 | Draft | Canonical docs synchronized after accepted/pushed Stage 8C Batch 8C.13 POS First-Sale Submission Orchestration at `6b7872815b0cfc2fdead42bce6912f810866f627` and Batch 8C.14 POS Pending-Sale Recovery Retry at `6155b528f331d5d3fd35526a82253c552c542503`; Stage 8C remains in progress, Stage 11 remains blocked, and Live Pilot remains not started. |
